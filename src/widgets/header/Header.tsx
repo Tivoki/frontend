@@ -18,7 +18,7 @@ export const Header = ({ className }: HeaderProps) => {
 
       <WorkspaceSwitcher />
 
-      <div className="min-w-0 flex-1 sm:max-w-md">
+      <div className="min-w-0 flex-1 max-w-md mx-auto hidden sm:block">
         <SearchBar />
       </div>
 

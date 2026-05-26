@@ -1,6 +1,29 @@
 import { ConversationRow } from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
 import { cn } from '~/shared/lib';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
+import Link from 'next/link';
+
+const statusStyles: Record<Conversation['status'], string> = {
+  pending: 'bg-yellow-100 text-yellow-700',
+  active: 'bg-blue-100 text-blue-700',
+  resolved: 'bg-green-100 text-green-700',
+  escalated: 'bg-red-100 text-red-700',
+};
+
+const statusLabels: Record<Conversation['status'], string> = {
+  pending: 'Pending',
+  active: 'Active',
+  resolved: 'Resolved',
+  escalated: 'Escalated',
+};
+
+const channelLabels: Record<Conversation['channel'], string> = {
+  email: 'Email',
+  webchat: 'Webchat',
+  telegram: 'Telegram',
+  intercom: 'Intercom',
+};
 
 const MOCK_CONVERSATIONS: Conversation[] = [
   {
@@ -51,29 +74,76 @@ export const RecentConversations = ({
   className,
 }: RecentConversationsProps) => {
   return (
-    <div className={cn('rounded-xl border border-border bg-background', className)}>
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+    <div className={cn('min-w-0 rounded-xl border border-border bg-background', className)}>
+      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
         <h3 className="text-sm font-semibold text-foreground">Recent Conversations</h3>
-        <button className="text-xs text-primary hover:underline">View All</button>
+        <Link href='/conversations' className="shrink-0 text-xs font-medium text-primary hover:underline">
+          View All
+        </Link>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[600px]">
-          <thead>
-            <tr className="border-b border-border">
-              <th className="py-2.5 px-4 text-left text-xs font-medium text-muted-foreground">Name</th>
-              <th className="py-2.5 px-4 text-left text-xs font-medium text-muted-foreground">Message</th>
-              <th className="py-2.5 px-4 text-left text-xs font-medium text-muted-foreground">Status</th>
-              <th className="py-2.5 px-4 text-left text-xs font-medium text-muted-foreground">Channel</th>
-              <th className="py-2.5 px-4 text-right text-xs font-medium text-muted-foreground">Time</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div className="divide-y divide-border md:hidden">
+        {conversations.map((conversation) => (
+          <article key={conversation.id} className="px-3 py-3">
+            <div className="flex min-w-0 items-start gap-3">
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
+                {conversation.customerName.charAt(0)}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex min-w-0 items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-foreground">{conversation.customerName}</p>
+                    <p className="truncate text-xs text-muted-foreground">{conversation.customerEmail}</p>
+                  </div>
+                  <span className="shrink-0 text-xs text-muted-foreground">{conversation.time}</span>
+                </div>
+
+                <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{conversation.lastMessage}</p>
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span
+                    className={cn(
+                      'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+                      statusStyles[conversation.status],
+                    )}
+                  >
+                    {statusLabels[conversation.status]}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{channelLabels[conversation.channel]}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="hidden md:block">
+        <Table className="min-w-150">
+          <TableHeader>
+            <TableRow className="border-b border-border hover:bg-transparent">
+              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+                Name
+              </TableHead>
+              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+                Message
+              </TableHead>
+              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+                Status
+              </TableHead>
+              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+                Channel
+              </TableHead>
+              <TableHead className="h-auto px-4 py-2.5 text-right text-xs font-medium text-muted-foreground">
+                Time
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {conversations.map((conversation) => (
               <ConversationRow key={conversation.id} conversation={conversation} />
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

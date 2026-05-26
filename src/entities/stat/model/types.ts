@@ -1,3 +1,5 @@
+import { type IconSvgElement } from '@hugeicons/react';
+
 export interface Stat {
   id: string;
   label: string;
@@ -6,6 +8,5 @@ export interface Stat {
     value: string;
     trend: 'up' | 'down' | 'neutral';
   };
-  icon?: string;
-  color?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+  icon: IconSvgElement;
 }

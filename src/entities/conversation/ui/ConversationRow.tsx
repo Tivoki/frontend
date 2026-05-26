@@ -1,4 +1,5 @@
 import { cn } from '~/shared/lib';
+import { TableCell, TableRow } from '~/shared/ui/kit';
 import type { Conversation, ConversationStatus, ConversationChannel } from '../model/types';
 
 const statusStyles: Record<ConversationStatus, string> = {
@@ -29,32 +30,37 @@ interface ConversationRowProps {
 
 export const ConversationRow = ({ conversation, className }: ConversationRowProps) => {
   return (
-    <tr className={cn('border-b border-border last:border-0 hover:bg-muted/40 transition-colors', className)}>
-      <td className="py-3 px-4">
+    <TableRow className={cn('border-b border-border transition-colors hover:bg-muted/40', className)}>
+      <TableCell className="px-4 py-3">
         <div className="flex items-center gap-3">
-          <div className="size-8 rounded-full bg-muted flex items-center justify-center text-xs font-medium text-muted-foreground shrink-0">
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
             {conversation.customerName.charAt(0)}
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">{conversation.customerName}</p>
-            <p className="text-xs text-muted-foreground truncate">{conversation.customerEmail}</p>
+            <p className="truncate text-sm font-medium text-foreground">{conversation.customerName}</p>
+            <p className="truncate text-xs text-muted-foreground">{conversation.customerEmail}</p>
           </div>
         </div>
-      </td>
-      <td className="py-3 px-4">
-        <p className="text-sm text-muted-foreground line-clamp-2 max-w-xs">{conversation.lastMessage}</p>
-      </td>
-      <td className="py-3 px-4">
-        <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', statusStyles[conversation.status])}>
+      </TableCell>
+      <TableCell className="px-4 py-3 whitespace-normal">
+        <p className="text-xs text-muted-foreground line-clamp-2 max-w-xs">{conversation.lastMessage}</p>
+      </TableCell>
+      <TableCell className="px-4 py-3">
+        <span
+          className={cn(
+            'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+            statusStyles[conversation.status],
+          )}
+        >
           {statusLabels[conversation.status]}
         </span>
-      </td>
-      <td className="py-3 px-4">
-        <span className="text-sm text-muted-foreground">{channelLabels[conversation.channel]}</span>
-      </td>
-      <td className="py-3 px-4 text-right">
+      </TableCell>
+      <TableCell className="px-4 py-3">
+        <span className="text-xs text-muted-foreground">{channelLabels[conversation.channel]}</span>
+      </TableCell>
+      <TableCell className="px-4 py-3 text-right">
         <span className="text-xs text-muted-foreground whitespace-nowrap">{conversation.time}</span>
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 };

@@ -4,10 +4,15 @@ import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowUpDownIcon, PlusSignIcon, Tick02Icon } from '@hugeicons/core-free-icons';
 
+import dynamic from 'next/dynamic';
 import { cn } from '~/shared/lib';
 import { Button, Popover, PopoverContent, PopoverTrigger, Separator } from '~/shared/ui/kit';
-import { CreateWorkspaceDialog, type CreateWorkspaceFormData } from '~/features/create-workspace';
+import type { CreateWorkspaceFormData } from '~/features/create-workspace';
 import type { Workspace } from '../model/types';
+
+const CreateWorkspaceDialog = dynamic(() =>
+  import('~/features/create-workspace').then((m) => ({ default: m.CreateWorkspaceDialog })),
+);
 
 const MOCK_WORKSPACES: Workspace[] = [
   { id: '1', name: 'Acme Corporation', role: 'Customer Workspace' },
@@ -43,7 +48,7 @@ export const WorkspaceSwitcher = ({
         <PopoverTrigger asChild>
           <Button variant="ghost" className="h-auto py-1.5 text-left">
             <WorkspaceAvatar name={active.name} />
-            <div className="hidden min-w-0 sm:block">
+            <div className="hidden min-w-0 lg:block">
               <p className="text-foreground truncate text-sm leading-tight font-semibold">
                 {active.name}
               </p>
@@ -52,7 +57,7 @@ export const WorkspaceSwitcher = ({
             <HugeiconsIcon
               icon={ArrowUpDownIcon}
               strokeWidth={2}
-              className="text-muted-foreground ml-1 hidden size-3.5 shrink-0 sm:block"
+              className="text-muted-foreground ml-1 hidden size-3.5 shrink-0 xl:block"
             />
           </Button>
         </PopoverTrigger>

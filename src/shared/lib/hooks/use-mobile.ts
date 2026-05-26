@@ -31,3 +31,16 @@ export const useIsTouchPointer = () =>
     () => window.matchMedia(TOUCH_QUERY).matches,
     () => false,
   );
+
+const subscribeMediaQuery = (query: string) => (callback: () => void) => {
+  const mediaQueryList = window.matchMedia(query);
+  mediaQueryList.addEventListener('change', callback);
+  return () => mediaQueryList.removeEventListener('change', callback);
+};
+
+export const useMediaQuery = (query: string) =>
+  useSyncExternalStore(
+    subscribeMediaQuery(query),
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
