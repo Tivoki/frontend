@@ -4,8 +4,8 @@ import { cn } from '~/shared/lib';
 
 const MOCK_STATS: Stat[] = [
   {
-    id: 'in-routes',
-    label: 'In Routes',
+    id: 'ai-replies',
+    label: 'AI replies',
     value: '2,842',
     change: { value: '+4.3% vs last 7 days', trend: 'up' },
     color: 'default',
@@ -21,7 +21,7 @@ const MOCK_STATS: Stat[] = [
     id: 'human-handoffs',
     label: 'Human Handoffs',
     value: '12',
-    change: { value: '-3 vs last 7 days', trend: 'up' },
+    change: { value: '-3% vs last 7 days', trend: 'up' },
     color: 'info',
   },
 ];
@@ -33,7 +33,7 @@ interface StatsOverviewProps {
 
 export const StatsOverview = ({ stats = MOCK_STATS, className }: StatsOverviewProps) => {
   return (
-    <div className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}>
+    <div className={cn('grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 [&>*:last-child]:col-span-2 [&>*:last-child]:sm:col-span-1', className)}>
       {stats.map((stat) => (
         <StatCard key={stat.id} stat={stat} />
       ))}

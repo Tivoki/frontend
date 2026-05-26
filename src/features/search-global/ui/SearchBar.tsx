@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { CommandIcon, SearchIcon } from '@hugeicons/core-free-icons';
 
-import { cn, useIsMobile, useKeyboardShortcut, useModKey } from '~/shared/lib';
+import { cn, useIsTouchPointer, useKeyboardShortcut, useModKey } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
 import { SearchCommandDialog } from './SearchCommandDialog';
 
@@ -14,7 +14,7 @@ interface SearchBarProps {
 
 export const SearchBar = ({ className }: SearchBarProps) => {
   const [open, setOpen] = useState(false);
-  const isMobile = useIsMobile();
+  const isMobile = useIsTouchPointer();
   const modKey = useModKey();
 
   const toggle = useCallback(() => setOpen((prev) => !prev), []);

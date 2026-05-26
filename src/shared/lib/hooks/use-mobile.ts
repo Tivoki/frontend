@@ -2,20 +2,32 @@
 
 import { useSyncExternalStore } from 'react';
 
-// `pointer: coarse` = primary input is imprecise (finger).
-// More reliable than screen width: a rotated tablet stays "mobile"
-// regardless of viewport size; a desktop with a touchscreen stays "desktop".
-const QUERY = '(pointer: coarse)';
+const MOBILE_BREAKPOINT = 768;
 
-const subscribe = (cb: () => void) => {
-  const mql = window.matchMedia(QUERY);
+const subscribeWidth = (cb: () => void) => {
+  const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
   mql.addEventListener('change', cb);
   return () => mql.removeEventListener('change', cb);
 };
 
 export const useIsMobile = () =>
   useSyncExternalStore(
-    subscribe,
-    () => window.matchMedia(QUERY).matches,
+    subscribeWidth,
+    () => window.innerWidth < MOBILE_BREAKPOINT,
+    () => false,
+  );
+
+const TOUCH_QUERY = '(pointer: coarse)';
+
+const subscribePointer = (cb: () => void) => {
+  const mql = window.matchMedia(TOUCH_QUERY);
+  mql.addEventListener('change', cb);
+  return () => mql.removeEventListener('change', cb);
+};
+
+export const useIsTouchPointer = () =>
+  useSyncExternalStore(
+    subscribePointer,
+    () => window.matchMedia(TOUCH_QUERY).matches,
     () => false,
   );

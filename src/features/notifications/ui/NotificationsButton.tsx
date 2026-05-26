@@ -13,7 +13,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
     id: '1',
     kind: 'message',
     title: 'New message from Anna K.',
-    body: 'Hi, I still haven\'t received my ticket refund…',
+    body: 'Hi, I still haven\'t received my ticket refund… dsa dsa ds 123 das',
     time: '2 min ago',
     read: false,
   },
@@ -98,7 +98,7 @@ export const NotificationsButton = () => {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent align="end" sideOffset={8} className="w-80 p-0">
+      <PopoverContent align='end' sideOffset={8} className="w-60 md:w-80 p-0">
         <div className="flex items-center justify-between px-3 py-2.5">
           <div className="flex items-center gap-2">
             <span className="text-sm font-semibold text-foreground">Notifications</span>
@@ -149,7 +149,7 @@ export const NotificationsButton = () => {
                   <p className={cn('text-xs font-medium leading-tight', !n.read && 'text-foreground')}>
                     {n.title}
                   </p>
-                  <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{n.body}</p>
+                  <p className="mt-0.5 min-w-0 line-clamp-2 wrap-break-word text-[11px] text-muted-foreground">{n.body}</p>
                   <p className="mt-1 text-[10px] text-muted-foreground/70">{n.time}</p>
                 </div>
 

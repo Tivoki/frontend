@@ -18,9 +18,9 @@ export const StatCard = ({ stat, className }: StatCardProps) => {
   const colorClass = colorMap[stat.color ?? 'default'];
 
   return (
-    <div className={cn('rounded-xl border p-4 flex flex-col gap-2', colorClass, className)}>
-      <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
-      <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+    <div className={cn('flex flex-col gap-1.5 rounded-xl border p-3 sm:gap-2 sm:p-4', colorClass, className)}>
+      <p className="text-xs font-medium text-muted-foreground sm:text-sm">{stat.label}</p>
+      <p className="text-xl font-bold text-foreground sm:text-2xl">{stat.value}</p>
       {stat.change && (
         <p className={cn('text-xs', {
           'text-green-600': stat.change.trend === 'up',

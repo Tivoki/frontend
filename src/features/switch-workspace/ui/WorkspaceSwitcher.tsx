@@ -43,7 +43,7 @@ export const WorkspaceSwitcher = ({
         <PopoverTrigger asChild>
           <Button variant="ghost" className="h-auto py-1.5 text-left">
             <WorkspaceAvatar name={active.name} />
-            <div className="min-w-0">
+            <div className="hidden min-w-0 sm:block">
               <p className="text-foreground truncate text-sm leading-tight font-semibold">
                 {active.name}
               </p>
@@ -52,7 +52,7 @@ export const WorkspaceSwitcher = ({
             <HugeiconsIcon
               icon={ArrowUpDownIcon}
               strokeWidth={2}
-              className="text-muted-foreground ml-1 size-3.5 shrink-0"
+              className="text-muted-foreground ml-1 hidden size-3.5 shrink-0 sm:block"
             />
           </Button>
         </PopoverTrigger>

@@ -1,5 +1,5 @@
 export { cn, getInitials } from './utils';
 export { useKeyboardShortcut } from './hooks/use-keyboard-shortcut';
-export { useIsMobile } from './hooks/use-mobile';
+export { useIsMobile, useIsTouchPointer } from './hooks/use-mobile';
 export { useModKey } from './hooks/use-mod-key';
 
