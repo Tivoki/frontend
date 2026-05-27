@@ -35,6 +35,14 @@ export {
   useSidebar,
 } from './sidebar';
 export { Input } from './input';
+export {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupText,
+  InputGroupInput,
+  InputGroupTextarea,
+} from './input-group';
 export { Separator } from './separator';
 export {
   Sheet,
@@ -120,3 +128,7 @@ export {
   TableCell,
   TableCaption,
 } from './table';
+export { Badge, badgeVariants } from './badge';
+export { Textarea } from './textarea';
+export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './resizable';
+export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants } from './tabs';

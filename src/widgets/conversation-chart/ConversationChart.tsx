@@ -12,7 +12,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { cn, useMediaQuery } from '~/shared/lib';
-import { Button } from '~/shared/ui/kit';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit/tabs';
 
 interface ChartDataPoint {
   date: string;
@@ -73,20 +73,28 @@ export const ConversationChart = ({
         <h3 className="text-sm font-semibold">
           Conversation Volume & AI Resolution Rate
         </h3>
-        <div className="border-border bg-muted grid shrink-0 grid-cols-2 rounded-lg border p-0.5">
+        <Tabs
+          value={String(period)}
+          onValueChange={(value) => setPeriod(Number(value) as ChartPeriod)}
+          className="shrink-0"
+        >
+          <TabsList className="border-border bg-muted border">
+            {PERIOD_OPTIONS.map((option) => (
+              <TabsTrigger
+                key={option}
+                value={String(option)}
+                className="text-xs"
+              >
+                {option} days
+              </TabsTrigger>
+            ))}
+          </TabsList>
           {PERIOD_OPTIONS.map((option) => (
-            <Button
-              variant='ghost'
-              size='xs'
-              key={option}
-              aria-pressed={period === option}
-              onClick={() => setPeriod(option)}
-              className={period === option ? 'bg-white hover:bg-white' : 'bg-secondary hover:bg-inherit'}
-            >
-              {option} days
-            </Button>
+            <TabsContent key={option} value={String(option)} className="sr-only">
+              {option}-day period
+            </TabsContent>
           ))}
-        </div>
+        </Tabs>
       </div>
 
       <ResponsiveContainer width="100%" height={200}>

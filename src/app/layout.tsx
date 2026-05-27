@@ -1,8 +1,15 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport  } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
-import type React from 'react';
+import React from 'react';
 import { Providers } from './providers';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+};
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,7 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
       <body className="flex h-full flex-col">
-        <Providers>{children}</Providers>
+        <Providers>
+          {/*<ViewTransition>*/}
+            {children}
+          {/*</ViewTransition>*/}
+        </Providers>
       </body>
     </html>
   );

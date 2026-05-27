@@ -1,29 +1,9 @@
 import { ConversationRow } from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
+import { STATUS_STYLES, STATUS_LABELS, CHANNEL_LABELS } from '~/entities/conversation';
 import { cn } from '~/shared/lib';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
 import Link from 'next/link';
-
-const statusStyles: Record<Conversation['status'], string> = {
-  pending: 'bg-yellow-100 text-yellow-700',
-  active: 'bg-blue-100 text-blue-700',
-  resolved: 'bg-green-100 text-green-700',
-  escalated: 'bg-red-100 text-red-700',
-};
-
-const statusLabels: Record<Conversation['status'], string> = {
-  pending: 'Pending',
-  active: 'Active',
-  resolved: 'Resolved',
-  escalated: 'Escalated',
-};
-
-const channelLabels: Record<Conversation['channel'], string> = {
-  email: 'Email',
-  webchat: 'Webchat',
-  telegram: 'Telegram',
-  intercom: 'Intercom',
-};
 
 const MOCK_CONVERSATIONS: Conversation[] = [
   {
@@ -31,7 +11,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     customerName: 'Jennifer Smith',
     customerEmail: 'jennifer.smith@acme.com',
     lastMessage: "Hi, I'm having trouble with my account. Can you help?",
-    status: 'active',
+    status: 'open',
     channel: 'webchat',
     time: '2m ago',
   },
@@ -48,7 +28,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     id: '3',
     customerName: 'Amanda Torres',
     customerEmail: 'amanda.t@company.io',
-    lastMessage: "Thanks for your help! The issue has been resolved.",
+    lastMessage: 'Thanks for your help! The issue has been resolved.',
     status: 'resolved',
     channel: 'telegram',
     time: '1h ago',
@@ -57,8 +37,8 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     id: '4',
     customerName: 'Marcus Lee',
     customerEmail: 'marcus.lee@business.com',
-    lastMessage: "I need to speak with a manager urgently about my subscription.",
-    status: 'escalated',
+    lastMessage: 'I need to speak with a manager urgently about my subscription.',
+    status: 'closed',
     channel: 'intercom',
     time: '2h ago',
   },
@@ -77,7 +57,7 @@ export const RecentConversations = ({
     <div className={cn('min-w-0 rounded-xl border border-border bg-background', className)}>
       <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
         <h3 className="text-sm font-semibold text-foreground">Recent Conversations</h3>
-        <Link href='/conversations' className="shrink-0 text-xs font-medium text-primary hover:underline">
+        <Link href="/conversations" className="shrink-0 text-xs font-medium text-primary hover:underline">
           View All
         </Link>
       </div>
@@ -104,12 +84,12 @@ export const RecentConversations = ({
                   <span
                     className={cn(
                       'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
-                      statusStyles[conversation.status],
+                      STATUS_STYLES[conversation.status],
                     )}
                   >
-                    {statusLabels[conversation.status]}
+                    {STATUS_LABELS[conversation.status]}
                   </span>
-                  <span className="text-xs text-muted-foreground">{channelLabels[conversation.channel]}</span>
+                  <span className="text-xs text-muted-foreground">{CHANNEL_LABELS[conversation.channel]}</span>
                 </div>
               </div>
             </div>

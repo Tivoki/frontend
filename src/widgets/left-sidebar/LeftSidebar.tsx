@@ -1,3 +1,5 @@
+'use client';
+
 import { HelpCard, Logo } from '~/shared/ui/primitives';
 import {
   Sidebar,
@@ -5,11 +7,14 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  useSidebar,
 } from '~/shared/ui/kit';
 
 import { NavMenu } from './ui/NavMenu';
 
 export const LeftSidebar = () => {
+  const { isMobile, setOpenMobile } = useSidebar();
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-sidebar-border items-start justify-center border-b px-3 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-2">
@@ -18,6 +23,7 @@ export const LeftSidebar = () => {
           className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0"
           iconClassName="group-data-[collapsible=icon]:size-8"
           textClassName="group-data-[collapsible=icon]:hidden"
+          onClick={() => { if (isMobile) setOpenMobile(false); }}
         />
       </SidebarHeader>
 

@@ -15,6 +15,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 import {
   SidebarGroup,
@@ -23,6 +24,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '~/shared/ui/kit';
 
 const NAV_GROUPS = [
@@ -60,6 +62,14 @@ const NAV_GROUPS = [
 
 export const NavMenu = () => {
   const pathname = usePathname();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const mountedPathname = useRef(pathname);
+  useEffect(() => {
+    if (pathname !== mountedPathname.current && isMobile) {
+      setOpenMobile(false);
+    }
+  }, [pathname]);
 
   return (
     <>

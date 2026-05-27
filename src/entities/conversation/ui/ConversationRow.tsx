@@ -1,27 +1,7 @@
 import { cn } from '~/shared/lib';
 import { TableCell, TableRow } from '~/shared/ui/kit';
-import type { Conversation, ConversationStatus, ConversationChannel } from '../model/types';
-
-const statusStyles: Record<ConversationStatus, string> = {
-  pending: 'bg-yellow-100 text-yellow-700',
-  active: 'bg-blue-100 text-blue-700',
-  resolved: 'bg-green-100 text-green-700',
-  escalated: 'bg-red-100 text-red-700',
-};
-
-const statusLabels: Record<ConversationStatus, string> = {
-  pending: 'Pending',
-  active: 'Active',
-  resolved: 'Resolved',
-  escalated: 'Escalated',
-};
-
-const channelLabels: Record<ConversationChannel, string> = {
-  email: 'Email',
-  webchat: 'Webchat',
-  telegram: 'Telegram',
-  intercom: 'Intercom',
-};
+import { STATUS_STYLES, STATUS_LABELS, CHANNEL_LABELS } from '../model/config';
+import type { Conversation } from '../model/types';
 
 interface ConversationRowProps {
   conversation: Conversation;
@@ -43,23 +23,23 @@ export const ConversationRow = ({ conversation, className }: ConversationRowProp
         </div>
       </TableCell>
       <TableCell className="px-4 py-3 whitespace-normal">
-        <p className="text-xs text-muted-foreground line-clamp-2 max-w-xs">{conversation.lastMessage}</p>
+        <p className="line-clamp-2 max-w-xs text-xs text-muted-foreground">{conversation.lastMessage}</p>
       </TableCell>
       <TableCell className="px-4 py-3">
         <span
           className={cn(
             'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
-            statusStyles[conversation.status],
+            STATUS_STYLES[conversation.status],
           )}
         >
-          {statusLabels[conversation.status]}
+          {STATUS_LABELS[conversation.status]}
         </span>
       </TableCell>
       <TableCell className="px-4 py-3">
-        <span className="text-xs text-muted-foreground">{channelLabels[conversation.channel]}</span>
+        <span className="text-xs text-muted-foreground">{CHANNEL_LABELS[conversation.channel]}</span>
       </TableCell>
       <TableCell className="px-4 py-3 text-right">
-        <span className="text-xs text-muted-foreground whitespace-nowrap">{conversation.time}</span>
+        <span className="whitespace-nowrap text-xs text-muted-foreground">{conversation.time}</span>
       </TableCell>
     </TableRow>
   );

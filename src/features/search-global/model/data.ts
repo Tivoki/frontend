@@ -25,7 +25,7 @@ export const STATIC_SEARCH_GROUPS: SearchGroup[] = [
     label: 'Pages',
     items: [
       { id: 'overview', label: 'Overview', description: 'Dashboard overview', icon: HomeIcon, href: '/', keywords: ['home', 'main', 'dashboard'] },
-      { id: 'conversations', label: 'Conversations', description: 'Manage conversations', icon: BubbleChatIcon, href: '/conversations', keywords: ['chat', 'messages', 'talk'] },
+      { id: 'conversations', label: 'Page', description: 'Manage conversations', icon: BubbleChatIcon, href: '/conversations', keywords: ['chat', 'messages', 'talk'] },
       { id: 'knowledge-base', label: 'Knowledge Base', description: 'Articles and documents', icon: BookOpen01Icon, href: '/knowledge-base', keywords: ['kb', 'articles', 'faq', 'docs'] },
       { id: 'widget', label: 'Widget', description: 'Configure your chat widget', icon: BrowserIcon, href: '/widget', keywords: ['embed', 'chat widget', 'script'] },
       { id: 'integrations', label: 'Integrations', description: 'Connect third-party tools', icon: PuzzleIcon, href: '/integrations', keywords: ['connect', 'apps', 'plugins'] },

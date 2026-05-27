@@ -50,7 +50,7 @@ export const CreateWorkspaceDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-w-[min(24rem,calc(100%-2rem))]">
         <DialogHeader>
           <DialogTitle>New workspace</DialogTitle>
           <DialogDescription>
