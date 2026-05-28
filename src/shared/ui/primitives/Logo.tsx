@@ -55,10 +55,6 @@ export function LogoIcon({
 
       <rect x="56" y="55" width="6" height="12" rx="3" fill="#111827" />
       <rect x="72" y="55" width="6" height="12" rx="3" fill="#111827" />
-
-      <rect x="18" y="31" width="9" height="9" rx="2.5" fill="#60A5FA" fillOpacity="0.8" />
-
-      <rect x="25" y="18" width="12" height="12" rx="3" fill="#60A5FA" fillOpacity="0.9" />
     </svg>
   );
 }

@@ -80,3 +80,4 @@ Tailwind CSS v4 (PostCSS plugin). `cn()` from `~/shared/lib` merges class names 
 - Type imports must be separate: `import type { Foo } from '...'` (enforced by ESLint rule `@typescript-eslint/consistent-type-imports`).
 - `'use client'` directive is required on any component that uses React state/effects or browser APIs.
 - Mock data lives co-located in the feature's `ui/` file (constants at the top). No separate mock files.
+- **One component per file.** Each React component must live in its own file named after the component (e.g. `UserCard.tsx` for `UserCard`). Never define multiple exported or non-trivial components in the same file.

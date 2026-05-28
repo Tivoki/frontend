@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowUpDownIcon, PlusSignIcon, Tick02Icon } from '@hugeicons/core-free-icons';
-
 import dynamic from 'next/dynamic';
+
 import { cn } from '~/shared/lib';
 import { Button, Popover, PopoverContent, PopoverTrigger, Separator } from '~/shared/ui/kit';
+import type { Workspace } from '~/features/switch-workspace';
 import type { CreateWorkspaceFormData } from '~/features/create-workspace';
-import type { Workspace } from '../model/types';
+import { WorkspaceAvatar } from './WorkspaceAvatar';
 
 const CreateWorkspaceDialog = dynamic(() =>
   import('~/features/create-workspace').then((m) => ({ default: m.CreateWorkspaceDialog })),
@@ -126,19 +127,3 @@ export const WorkspaceSwitcher = ({
     </>
   );
 };
-
-interface WorkspaceAvatarProps {
-  name: string;
-  size?: 'sm' | 'md';
-}
-
-const WorkspaceAvatar = ({ name, size = 'md' }: WorkspaceAvatarProps) => (
-  <div
-    className={cn(
-      'bg-primary/10 text-primary flex shrink-0 items-center justify-center rounded-md font-semibold',
-      size === 'md' ? 'size-7 text-xs' : 'size-6 text-[10px]',
-    )}
-  >
-    {name.charAt(0)}
-  </div>
-);

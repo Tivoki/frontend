@@ -145,27 +145,18 @@ export const NotificationsButton = () => {
                   {KIND_LABEL[n.kind]}
                 </span>
 
-                <div className="min-w-0 flex-1">
+                <button type='button' className="min-w-0 flex-1 text-left">
                   <p className={cn('text-xs font-medium leading-tight', !n.read && 'text-foreground')}>
                     {n.title}
                   </p>
                   <p className="mt-0.5 min-w-0 line-clamp-2 wrap-break-word text-[11px] text-muted-foreground">{n.body}</p>
                   <p className="mt-1 text-[10px] text-muted-foreground/70">{n.time}</p>
-                </div>
+                </button>
 
                 <div className="flex shrink-0 items-start pt-1">
                   {!n.read && (
-                    <span className="size-1.5 rounded-full bg-primary group-hover:hidden" />
+                    <span className="size-1.5 rounded-full bg-primary" />
                   )}
-                  <Button
-                    variant="ghost"
-                    size="icon-xs"
-                    onClick={(e) => { e.stopPropagation(); dismiss(n.id); }}
-                    className="hidden text-muted-foreground group-hover:flex"
-                    aria-label="Dismiss"
-                  >
-                    <HugeiconsIcon icon={Delete02Icon} strokeWidth={1.75} className="size-3.5" />
-                  </Button>
                 </div>
               </div>
             ))

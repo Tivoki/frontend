@@ -118,6 +118,7 @@ export const ConversationChart = ({
               border: '1px solid var(--border)',
               fontSize: 12,
             }}
+            itemSorter={(item) => (item.dataKey === 'conversations' ? 0 : 1)}
           />
           <Legend wrapperStyle={{ fontSize: 12 }} />
           <Line
@@ -132,7 +133,7 @@ export const ConversationChart = ({
           <Line
             type="monotone"
             dataKey="aiResolutionRate"
-            name="AI Resolution %"
+            name="AI Resolution Rate"
             stroke="#22c55e"
             strokeWidth={2}
             dot={false}

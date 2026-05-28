@@ -2,12 +2,7 @@
 
 import { useSyncExternalStore } from 'react';
 
-const isMac = () =>
-  typeof navigator !== 'undefined' && /mac/i.test(navigator.platform);
-
-const subscribe = () => () => {};
+const isMac = () => /mac|iphone|ipad|ipod/i.test(navigator.userAgent);
 
 export const useModKey = (): '⌘' | 'Ctrl' =>
-  useSyncExternalStore(subscribe, isMac, () => false)
-    ? '⌘'
-    : 'Ctrl';
+  useSyncExternalStore(() => () => {}, isMac, () => false) ? '⌘' : 'Ctrl';
