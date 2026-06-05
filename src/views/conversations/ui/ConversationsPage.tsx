@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { cn, useSearchParam } from '~/shared/lib';
-import { ConversationList } from '~/widgets/conversation-list';
+import { ConversationList } from '~/widgets/conversation';
 import type { Conversation } from '~/entities/conversation';
 
 const ConversationThread = dynamic(
-  () => import('~/widgets/conversation-thread').then((m) => ({ default: m.ConversationThread })),
+  () => import('~/widgets/conversation').then((m) => ({ default: m.ConversationThread })),
   {
     loading: () => (
       <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
@@ -18,7 +18,7 @@ const ConversationThread = dynamic(
 );
 
 const ConversationInfo = dynamic(() =>
-  import('~/widgets/conversation-info').then((m) => ({ default: m.ConversationInfo })),
+  import('~/widgets/conversation').then((m) => ({ default: m.ConversationInfo })),
 );
 import {
   ResizableHandle,

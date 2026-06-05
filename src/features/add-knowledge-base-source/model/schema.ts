@@ -9,32 +9,25 @@ export const addSourceBaseSchema = z.object({
 
 export type AddSourceFormData = z.infer<typeof addSourceBaseSchema>;
 
-const isValidUrl = (value: string) => {
-  try {
-    new URL(value);
-    return true;
-  } catch {
-    return false;
-  }
-};
+const isValidUrl = (value: string) => z.url().safeParse(value).success;
 
 export const getSchemaForType = (type: KnowledgeBaseSourceType) =>
   addSourceBaseSchema.superRefine((data, ctx) => {
     if (type === 'website') {
       if (!data.url) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'URL is required', path: ['url'] });
+        ctx.addIssue({ code: 'custom', message: 'URL is required', path: ['url'] });
       } else if (!isValidUrl(data.url)) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must be a valid URL', path: ['url'] });
+        ctx.addIssue({ code: 'custom', message: 'Must be a valid URL', path: ['url'] });
       }
     }
 
     if (type === 'faq' && data.url && !isValidUrl(data.url)) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'Must be a valid URL', path: ['url'] });
+      ctx.addIssue({ code: 'custom', message: 'Must be a valid URL', path: ['url'] });
     }
 
     if (type === 'manual' && (!data.content || data.content.length < 10)) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Content must be at least 10 characters',
         path: ['content'],
       });

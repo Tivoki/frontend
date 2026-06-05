@@ -2,36 +2,29 @@
 
 import { Add01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
 
 import { Button } from '~/shared/ui/kit';
 
-const AddSourceDialog = dynamic(
-  () => import('~/features/add-knowledge-base-source').then((m) => m.AddSourceDialog),
-  { ssr: false },
-);
+interface KnowledgeBaseHeaderProps {
+  onAddSource: () => void;
+}
 
-export const KnowledgeBaseHeader = () => {
-  const [open, setOpen] = useState(false);
-
+export const KnowledgeBaseHeader = ({ onAddSource }: KnowledgeBaseHeaderProps) => {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
       <div className="space-y-1">
-        <h1 className="font-heading text-2xl font-semibold leading-tight text-foreground">
+        <h1 className="font-heading text-foreground text-2xl leading-tight font-semibold">
           Knowledge Base
         </h1>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Manage the sources your AI uses to answer customer questions.
         </p>
       </div>
 
-      <Button size="lg" onClick={() => setOpen(true)} className="self-start sm:self-auto">
+      <Button size='sm' onClick={onAddSource} className="self-start sm:self-auto">
         <HugeiconsIcon icon={Add01Icon} strokeWidth={1.75} />
         Add Source
       </Button>
-
-      <AddSourceDialog open={open} onOpenChange={setOpen} mode="add" />
     </div>
   );
 };

@@ -47,11 +47,11 @@ export function SourceTableRow({ source, onEdit }: SourceTableRowProps) {
       </TableCell>
 
       <TableCell className="text-center text-sm tabular-nums">
-        {source.documentsCount.toLocaleString('en-US')}
+        {source.documentsCount}
       </TableCell>
 
       <TableCell className="hidden text-center text-sm tabular-nums sm:table-cell">
-        {source.chunksCount.toLocaleString('en-US')}
+        {source.chunksCount}
       </TableCell>
 
       <TableCell className="hidden text-center text-sm text-muted-foreground md:table-cell">

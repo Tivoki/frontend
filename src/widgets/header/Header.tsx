@@ -2,7 +2,7 @@
 
 import { SearchBar } from '~/features/search-global';
 import { NotificationsButton } from '~/features/notifications';
-import { WorkspaceSwitcher } from '~/widgets/workspace-switcher';
+import { WorkspaceSwitcher } from '~/features/switch-workspace';
 import { UserMenu } from '~/features/user-menu';
 import { cn } from '~/shared/lib';
 import { SidebarTrigger } from '~/shared/ui/kit';

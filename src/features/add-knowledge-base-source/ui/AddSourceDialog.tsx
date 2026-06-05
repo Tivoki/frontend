@@ -29,19 +29,23 @@ export function AddSourceDialog({
   defaultType,
   defaultData,
 }: AddSourceDialogProps) {
-  const [step, setStep] = useState<1 | 2>(defaultType ? 2 : 1);
-  const [selectedType, setSelectedType] = useState<KnowledgeBaseSourceType | null>(
-    defaultType ?? null,
+  const isEditMode = mode === 'edit';
+  const [addStep, setAddStep] = useState<1 | 2>(1);
+  const [addSelectedType, setAddSelectedType] = useState<KnowledgeBaseSourceType | null>(
+    null,
   );
+
+  const step = isEditMode ? 2 : addStep;
+  const selectedType = isEditMode ? (defaultType ?? null) : addSelectedType;
 
   const typeOption = selectedType
     ? SOURCE_TYPE_OPTIONS.find((o) => o.value === selectedType)
     : null;
 
   const handleOpenChange = (next: boolean) => {
-    if (!next && mode === 'add') {
-      setStep(1);
-      setSelectedType(null);
+    if (!next && !isEditMode) {
+      setAddStep(1);
+      setAddSelectedType(null);
     }
     onOpenChange(next);
   };
@@ -52,7 +56,7 @@ export function AddSourceDialog({
         className="max-w-[min(32rem,calc(100%-2rem))] gap-0 overflow-hidden p-0"
         aria-describedby={undefined}
       >
-        <DialogHeader className="border-b px-4 pb-4 pt-4">
+        <DialogHeader className="border-b px-4 pt-4 pb-4">
           <DialogTitle>
             {mode === 'edit'
               ? `Edit ${typeOption?.label ?? 'Source'}`
@@ -73,18 +77,17 @@ export function AddSourceDialog({
           {step === 1 && (
             <TypeSelector
               selected={selectedType}
-              onSelect={setSelectedType}
-              onNext={() => setStep(2)}
+              onSelect={setAddSelectedType}
+              onNext={() => setAddStep(2)}
             />
           )}
           {step === 2 && selectedType && (
             <SourceForm
-              key={selectedType}
               type={selectedType}
               defaultData={defaultData}
               mode={mode}
-              onBack={() => setStep(1)}
-              onSuccess={() => onOpenChange(false)}
+              onBack={() => setAddStep(1)}
+              onSuccess={() => handleOpenChange(false)}
             />
           )}
         </div>

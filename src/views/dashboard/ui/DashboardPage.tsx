@@ -1,5 +1,5 @@
 import { StatsOverview } from '~/widgets/stats-overview';
-import { ConversationChart } from '~/widgets/conversation-chart';
+import { ConversationChart } from '~/widgets/conversation';
 import { RecentConversations } from '~/widgets/recent-conversations';
 import { DashboardInfoPanel } from './DashboardInfoPanel';
 
