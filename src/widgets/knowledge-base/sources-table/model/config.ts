@@ -23,8 +23,8 @@ export const STATUS_CONFIG: Record<
 > = {
   active: {
     label: 'Active',
-    dotClass: 'bg-green-500',
-    textClass: 'text-green-700 dark:text-green-400',
+    dotClass: 'bg-success',
+    textClass: 'text-success-foreground',
   },
   inactive: {
     label: 'Inactive',
@@ -33,8 +33,8 @@ export const STATUS_CONFIG: Record<
   },
   indexing: {
     label: 'Indexing',
-    dotClass: 'bg-yellow-500 animate-pulse',
-    textClass: 'text-yellow-700 dark:text-yellow-400',
+    dotClass: 'bg-warning animate-pulse',
+    textClass: 'text-warning-foreground',
   },
   error: {
     label: 'Error',

@@ -20,7 +20,7 @@ export const MessageBubble = ({ message, customerInitial }: MessageBubbleProps) 
             ? 'bg-muted text-muted-foreground'
             : message.role === 'ai'
               ? 'bg-primary/10 text-primary'
-              : 'bg-emerald-100 text-emerald-700',
+              : 'bg-success-subtle text-success-foreground',
         )}
       >
         {message.role === 'customer' ? customerInitial : message.role === 'ai' ? 'AI' : 'A'}

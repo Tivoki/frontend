@@ -43,8 +43,8 @@ export const IntegrationCard = ({
 
       <div className="border-border bg-background/60 mt-auto flex min-h-14 items-center justify-between border-t px-4 py-3 sm:px-5">
         {isConnected ? (
-          <div className="flex items-center gap-2 text-sm font-medium text-emerald-600">
-            <span className="size-2 rounded-full bg-emerald-500" aria-hidden="true" />
+          <div className="flex items-center gap-2 text-sm font-medium text-success-foreground">
+            <span className="size-2 rounded-full bg-success" aria-hidden="true" />
             Connected
           </div>
         ) : (

@@ -43,8 +43,8 @@ export const WidgetPopup = ({ config }: WidgetPopupProps) => {
             AI
           </div>
           <div
-            className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed text-foreground"
-            style={{ backgroundColor: config.secondaryColor }}
+            className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed"
+            style={{ backgroundColor: config.secondaryColor, color: '#111827' }}
           >
             {config.welcomeMessage}
           </div>
@@ -67,8 +67,8 @@ export const WidgetPopup = ({ config }: WidgetPopupProps) => {
             AI
           </div>
           <div
-            className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed text-foreground"
-            style={{ backgroundColor: config.secondaryColor }}
+            className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed"
+            style={{ backgroundColor: config.secondaryColor, color: '#111827' }}
           >
             Sure! Please share your order number and I&#39;ll look into it right away.
           </div>

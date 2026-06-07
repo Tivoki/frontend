@@ -52,9 +52,9 @@ const MOCK_NOTIFICATIONS: Notification[] = [
 ];
 
 const KIND_COLORS: Record<Notification['kind'], string> = {
-  message: 'bg-blue-500/15 text-blue-600',
-  ticket: 'bg-amber-500/15 text-amber-600',
-  mention: 'bg-violet-500/15 text-violet-600',
+  message: 'bg-info/15 text-info-foreground',
+  ticket: 'bg-warning/15 text-warning-foreground',
+  mention: 'bg-purple/15 text-purple-foreground',
   system: 'bg-muted text-muted-foreground',
 };
 
@@ -91,7 +91,7 @@ export const NotificationsButton = () => {
         >
           <HugeiconsIcon icon={Notification01Icon} strokeWidth={1.75} className="size-5" />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 size-2 rounded-full bg-red-500">
+            <span className="absolute top-1 right-1 size-2 rounded-full bg-destructive">
               <span className="sr-only">{unreadCount} unread</span>
             </span>
           )}

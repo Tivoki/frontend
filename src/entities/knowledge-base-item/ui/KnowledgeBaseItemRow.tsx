@@ -2,9 +2,9 @@ import { cn } from '~/shared/lib';
 import type { KnowledgeBaseItem, KnowledgeBaseItemStatus } from '../model/types';
 
 const statusStyles: Record<KnowledgeBaseItemStatus, string> = {
-  published: 'bg-green-100 text-green-700',
-  draft: 'bg-gray-100 text-gray-600',
-  outdated: 'bg-yellow-100 text-yellow-700',
+  published: 'bg-success-subtle text-success-foreground',
+  draft: 'bg-muted text-muted-foreground',
+  outdated: 'bg-warning-subtle text-warning-foreground',
 };
 
 const statusLabels: Record<KnowledgeBaseItemStatus, string> = {

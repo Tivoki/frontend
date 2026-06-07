@@ -3,6 +3,7 @@
 import { SearchBar } from '~/features/search-global';
 import { NotificationsButton } from '~/features/notifications';
 import { WorkspaceSwitcher } from '~/features/switch-workspace';
+import { ThemeToggle } from '~/features/switch-theme';
 import { UserMenu } from '~/features/user-menu';
 import { cn } from '~/shared/lib';
 import { SidebarTrigger } from '~/shared/ui/kit';
@@ -24,6 +25,7 @@ export const Header = ({ className }: HeaderProps) => {
 
       <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2">
         <NotificationsButton />
+        <ThemeToggle />
         <UserMenu />
       </div>
     </header>

@@ -50,16 +50,16 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
     >
       <TabsList
         variant="line"
-        className="flex h-auto w-full items-end justify-start overflow-x-auto rounded-none border-b border-border bg-transparent px-2 pt-2 pb-0 text-foreground custom-scrollbar"
+        className="flex h-auto w-full items-end justify-start overflow-x-auto overflow-y-hidden rounded-none border-b border-border bg-transparent px-2 pt-2 pb-0 text-foreground custom-scrollbar"
       >
         {TABS.map((t) => (
           <TabsTrigger
             key={t.value}
             value={t.value}
             className={cn(
-              'shrink-0 rounded-none border-b-2 border-transparent px-3 py-2 text-xs font-medium transition-colors hover:bg-transparent hover:text-foreground',
-              'h-auto flex-none data-active:border-b-primary data-active:text-primary',
-              'data-active:bg-transparent dark:data-active:border-transparent dark:data-active:bg-transparent',
+              'shrink-0 rounded-none px-3 py-2 text-xs font-medium transition-colors hover:bg-transparent hover:text-foreground',
+              'h-auto flex-none after:bg-primary group-data-horizontal/tabs:after:bottom-0 data-active:text-primary',
+              'data-active:bg-transparent',
             )}
           >
             {t.label}

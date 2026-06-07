@@ -38,8 +38,8 @@ export const KpiCard = ({ stat, className }: KpiCardProps) => {
         {stat.change && (
           <p
             className={cn('text-xs', {
-              'text-green-700': stat.change.trend === 'up',
-              'text-red-600': stat.change.trend === 'down',
+              'text-success-foreground': stat.change.trend === 'up',
+              'text-destructive': stat.change.trend === 'down',
               'text-muted-foreground': stat.change.trend === 'neutral',
             })}
           >

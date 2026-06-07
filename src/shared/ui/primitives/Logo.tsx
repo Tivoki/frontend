@@ -30,7 +30,7 @@ export function Logo({
       <LogoIcon decorative={showText} label={name} className={iconClassName} />
 
       {showText && (
-        <span className={cn('text-xl font-semibold tracking-tight text-slate-950', textClassName)}>
+        <span className={cn('text-xl font-semibold tracking-tight text-foreground', textClassName)}>
           {name}
         </span>
       )}
