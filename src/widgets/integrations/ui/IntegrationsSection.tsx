@@ -1,0 +1,53 @@
+import type React from 'react';
+
+import type { Integration } from '~/entities/integration';
+import { IntegrationCard } from '~/entities/integration';
+import { cn } from '~/shared/lib';
+
+interface IntegrationsSectionProps {
+  title: string;
+  description: string;
+  integrations: Integration[];
+  actions?: React.ReactNode;
+  onConnect?: (integration: Integration) => void;
+  onConfigure?: (integration: Integration) => void;
+}
+
+export const IntegrationsSection = ({
+  title,
+  description,
+  integrations,
+  actions,
+  onConnect,
+  onConfigure,
+}: IntegrationsSectionProps) => {
+  return (
+    <section className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-5">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="space-y-1">
+          <h2 className="font-heading text-foreground text-base font-semibold">
+            {title}
+          </h2>
+          <p className="text-muted-foreground text-sm">{description}</p>
+        </div>
+        {actions && <div className="shrink-0">{actions}</div>}
+      </div>
+
+      <div
+        className={cn(
+          'grid gap-4',
+          integrations.length > 0 && 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+        )}
+      >
+        {integrations.map((integration) => (
+          <IntegrationCard
+            key={integration.id}
+            integration={integration}
+            onConnect={onConnect}
+            onConfigure={onConfigure}
+          />
+        ))}
+      </div>
+    </section>
+  );
+};

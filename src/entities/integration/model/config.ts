@@ -1,0 +1,212 @@
+import {
+  Mail01Icon,
+  Settings02Icon,
+  TelegramIcon,
+  WebhookIcon,
+  WorkflowSquare06Icon,
+  ZapIcon,
+} from '@hugeicons/core-free-icons';
+
+import type { Integration } from './types';
+
+export const INTEGRATIONS: Integration[] = [
+  {
+    id: 'slack',
+    name: 'Slack',
+    description: 'Get notified in Slack channels for escalations and important events.',
+    status: 'connected',
+    category: 'communication',
+    brand: {
+      customIcon: 'slack',
+      foreground: 'text-[#611f69]',
+      background: 'bg-[#f4ecf7]',
+      border: 'border-[#ead6ef]',
+    },
+  },
+  {
+    id: 'email-smtp',
+    name: 'Email (SMTP)',
+    description: 'Send email notifications and transcripts to your team or customers.',
+    status: 'connected',
+    category: 'communication',
+    brand: {
+      icon: Mail01Icon,
+      foreground: 'text-[#1d7ff2]',
+      background: 'bg-[#eaf3ff]',
+      border: 'border-[#cfe3ff]',
+    },
+  },
+  {
+    id: 'zendesk',
+    name: 'Zendesk',
+    description: 'Create or update tickets in Zendesk from escalated conversations.',
+    status: 'connected',
+    category: 'support',
+    brand: {
+      mark: 'Z',
+      foreground: 'text-white',
+      background: 'bg-[#03363d]',
+      border: 'border-[#03363d]',
+    },
+  },
+  {
+    id: 'webhooks',
+    name: 'Webhooks',
+    description: 'Send real-time data to your endpoint for custom integrations.',
+    status: 'connected',
+    category: 'automation',
+    brand: {
+      icon: WebhookIcon,
+      foreground: 'text-[#ec407a]',
+      background: 'bg-[#fff0f6]',
+      border: 'border-[#ffd1e3]',
+    },
+  },
+  {
+    id: 'google-sheets',
+    name: 'Google Sheets',
+    description: 'Log conversation data and AI insights directly to Google Sheets.',
+    status: 'connected',
+    category: 'data',
+    brand: {
+      customIcon: 'google-sheet',
+      foreground: 'text-[#16a34a]',
+      background: 'bg-[#ecfdf3]',
+      border: 'border-[#c9f5d8]',
+    },
+  },
+  {
+    id: 'microsoft-teams',
+    name: 'Microsoft Teams',
+    description: 'Receive notifications and escalations in Microsoft Teams channels.',
+    status: 'available',
+    category: 'communication',
+    brand: {
+      mark: 'T',
+      foreground: 'text-white',
+      background: 'bg-[#5b5fc7]',
+      border: 'border-[#5b5fc7]',
+    },
+  },
+  {
+    id: 'discord',
+    name: 'Discord',
+    description: 'Get alerts and manage escalations from your Discord server.',
+    status: 'available',
+    category: 'communication',
+    brand: {
+      customIcon: 'discord',
+      foreground: 'text-[#5865f2]',
+      background: 'bg-[#eef0ff]',
+      border: 'border-[#d8dcff]',
+    },
+  },
+  {
+    id: 'zapier',
+    name: 'Zapier',
+    description: 'Automate workflows and connect EscalateAI with thousands of apps.',
+    status: 'available',
+    category: 'automation',
+    brand: {
+      icon: ZapIcon,
+      foreground: 'text-[#ff4a00]',
+      background: 'bg-[#fff3ed]',
+      border: 'border-[#ffd8c6]',
+    },
+  },
+  {
+    id: 'make',
+    name: 'Make (Integromat)',
+    description: 'Build custom scenarios and automate complex workflows.',
+    status: 'available',
+    category: 'automation',
+    brand: {
+      icon: WorkflowSquare06Icon,
+      foreground: 'text-[#8a19ff]',
+      background: 'bg-[#f6edff]',
+      border: 'border-[#e6ccff]',
+    },
+  },
+  {
+    id: 'pipedrive',
+    name: 'Pipedrive',
+    description: 'Create deals and add notes in Pipedrive from escalated chats.',
+    status: 'available',
+    category: 'sales',
+    brand: {
+      mark: 'p',
+      foreground: 'text-white',
+      background: 'bg-[#262b33]',
+      border: 'border-[#262b33]',
+    },
+  },
+  {
+    id: 'hubspot',
+    name: 'HubSpot',
+    description: 'Create tickets and update contacts in HubSpot Service Hub.',
+    status: 'available',
+    category: 'sales',
+    brand: {
+      mark: 'H',
+      foreground: 'text-white',
+      background: 'bg-[#ff5c35]',
+      border: 'border-[#ff5c35]',
+    },
+  },
+  {
+    id: 'freshdesk',
+    name: 'Freshdesk',
+    description: 'Create tickets in Freshdesk and sync conversation details.',
+    status: 'available',
+    category: 'support',
+    brand: {
+      icon: Settings02Icon,
+      foreground: 'text-[#22b573]',
+      background: 'bg-[#ebfbf3]',
+      border: 'border-[#cef3df]',
+    },
+  },
+  {
+    id: 'notion',
+    name: 'Notion',
+    description: 'Save conversation summaries and insights to Notion pages.',
+    status: 'available',
+    category: 'productivity',
+    brand: {
+      customIcon: 'notion',
+      foreground: 'text-[#111111]',
+      background: 'bg-[#f5f5f4]',
+      border: 'border-[#dededb]',
+    },
+  },
+  {
+    id: 'airtable',
+    name: 'Airtable',
+    description: 'Sync conversation data and AI insights to your Airtable bases.',
+    status: 'available',
+    category: 'data',
+    brand: {
+      mark: 'A',
+      foreground: 'text-white',
+      background: 'bg-[#18bfff]',
+      border: 'border-[#18bfff]',
+    },
+  },
+  {
+    id: 'telegram',
+    name: 'Telegram',
+    description: 'Receive alerts and escalations in Telegram channels or groups.',
+    status: 'available',
+    category: 'communication',
+    brand: {
+      icon: TelegramIcon,
+      foreground: 'text-[#2aabee]',
+      background: 'bg-[#eaf8ff]',
+      border: 'border-[#cceeff]',
+    },
+  },
+];
+
+export const getIntegrationById = (integrationId: string) => {
+  return INTEGRATIONS.find((integration) => integration.id === integrationId);
+};

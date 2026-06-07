@@ -1,4 +1,4 @@
-import { IntegrationsPanel } from '~/widgets/integrations-panel';
+import { IntegrationsPanel } from '~/widgets/integrations';
 import { KnowledgeBaseStatus } from '~/widgets/knowledge-base';
 
 export const DashboardInfoPanel = () => {
