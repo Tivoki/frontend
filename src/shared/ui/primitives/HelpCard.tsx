@@ -34,7 +34,6 @@ export const HelpCard: FC<HelpCardProps> = ({ className, ...props }) => {
             <a className="text-primary underline" href="mailto:test@gmail.com">
               contact support
             </a>
-            .
           </p>
         </div>
       </div>

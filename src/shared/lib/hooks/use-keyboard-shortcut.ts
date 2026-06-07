@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 type Modifier = 'mod' | 'shift' | 'alt';
 
@@ -16,6 +16,10 @@ export const useKeyboardShortcut = (
   options: ShortcutOptions = {},
 ) => {
   const { enabled = true, target = 'document' } = options;
+  const handlerRef = useRef(handler);
+  handlerRef.current = handler;
+
+  const modStr = modifiers.slice().sort().join(',');
 
   useEffect(() => {
     if (!enabled) return;
@@ -24,17 +28,18 @@ export const useKeyboardShortcut = (
 
     const listener = (e: Event) => {
       const event = e as KeyboardEvent;
-      const matchesMod = !modifiers.includes('mod') || event.metaKey || event.ctrlKey;
-      const matchesShift = !modifiers.includes('shift') || event.shiftKey;
-      const matchesAlt = !modifiers.includes('alt') || event.altKey;
+      const mods = modStr ? modStr.split(',') : [];
+      const matchesMod = !mods.includes('mod') || event.metaKey || event.ctrlKey;
+      const matchesShift = !mods.includes('shift') || event.shiftKey;
+      const matchesAlt = !mods.includes('alt') || event.altKey;
 
-      if (event.key === key && matchesMod && matchesShift && matchesAlt) {
+      if (event.key.toLowerCase() === key.toLowerCase() && matchesMod && matchesShift && matchesAlt) {
         event.preventDefault();
-        handler(event);
+        handlerRef.current(event);
       }
     };
 
     el.addEventListener('keydown', listener);
     return () => el.removeEventListener('keydown', listener);
-  }, [key, handler, modifiers, enabled, target]);
+  }, [key, modStr, enabled, target]);
 };

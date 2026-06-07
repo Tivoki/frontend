@@ -8,7 +8,12 @@ import { DEFAULT_WIDGET_CONFIG, type WidgetConfig } from '~/entities/widget';
 export const WidgetPreviewPanel = () => {
   const { control } = useFormContext<WidgetConfig>();
   const watchedConfig = useWatch({ control });
-  const config: WidgetConfig = { ...DEFAULT_WIDGET_CONFIG, ...watchedConfig };
+  const config: WidgetConfig = {
+    ...DEFAULT_WIDGET_CONFIG,
+    ...Object.fromEntries(
+      Object.entries(watchedConfig as Record<string, unknown>).filter(([, v]) => v !== undefined),
+    ),
+  } as WidgetConfig;
 
   return <ChatWidgetPreview config={config} />;
 };

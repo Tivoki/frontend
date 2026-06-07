@@ -161,6 +161,10 @@
   }
 }
 
+.dark [class*='text-primary']:not([class*='text-primary-foreground']) {
+  color: oklch(0.72 0.199 265.638);
+}
+
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(181, 187, 196, 0.35) transparent;

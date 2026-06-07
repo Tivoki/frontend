@@ -1,6 +1,6 @@
 'use client';
 
-import { Controller, useFormContext, useWatch } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { ImageUploadIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
@@ -27,26 +27,80 @@ import { ColorPickerField } from './ColorPickerField';
 const LABEL_CLASS = 'text-muted-foreground text-xs';
 
 export const AppearanceSection = () => {
-  const { control } = useFormContext<WidgetConfig>();
-  const primaryColor = useWatch({ control, name: 'primaryColor' });
+  const { control, watch } = useFormContext<WidgetConfig>();
+  const primaryColor = watch('primaryColor');
 
   return (
     <section className="space-y-4">
       <h2 className="text-foreground text-sm font-semibold">Appearance</h2>
 
       <FieldGroup className="gap-4">
+        <Controller
+          control={control}
+          name="theme"
+          render={({ field }) => (
+            <Field>
+              <FieldLabel className={LABEL_CLASS}>Widget theme</FieldLabel>
+              <div className="flex gap-2">
+                {(['auto', 'light', 'dark'] as const).map((t) => (
+                  <Button
+                    key={t}
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => field.onChange(t)}
+                    className={cn(
+                      'flex-1 capitalize',
+                      field.value === t ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10' : '',
+                    )}
+                  >
+                    {t}
+                  </Button>
+                ))}
+              </div>
+              <p className="text-muted-foreground text-[11px] leading-relaxed">
+                {field.value === 'auto'
+                  ? 'Follows the visitor\'s OS preference automatically.'
+                  : field.value === 'light'
+                    ? 'Always renders in light mode.'
+                    : 'Always renders in dark mode.'}
+              </p>
+            </Field>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="primaryColor"
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="appearance-primary-color" className={LABEL_CLASS}>
+                Primary color
+              </FieldLabel>
+              <ColorPickerField
+                id="appearance-primary-color"
+                label="Primary color"
+                value={field.value}
+                onChange={field.onChange}
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+
         <div className="grid grid-cols-2 gap-3">
           <Controller
             control={control}
-            name="primaryColor"
+            name="secondaryColor"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="appearance-primary-color" className={LABEL_CLASS}>
-                  Primary color
+                <FieldLabel htmlFor="appearance-secondary-color" className={LABEL_CLASS}>
+                  Bubble — light
                 </FieldLabel>
                 <ColorPickerField
-                  id="appearance-primary-color"
-                  label="Primary color"
+                  id="appearance-secondary-color"
+                  label="Bubble color (light)"
                   value={field.value}
                   onChange={field.onChange}
                   aria-invalid={fieldState.invalid}
@@ -57,15 +111,15 @@ export const AppearanceSection = () => {
           />
           <Controller
             control={control}
-            name="secondaryColor"
+            name="secondaryColorDark"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="appearance-secondary-color" className={LABEL_CLASS}>
-                  Secondary color
+                <FieldLabel htmlFor="appearance-secondary-color-dark" className={LABEL_CLASS}>
+                  Bubble — dark
                 </FieldLabel>
                 <ColorPickerField
-                  id="appearance-secondary-color"
-                  label="Secondary color"
+                  id="appearance-secondary-color-dark"
+                  label="Bubble color (dark)"
                   value={field.value}
                   onChange={field.onChange}
                   aria-invalid={fieldState.invalid}
@@ -92,37 +146,13 @@ export const AppearanceSection = () => {
                     onClick={() => field.onChange(pos)}
                     className={cn(
                       'capitalize',
-                      field.value === pos ? 'border-primary bg-primary/10 text-primary' : '',
+                      field.value === pos ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10' : '',
                     )}
                   >
                     {pos.split('-').join(' ')}
                   </Button>
                 ))}
               </div>
-            </Field>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="launcherStyle"
-          render={({ field }) => (
-            <Field>
-              <FieldLabel htmlFor="appearance-launcher-style" className={LABEL_CLASS}>
-                Launcher style
-              </FieldLabel>
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="appearance-launcher-style" className="w-full">
-                  <span className="text-sm">{field.value}</span>
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  {LAUNCHER_STYLES.map((style) => (
-                    <SelectItem key={style} value={style}>
-                      {style}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </Field>
           )}
         />

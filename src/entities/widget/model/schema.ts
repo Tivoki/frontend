@@ -11,6 +11,8 @@ export const widgetConfigSchema = z.object({
   // Appearance
   primaryColor: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #7C5AED)'),
   secondaryColor: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #EDEDED)'),
+  secondaryColorDark: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #2D2D3F)'),
+  theme: z.enum(['auto', 'light', 'dark']),
   position: z.enum(['bottom-right', 'bottom-left']),
   launcherStyle: z.enum(LAUNCHER_STYLES),
   welcomeMessage: z
@@ -51,6 +53,8 @@ export type WidgetConfig = z.infer<typeof widgetConfigSchema>;
 export const DEFAULT_WIDGET_CONFIG: WidgetConfig = {
   primaryColor: '#7C5AED',
   secondaryColor: '#EDEDED',
+  secondaryColorDark: '#2D2D3F',
+  theme: 'auto',
   position: 'bottom-right',
   launcherStyle: 'Chat bubble',
   welcomeMessage: 'Hi! How can we help you today? 😊',

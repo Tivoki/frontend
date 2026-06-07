@@ -58,7 +58,7 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
             value={t.value}
             className={cn(
               'shrink-0 rounded-none px-3 py-2 text-xs font-medium transition-colors hover:bg-transparent hover:text-foreground',
-              'h-auto flex-none after:bg-primary group-data-horizontal/tabs:after:bottom-0 data-active:text-primary',
+              'h-auto flex-none group-data-horizontal/tabs:after:bottom-0',
               'data-active:bg-transparent',
             )}
           >

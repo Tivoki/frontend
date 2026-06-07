@@ -3,12 +3,31 @@ import { HugeiconsIcon } from '@hugeicons/react';
 
 import type { WidgetConfig } from '~/entities/widget';
 
+const WIDGET_THEME = {
+  light: {
+    chatBg: '#ffffff',
+    inputBg: 'rgba(243,244,246,0.5)',
+    inputBorder: '#e5e7eb',
+    mutedText: '#9ca3af',
+  },
+  dark: {
+    chatBg: '#16162a',
+    inputBg: 'rgba(45,45,63,0.5)',
+    inputBorder: '#374151',
+    mutedText: '#6b7280',
+  },
+} as const;
 
 interface WidgetPopupProps {
   config: WidgetConfig;
+  previewTheme: 'light' | 'dark';
 }
 
-export const WidgetPopup = ({ config }: WidgetPopupProps) => {
+export const WidgetPopup = ({ config, previewTheme }: WidgetPopupProps) => {
+  const t = WIDGET_THEME[previewTheme];
+  const bubbleBg = previewTheme === 'light' ? config.secondaryColor : config.secondaryColorDark;
+  const bubbleText = previewTheme === 'light' ? '#111827' : '#f9fafb';
+
   return (
     <div
       className="w-72 max-w-full overflow-hidden rounded-2xl"
@@ -34,7 +53,7 @@ export const WidgetPopup = ({ config }: WidgetPopupProps) => {
         </button>
       </div>
 
-      <div className="flex flex-col gap-3 bg-background px-3 py-3">
+      <div className="flex flex-col gap-3 px-3 py-3" style={{ backgroundColor: t.chatBg }}>
         <div className="flex gap-2">
           <div
             className="flex size-6 shrink-0 items-center justify-center rounded-full text-[9px] font-bold text-white"
@@ -44,7 +63,7 @@ export const WidgetPopup = ({ config }: WidgetPopupProps) => {
           </div>
           <div
             className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed"
-            style={{ backgroundColor: config.secondaryColor, color: '#111827' }}
+            style={{ backgroundColor: bubbleBg, color: bubbleText }}
           >
             {config.welcomeMessage}
           </div>
@@ -68,31 +87,28 @@ export const WidgetPopup = ({ config }: WidgetPopupProps) => {
           </div>
           <div
             className="max-w-[85%] rounded-2xl rounded-tl-sm px-3 py-2 text-xs leading-relaxed"
-            style={{ backgroundColor: config.secondaryColor, color: '#111827' }}
+            style={{ backgroundColor: bubbleBg, color: bubbleText }}
           >
             Sure! Please share your order number and I&#39;ll look into it right away.
           </div>
         </div>
 
-        <div className="mt-1 flex items-center gap-2 rounded-xl border border-border bg-muted/50 px-3 py-2">
-          <span className="flex-1 text-xs text-muted-foreground">Type a message…</span>
+        <div
+          className="mt-1 flex items-center gap-2 rounded-xl border px-3 py-2"
+          style={{ backgroundColor: t.inputBg, borderColor: t.inputBorder }}
+        >
+          <span className="flex-1 text-xs" style={{ color: t.mutedText }}>Type a message…</span>
           <div
             className="flex size-6 shrink-0 items-center justify-center rounded-full text-white"
             style={{ backgroundColor: config.primaryColor }}
           >
-            <svg
-              className="size-3"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg className="size-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M1 6h10M7 2l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
 
-        <p className="text-center text-[10px] text-muted-foreground">Powered by Tikketi</p>
+        <p className="text-center text-[10px]" style={{ color: t.mutedText }}>Powered by Tikketi</p>
       </div>
     </div>
   );

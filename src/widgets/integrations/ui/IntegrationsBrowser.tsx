@@ -70,7 +70,7 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               <TabsTrigger
                 key={item.value}
                 value={item.value}
-                className="after:bg-primary data-active:text-primary data-[state=active]:text-primary px-0 text-sm font-semibold group-data-horizontal/tabs:after:bottom-0 data-[state=active]:after:opacity-100"
+                className="px-0 text-sm font-semibold group-data-horizontal/tabs:after:bottom-0 data-[state=active]:after:opacity-100"
               >
                 {item.label}
               </TabsTrigger>

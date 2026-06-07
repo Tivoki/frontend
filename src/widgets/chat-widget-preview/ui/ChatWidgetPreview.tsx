@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Moon02Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
 import { cn } from '~/shared/lib';
+import { Button } from '~/shared/ui/kit';
 import type { WidgetConfig } from '~/entities/widget';
 
 import type { DeviceType } from '../model/types';
@@ -22,6 +25,8 @@ interface ChatWidgetPreviewProps {
 
 export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
   const [device, setDevice] = useState<DeviceType>('desktop');
+  const [manualTheme, setManualTheme] = useState<'light' | 'dark'>('light');
+  const previewTheme: 'light' | 'dark' = config.theme === 'auto' ? manualTheme : config.theme;
 
   return (
     <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-background">
@@ -36,7 +41,39 @@ export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
             yourwebsite.com
           </div>
         </div>
-        <div className="shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="flex items-center gap-0.5 rounded-md border border-border bg-muted/40 p-0.5">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              className={cn(
+                'size-6 rounded-sm',
+                previewTheme === 'light'
+                  ? 'bg-background text-foreground shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+              onClick={() => setManualTheme('light')}
+              aria-label="Preview light theme"
+            >
+              <HugeiconsIcon icon={Sun01Icon} strokeWidth={1.75} className="size-3.5" />
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              className={cn(
+                'size-6 rounded-sm',
+                previewTheme === 'dark'
+                  ? 'bg-background text-foreground shadow-xs'
+                  : 'text-muted-foreground hover:text-foreground',
+              )}
+              onClick={() => setManualTheme('dark')}
+              aria-label="Preview dark theme"
+            >
+              <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.75} className="size-3.5" />
+            </Button>
+          </div>
           <DeviceSwitcher value={device} onChange={setDevice} />
         </div>
       </div>
@@ -44,14 +81,13 @@ export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
       <div className="overflow-hidden bg-muted/20" style={{ minHeight: 480 }}>
         <div className={cn('relative transition-all duration-300', FRAME_CLASS[device])}>
           <MockWebsiteContent device={device} />
-
           <div
             className={cn(
               'absolute bottom-5 max-w-[calc(100%-2.5rem)]',
               config.position === 'bottom-left' ? 'left-5' : 'right-5',
             )}
           >
-            <WidgetPopup config={config} />
+            <WidgetPopup config={config} previewTheme={previewTheme} />
           </div>
         </div>
       </div>
