@@ -88,9 +88,9 @@ const MOCK_SOURCES: KnowledgeBaseSource[] = [
   },
 ];
 
-export function KnowledgeBaseSourcesTable({
+export const KnowledgeBaseSourcesTable = ({
   onEditSource,
-}: KnowledgeBaseSourcesTableProps) {
+}: KnowledgeBaseSourcesTableProps) => {
   const [filter, setFilter] = useState<SourceFilter>('all');
 
   return (
@@ -144,4 +144,4 @@ export function KnowledgeBaseSourcesTable({
       </Tabs>
     </Card>
   );
-}
+};

@@ -1,41 +1,55 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+
 import { cn, useMediaQuery } from '~/shared/lib';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit/tabs';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '~/shared/ui/kit';
 
 interface ChartDataPoint {
   date: string;
   conversations: number;
-  aiResolutionRate: number;
+  aiResolved: number;
 }
 
 const MOCK_DATA: ChartDataPoint[] = [
-  { date: 'May 1', conversations: 120, aiResolutionRate: 62 },
-  { date: 'May 2', conversations: 138, aiResolutionRate: 64 },
-  { date: 'May 3', conversations: 145, aiResolutionRate: 65 },
-  { date: 'May 4', conversations: 126, aiResolutionRate: 61 },
-  { date: 'May 5', conversations: 132, aiResolutionRate: 63 },
-  { date: 'May 6', conversations: 151, aiResolutionRate: 66 },
-  { date: 'May 7', conversations: 160, aiResolutionRate: 68 },
-  { date: 'May 8', conversations: 172, aiResolutionRate: 69 },
-  { date: 'May 9', conversations: 178, aiResolutionRate: 70 },
-  { date: 'May 10', conversations: 166, aiResolutionRate: 68 },
-  { date: 'May 11', conversations: 155, aiResolutionRate: 67 },
-  { date: 'May 12', conversations: 182, aiResolutionRate: 100 },
-  { date: 'May 13', conversations: 190, aiResolutionRate: 100 },
-  { date: 'May 14', conversations: 210, aiResolutionRate: 120 },
+  { date: 'May 1', conversations: 120, aiResolved: 62 },
+  { date: 'May 2', conversations: 138, aiResolved: 64 },
+  { date: 'May 3', conversations: 145, aiResolved: 65 },
+  { date: 'May 4', conversations: 126, aiResolved: 61 },
+  { date: 'May 5', conversations: 132, aiResolved: 63 },
+  { date: 'May 6', conversations: 151, aiResolved: 66 },
+  { date: 'May 7', conversations: 160, aiResolved: 68 },
+  { date: 'May 8', conversations: 172, aiResolved: 69 },
+  { date: 'May 9', conversations: 178, aiResolved: 70 },
+  { date: 'May 10', conversations: 166, aiResolved: 68 },
+  { date: 'May 11', conversations: 155, aiResolved: 67 },
+  { date: 'May 12', conversations: 182, aiResolved: 100 },
+  { date: 'May 13', conversations: 190, aiResolved: 100 },
+  { date: 'May 14', conversations: 210, aiResolved: 120 },
 ];
+
+const CHART_CONFIG = {
+  conversations: {
+    label: 'Conversations',
+    theme: { light: '#6366f1', dark: '#818cf8' },
+  },
+  aiResolved: {
+    label: 'AI Resolved',
+    theme: { light: '#059669', dark: '#34d399' },
+  },
+} satisfies ChartConfig;
 
 type ChartPeriod = 7 | 14;
 
@@ -71,7 +85,7 @@ export const ConversationChart = ({
     <div className={cn('border-border bg-background rounded-xl border p-4', className)}>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h3 className="text-sm font-semibold">
-          Conversation Volume & AI Resolution Rate
+          Conversation Volume & AI Resolved
         </h3>
         <Tabs
           value={String(period)}
@@ -80,11 +94,7 @@ export const ConversationChart = ({
         >
           <TabsList className="border-border bg-muted border">
             {PERIOD_OPTIONS.map((option) => (
-              <TabsTrigger
-                key={option}
-                value={String(option)}
-                className="text-xs"
-              >
+              <TabsTrigger key={option} value={String(option)} className="text-xs">
                 {option} days
               </TabsTrigger>
             ))}
@@ -97,9 +107,9 @@ export const ConversationChart = ({
         </Tabs>
       </div>
 
-      <ResponsiveContainer width="100%" height={200}>
+      <ChartContainer config={CHART_CONFIG} className="aspect-auto h-[200px]">
         <LineChart data={chartData} margin={{ top: 4, right: 12, bottom: 0, left: -20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+          <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="date"
             tick={{ fontSize: 11 }}
@@ -112,35 +122,26 @@ export const ConversationChart = ({
             axisLine={false}
           />
           <YAxis tick={{ fontSize: 11 }} tickLine={false} axisLine={false} />
-          <Tooltip
-            contentStyle={{
-              borderRadius: 8,
-              border: '1px solid var(--border)',
-              fontSize: 12,
-            }}
-            itemSorter={(item) => (item.dataKey === 'conversations' ? 0 : 1)}
-          />
-          <Legend wrapperStyle={{ fontSize: 12 }} />
+          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
           <Line
             type="monotone"
             dataKey="conversations"
-            name="Conversations"
-            stroke="#6366f1"
+            stroke="var(--color-conversations)"
             strokeWidth={2}
             dot={false}
             activeDot={{ r: 4 }}
           />
           <Line
             type="monotone"
-            dataKey="aiResolutionRate"
-            name="AI Resolution Rate"
-            stroke="#22c55e"
+            dataKey="aiResolved"
+            stroke="var(--color-aiResolved)"
             strokeWidth={2}
             dot={false}
             activeDot={{ r: 4 }}
           />
         </LineChart>
-      </ResponsiveContainer>
+      </ChartContainer>
     </div>
   );
 };

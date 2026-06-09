@@ -2,9 +2,20 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+
 import { cn, useSearchParam } from '~/shared/lib';
-import { ConversationList } from '~/widgets/conversation';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  useSidebar,
+} from '~/shared/ui/kit';
 import type { Conversation } from '~/entities/conversation';
+import { ConversationList } from '~/widgets/conversation';
 
 const ConversationThread = dynamic(
   () => import('~/widgets/conversation').then((m) => ({ default: m.ConversationThread })),
@@ -20,16 +31,6 @@ const ConversationThread = dynamic(
 const ConversationInfo = dynamic(() =>
   import('~/widgets/conversation').then((m) => ({ default: m.ConversationInfo })),
 );
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  useSidebar,
-} from '~/shared/ui/kit';
 
 const MOCK_CONVERSATIONS: Conversation[] = [
   {

@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Moon02Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 
-import { useKeyboardShortcut } from '~/shared/lib/hooks/use-keyboard-shortcut';
+import { useKeyboardShortcut } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
 
 export const ThemeToggle = () => {

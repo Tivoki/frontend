@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Notification01Icon, Tick02Icon, Delete02Icon } from '@hugeicons/core-free-icons';
+import { Notification01Icon, Tick02Icon } from '@hugeicons/core-free-icons';
 
 import { cn } from '~/shared/lib';
 import { Button, Popover, PopoverContent, PopoverTrigger, Separator } from '~/shared/ui/kit';
@@ -77,9 +77,6 @@ export const NotificationsButton = () => {
   const markAllRead = () =>
     setItems((prev) => prev.map((n) => ({ ...n, read: true })));
 
-  const dismiss = (id: string) =>
-    setItems((prev) => prev.filter((n) => n.id !== id));
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -128,12 +125,14 @@ export const NotificationsButton = () => {
             <p className="py-8 text-center text-sm text-muted-foreground">All caught up</p>
           ) : (
             items.map((n) => (
-              <div
+              <button
                 key={n.id}
-                onClick={() => !n.read && markRead(n.id)}
+                type="button"
+                disabled={n.read}
+                onClick={() => markRead(n.id)}
                 className={cn(
-                  'group flex gap-3 px-3 py-2.5 transition-colors',
-                  n.read ? 'opacity-60' : 'cursor-pointer hover:bg-muted/60',
+                  'group flex w-full gap-3 px-3 py-2.5 text-left transition-colors',
+                  n.read ? 'opacity-60' : 'hover:bg-muted/60',
                 )}
               >
                 <span
@@ -145,20 +144,20 @@ export const NotificationsButton = () => {
                   {KIND_LABEL[n.kind]}
                 </span>
 
-                <button type='button' className="min-w-0 flex-1 text-left">
+                <div className="min-w-0 flex-1">
                   <p className={cn('text-xs font-medium leading-tight', !n.read && 'text-foreground')}>
                     {n.title}
                   </p>
                   <p className="mt-0.5 min-w-0 line-clamp-2 wrap-break-word text-[11px] text-muted-foreground">{n.body}</p>
                   <p className="mt-1 text-[10px] text-muted-foreground/70">{n.time}</p>
-                </button>
+                </div>
 
                 <div className="flex shrink-0 items-start pt-1">
                   {!n.read && (
                     <span className="size-1.5 rounded-full bg-primary" />
                   )}
                 </div>
-              </div>
+              </button>
             ))
           )}
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 type Modifier = 'mod' | 'shift' | 'alt';
 
@@ -17,7 +17,9 @@ export const useKeyboardShortcut = (
 ) => {
   const { enabled = true, target = 'document' } = options;
   const handlerRef = useRef(handler);
-  handlerRef.current = handler;
+  useLayoutEffect(() => {
+    handlerRef.current = handler;
+  });
 
   const modStr = modifiers.slice().sort().join(',');
 

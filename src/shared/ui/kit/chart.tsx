@@ -4,7 +4,7 @@ import React from 'react';
 import * as RechartsPrimitive from 'recharts';
 import type { TooltipValueType } from 'recharts';
 
-import { cn } from '~/shared/lib/utils';
+import { cn } from '~/shared/lib';
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const;
@@ -219,7 +219,7 @@ function ChartTooltipContent({
                     )}
                     <div
                       className={cn(
-                        'flex flex-1 justify-between leading-none',
+                        'flex flex-1 justify-between gap-4 leading-none',
                         nestLabel ? 'items-end' : 'items-center',
                       )}
                     >

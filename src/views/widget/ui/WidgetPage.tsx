@@ -9,7 +9,7 @@ import { DEFAULT_WIDGET_CONFIG, widgetConfigSchema } from '~/entities/widget';
 import type { WidgetConfig } from '~/entities/widget';
 import { WidgetCustomizer } from '~/widgets/widget-customizer';
 
-import { WidgetPreviewPanel } from '~/widgets/widget/WidgetPreviewPanel';
+import { WidgetPreviewPanel } from '~/widgets/widget';
 
 export const WidgetPage = () => {
   const form = useForm<WidgetConfig>({

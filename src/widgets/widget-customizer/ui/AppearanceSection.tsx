@@ -13,13 +13,9 @@ import {
   FieldGroup,
   FieldLabel,
   Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
   Textarea,
 } from '~/shared/ui/kit';
-import { LAUNCHER_STYLES, WELCOME_MSG_MAX } from '~/entities/widget';
+import { WELCOME_MSG_MAX } from '~/entities/widget';
 import type { WidgetConfig } from '~/entities/widget';
 
 import { ColorPickerField } from './ColorPickerField';

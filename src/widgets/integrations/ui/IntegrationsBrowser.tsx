@@ -1,12 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { ArrowRight02Icon } from '@hugeicons/core-free-icons';
 import { useRouter } from 'next/navigation';
 
 import type { Integration, IntegrationStatus } from '~/entities/integration';
-import { Button, Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
 
 import { IntegrationsSection } from './IntegrationsSection';
 
@@ -43,8 +41,6 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
   const handleConfigure = (integration: Integration) => {
     void integration;
   };
-
-  const handleManageConnected = () => {};
 
   return (
     <div className="flex flex-1 flex-col">

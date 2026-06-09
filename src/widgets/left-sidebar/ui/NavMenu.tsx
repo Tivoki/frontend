@@ -69,7 +69,7 @@ export const NavMenu = () => {
     if (pathname !== mountedPathname.current && isMobile) {
       setOpenMobile(false);
     }
-  }, [pathname]);
+  }, [pathname, isMobile, setOpenMobile]);
 
   return (
     <>
