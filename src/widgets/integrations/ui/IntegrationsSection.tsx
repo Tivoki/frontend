@@ -8,7 +8,6 @@ interface IntegrationsSectionProps {
   title: string;
   description: string;
   integrations: Integration[];
-  actions?: React.ReactNode;
   onConnect?: (integration: Integration) => void;
   onConfigure?: (integration: Integration) => void;
 }
@@ -17,20 +16,18 @@ export const IntegrationsSection = ({
   title,
   description,
   integrations,
-  actions,
   onConnect,
   onConfigure,
 }: IntegrationsSectionProps) => {
   return (
     <section className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-5">
-      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div className="mb-5">
         <div className="space-y-1">
           <h2 className="font-heading text-foreground text-base font-semibold">
             {title}
           </h2>
           <p className="text-muted-foreground text-sm">{description}</p>
         </div>
-        {actions && <div className="shrink-0">{actions}</div>}
       </div>
 
       <div

@@ -84,22 +84,6 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               title="Connected integrations"
               description="These integrations are currently connected to your account."
               integrations={connectedIntegrations}
-              actions={
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="text-primary hover:text-primary"
-                  onClick={handleManageConnected}
-                >
-                  Manage all
-                  <HugeiconsIcon
-                    icon={ArrowRight02Icon}
-                    strokeWidth={2}
-                    className="size-4"
-                  />
-                </Button>
-              }
               onConnect={handleConnect}
               onConfigure={handleConfigure}
             />
