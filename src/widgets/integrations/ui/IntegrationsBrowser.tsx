@@ -38,7 +38,11 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
     router.push(`/integrations/${integration.id}/connect`);
   };
 
-  const handleConfigure = (integration: Integration) => {
+  const handleEdit = (integration: Integration) => {
+    router.push(`/integrations/${integration.id}/edit`);
+  };
+
+  const handleDelete = (integration: Integration) => {
     void integration;
   };
 
@@ -81,7 +85,8 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               description="These integrations are currently connected to your account."
               integrations={connectedIntegrations}
               onConnect={handleConnect}
-              onConfigure={handleConfigure}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
 
             <IntegrationsSection
@@ -89,7 +94,8 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               description="Connect additional tools and services to enhance your workflow."
               integrations={availableIntegrations}
               onConnect={handleConnect}
-              onConfigure={handleConfigure}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           </TabsContent>
 
@@ -99,7 +105,8 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               description="These integrations are currently connected to your account."
               integrations={connectedIntegrations}
               onConnect={handleConnect}
-              onConfigure={handleConfigure}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           </TabsContent>
 
@@ -109,7 +116,8 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
               description="Connect additional tools and services to enhance your workflow."
               integrations={availableIntegrations}
               onConnect={handleConnect}
-              onConfigure={handleConfigure}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
             />
           </TabsContent>
         </div>

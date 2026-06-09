@@ -9,7 +9,8 @@ interface IntegrationsSectionProps {
   description: string;
   integrations: Integration[];
   onConnect?: (integration: Integration) => void;
-  onConfigure?: (integration: Integration) => void;
+  onEdit?: (integration: Integration) => void;
+  onDelete?: (integration: Integration) => void;
 }
 
 export const IntegrationsSection = ({
@@ -17,7 +18,8 @@ export const IntegrationsSection = ({
   description,
   integrations,
   onConnect,
-  onConfigure,
+  onEdit,
+  onDelete,
 }: IntegrationsSectionProps) => {
   return (
     <section className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-5">
@@ -41,7 +43,8 @@ export const IntegrationsSection = ({
             key={integration.id}
             integration={integration}
             onConnect={onConnect}
-            onConfigure={onConfigure}
+            onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))}
       </div>
