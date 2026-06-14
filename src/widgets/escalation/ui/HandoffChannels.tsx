@@ -73,7 +73,7 @@ export const HandoffChannels = () => {
                       )}
                     >
                       <span className={cn('size-1.5 rounded-full', STATUS_DOT[channel.status])} />
-                      {STATUS_LABEL[channel.status]}
+                      <span className='hidden sm:inline'>{STATUS_LABEL[channel.status]}</span>
                     </div>
                     <Button
                       type="button"

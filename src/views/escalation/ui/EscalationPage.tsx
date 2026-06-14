@@ -19,12 +19,12 @@ export const EscalationPage = () => {
 
       <EscalationKpis className="hidden md:grid" />
 
-      <div className="grid gap-4 sm:gap-6 xl:grid-cols-2">
-        <div className="flex flex-col gap-4 sm:gap-6">
+      <div className="grid min-w-0 gap-4 sm:gap-6 xl:grid-cols-2">
+        <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
           <HandoffChannels />
-          {/*<RoutingRules />*/}
+          <RoutingRules />
         </div>
-        {/*<EscalatedConversationsPanel />*/}
+        <EscalatedConversationsPanel />
       </div>
     </div>
   );

@@ -6,8 +6,6 @@ import {
   Add01Icon,
   BubbleChatIcon,
   Mail01Icon,
-  MoreHorizontalIcon,
-  Delete01Icon,
   PencilEdit01Icon,
   TelegramIcon,
   WebhookIcon,
@@ -17,11 +15,6 @@ import type { EscalationDestination, RoutingRule } from '~/entities/escalation';
 import { DEFAULT_ESCALATION_DESTINATION, ROUTING_RULES } from '~/entities/escalation';
 import {
   Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
   Select,
   SelectContent,
   SelectItem,
@@ -35,6 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/shared/ui/kit';
+import { RoutingRuleActions } from './RoutingRuleActions';
 import { RoutingRuleDeleteDialog } from './RoutingRuleDeleteDialog';
 import { RoutingRuleFormDialog } from './RoutingRuleFormDialog';
 
@@ -110,18 +104,62 @@ export const RoutingRules = () => {
           Routing rules
         </h2>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Priority</TableHead>
-              <TableHead>Condition</TableHead>
-              <TableHead>Destination</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead />
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rules.map((rule) => (
+        {/* Mobile: card list */}
+        <div className="divide-border divide-y md:hidden">
+          {rules.map((rule) => (
+            <article key={rule.id} className="flex items-start gap-3 py-3 first:pt-0">
+              <span className="bg-muted text-foreground flex size-6 shrink-0 items-center justify-center rounded-md text-xs font-semibold">
+                {rule.priority}
+              </span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-foreground text-sm font-medium">{rule.condition}</p>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <Switch
+                      size="sm"
+                      checked={rule.active}
+                      onCheckedChange={() => toggleRule(rule.id)}
+                    />
+                    <RoutingRuleActions
+                      onEdit={() => openEdit(rule)}
+                      onDelete={() => setDeletingRule(rule)}
+                    />
+                  </div>
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {rule.destinations.map((dest) => (
+                    <span
+                      key={dest}
+                      className="bg-muted text-muted-foreground inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs"
+                    >
+                      <HugeiconsIcon
+                        icon={DESTINATION_ICON[dest]}
+                        strokeWidth={1.75}
+                        className="size-3"
+                      />
+                      {DESTINATION_LABEL[dest]}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Desktop: table */}
+        <div className="hidden md:block">
+          <Table className="min-w-150">
+            <TableHeader>
+              <TableRow>
+                <TableHead>Priority</TableHead>
+                <TableHead>Condition</TableHead>
+                <TableHead>Destination</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead />
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {rules.map((rule) => (
                 <TableRow key={rule.id}>
                   <TableCell>
                     <span className="bg-muted text-foreground flex size-6 items-center justify-center rounded-md text-xs font-semibold">
@@ -154,29 +192,16 @@ export const RoutingRules = () => {
                     />
                   </TableCell>
                   <TableCell>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button type="button" variant="ghost" size="icon-sm" className="text-muted-foreground">
-                          <HugeiconsIcon icon={MoreHorizontalIcon} strokeWidth={1.75} className="size-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="min-w-32">
-                        <DropdownMenuItem onClick={() => openEdit(rule)}>
-                          <HugeiconsIcon icon={PencilEdit01Icon} strokeWidth={1.75} className="size-4" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem variant="destructive" onClick={() => setDeletingRule(rule)}>
-                          <HugeiconsIcon icon={Delete01Icon} strokeWidth={1.75} className="size-4" />
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <RoutingRuleActions
+                      onEdit={() => openEdit(rule)}
+                      onDelete={() => setDeletingRule(rule)}
+                    />
                   </TableCell>
                 </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
 
         <div className="border-border mt-4 space-y-3 border-t pt-4">
           <Button type="button" variant="outline" size="sm" onClick={openCreate}>
