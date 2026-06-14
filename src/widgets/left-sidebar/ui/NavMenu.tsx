@@ -2,7 +2,6 @@
 
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  Analytics01Icon,
   BookOpen01Icon,
   BubbleChatIcon,
   CogIcon,
@@ -47,7 +46,6 @@ const NAV_GROUPS = [
     title: 'Monitor',
     items: [
       { id: 'escalation', label: 'Escalation', href: '/escalation', icon: AlertDiamondIcon },
-      { id: 'analytics', label: 'Analytics', href: '/analytics', icon: Analytics01Icon },
       { id: 'activity-logs', label: 'Activity logs', href: '/logs', icon: ChartAnalysisIcon },
     ],
   },

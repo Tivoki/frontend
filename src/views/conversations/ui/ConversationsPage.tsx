@@ -173,6 +173,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     source: 'Web widget',
     language: 'English',
     createdAt: 'Jun 10, 2024 10:25 AM',
+    isEscalated: true,
     tags: ['Sales', 'Bulk order'],
     aiSummary:
       'Customer is asking about bulk order discounts for their business. They are interested in purchasing 50+ units monthly. Escalated to the sales team.',
@@ -435,6 +436,7 @@ const MOCK_CONVERSATIONS: Conversation[] = [
     source: 'Telegram',
     language: 'English',
     createdAt: 'Jun 9, 2024 11:00 AM',
+    isEscalated: true,
     tags: ['Damaged item', 'Replacement'],
     aiSummary:
       'Customer received a damaged item. A replacement was shipped the same day. Customer confirmed receipt and was satisfied with the resolution.',

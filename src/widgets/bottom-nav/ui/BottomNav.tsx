@@ -2,7 +2,6 @@
 
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  Analytics01Icon,
   BubbleChatIcon,
   CogIcon,
   HomeIcon,
@@ -17,7 +16,6 @@ const NAV_ITEMS = [
   { id: 'overview', label: 'Overview', href: '/', icon: HomeIcon },
   { id: 'conversations', label: 'Chats', href: '/conversations', icon: BubbleChatIcon },
   { id: 'search', label: 'Search', href: '/search', icon: Search01Icon },
-  { id: 'analytics', label: 'Analytics', href: '/analytics', icon: Analytics01Icon },
   { id: 'settings', label: 'Settings', href: '/settings', icon: CogIcon },
 ] as const;
 

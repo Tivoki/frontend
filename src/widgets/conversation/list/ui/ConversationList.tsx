@@ -1,18 +1,18 @@
 'use client';
 
-import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { SearchIcon } from '@hugeicons/core-free-icons';
 import { ConversationCard } from '~/entities/conversation';
 import type { Conversation, ConversationStatus } from '~/entities/conversation';
-import { cn } from '~/shared/lib';
+import { cn, useSearchParam } from '~/shared/lib';
 import { Input } from '~/shared/ui/kit';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '~/shared/ui/kit';
 
-type FilterTab = 'all' | ConversationStatus;
+type FilterTab = 'all' | 'escalated' | ConversationStatus;
 
 const TABS: { value: FilterTab; label: string }[] = [
   { value: 'all', label: 'All' },
+  { value: 'escalated', label: 'Escalated' },
   { value: 'open', label: 'Open' },
   { value: 'pending', label: 'Pending' },
   { value: 'resolved', label: 'Resolved' },
@@ -26,26 +26,27 @@ interface ConversationListProps {
 }
 
 export const ConversationList = ({ conversations, selectedId, onSelect }: ConversationListProps) => {
-  const [tab, setTab] = useState<FilterTab>('all');
-  const [search, setSearch] = useState('');
+  const [tab, setTab] = useSearchParam('tab', 'all');
+  const [search, setSearch] = useSearchParam('search', '');
 
   const q = search.toLowerCase();
 
   const getFiltered = (tabValue: FilterTab) =>
     conversations.filter((c) => {
-      const matchesTab = tabValue === 'all' || c.status === tabValue;
-      const matchesSearch =
+      if (tabValue === 'escalated' && !c.isEscalated) return false;
+      if (tabValue !== 'all' && tabValue !== 'escalated' && c.status !== tabValue) return false;
+      return (
         !q ||
         c.customerName.toLowerCase().includes(q) ||
         c.customerEmail.toLowerCase().includes(q) ||
-        c.lastMessage.toLowerCase().includes(q);
-      return matchesTab && matchesSearch;
+        c.lastMessage.toLowerCase().includes(q)
+      );
     });
 
   return (
     <Tabs
       value={tab}
-      onValueChange={(value) => setTab(value as FilterTab)}
+      onValueChange={setTab}
       className="flex h-full flex-col border-r border-border bg-background"
     >
       <TabsList
@@ -77,7 +78,7 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
           <Input
             placeholder="Search conversations..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value || undefined)}
             className="h-8 pl-8 text-xs"
           />
         </div>

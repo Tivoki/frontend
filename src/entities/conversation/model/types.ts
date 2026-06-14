@@ -34,4 +34,5 @@ export interface Conversation {
   events?: ConversationEvent[];
   aiSummary?: string;
   unreadCount?: number;
+  isEscalated?: boolean;
 }
