@@ -14,7 +14,6 @@ export const ActivityLogsFeed = ({ className }: { className?: string }) => {
 
   const sentinelRef = useRef<HTMLDivElement>(null);
 
-  // Auto-load the next page when the sentinel scrolls into view.
   useEffect(() => {
     const el = sentinelRef.current;
     if (!el || !hasMore || error) return;

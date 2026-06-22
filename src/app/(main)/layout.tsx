@@ -13,7 +13,7 @@ const MainLayout = ({
   return (
     <SidebarProvider className="h-svh">
       <LeftSidebar />
-      <SidebarInset className="min-h-0 min-w-0">
+      <SidebarInset className="min-h-0 min-w-0 overflow-hidden">
         <Header />
         <div className="flex min-h-0 flex-1 gap-4 overflow-clip">
           <div className="flex min-h-0 min-w-0 flex-1 flex-col gap-4 overflow-y-auto">

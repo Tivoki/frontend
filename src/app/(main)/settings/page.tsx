@@ -1,9 +1,5 @@
-const Page = () => {
-  return (
-    <div>
+import { SettingsPage } from '~/views/settings';
 
-    </div>
-  );
-};
-
-export default Page;
+export default function Page() {
+  return <SettingsPage />;
+}
