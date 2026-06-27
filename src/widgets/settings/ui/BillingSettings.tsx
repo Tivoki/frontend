@@ -2,6 +2,7 @@
 
 import { HugeiconsIcon } from '@hugeicons/react';
 import { CreditCardIcon, Download01Icon } from '@hugeicons/core-free-icons';
+import Link from 'next/link';
 
 import { CURRENT_PLAN, INVOICES, PAYMENT_METHOD } from '~/entities/settings';
 import type { InvoiceStatus } from '~/entities/settings';
@@ -64,8 +65,8 @@ export const BillingSettings = () => {
               </p>
             </div>
             <div className="flex gap-2">
-              <Button type="button" variant="outline" size="sm">
-                Change plan
+              <Button asChild variant="outline" size="sm">
+                <Link href="/billing/plans">Change plan</Link>
               </Button>
               <Button
                 type="button"

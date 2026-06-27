@@ -1,8 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Copy01Icon, Delete02Icon, ImageUploadIcon, Tick02Icon } from '@hugeicons/core-free-icons';
+import {
+  Copy01Icon,
+  Delete02Icon,
+  ImageUploadIcon,
+  Tick02Icon,
+} from '@hugeicons/core-free-icons';
 
 import {
   ACCOUNT_INFO,
@@ -36,11 +41,20 @@ import { SettingsSelectField } from './SettingsSelectField';
 export const GeneralSettings = () => {
   const [copied, setCopied] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
 
   const copyAccountId = async () => {
     await navigator.clipboard.writeText(ACCOUNT_INFO.id);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+  };
+
+  const handleLogoChange = (file: File | undefined) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setLogoUrl(reader.result as string);
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -50,15 +64,29 @@ export const GeneralSettings = () => {
         <Card>
           <CardHeader>
             <CardTitle>Company information</CardTitle>
-            <CardDescription>Update your company details and primary settings.</CardDescription>
+            <CardDescription>
+              Update your company details and primary settings.
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <SettingsInputField name="companyName" label="Company name" maxLength={COMPANY_NAME_MAX} />
+            <SettingsInputField
+              name="companyName"
+              label="Company name"
+              maxLength={COMPANY_NAME_MAX}
+            />
             <SettingsInputField name="companyEmail" label="Company email" type="email" />
 
             <div className="grid grid-cols-2 gap-3">
-              <SettingsSelectField name="industry" label="Industry" options={INDUSTRIES} />
-              <SettingsSelectField name="companySize" label="Company size" options={COMPANY_SIZES} />
+              <SettingsSelectField
+                name="industry"
+                label="Industry"
+                options={INDUSTRIES}
+              />
+              <SettingsSelectField
+                name="companySize"
+                label="Company size"
+                options={COMPANY_SIZES}
+              />
             </div>
 
             <SettingsInputField
@@ -69,22 +97,58 @@ export const GeneralSettings = () => {
             />
 
             <Field>
-              <FieldLabel className="text-muted-foreground text-xs">Company logo</FieldLabel>
+              <FieldLabel className="text-muted-foreground text-xs">
+                Company logo
+              </FieldLabel>
               <div className="flex items-center gap-3">
-                <div className="bg-muted text-foreground flex size-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold">
-                  A
-                </div>
+                {logoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={logoUrl}
+                    alt="Company logo"
+                    className="size-9 shrink-0 rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="bg-muted text-foreground flex size-9 shrink-0 items-center justify-center rounded-lg text-sm font-semibold">
+                    A
+                  </div>
+                )}
+                <input
+                  ref={logoInputRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/svg+xml"
+                  className="hidden"
+                  onChange={(e) => handleLogoChange(e.target.files?.[0])}
+                />
                 <div className="flex flex-wrap gap-2">
-                  <Button type="button" variant="outline" size="sm" className="gap-1.5">
-                    <HugeiconsIcon icon={ImageUploadIcon} strokeWidth={1.75} className="size-3.5" />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="gap-1.5"
+                    onClick={() => logoInputRef.current?.click()}
+                  >
+                    <HugeiconsIcon
+                      icon={ImageUploadIcon}
+                      strokeWidth={1.75}
+                      className="size-3.5"
+                    />
                     Upload new
                   </Button>
-                  <Button type="button" variant="ghost" size="sm">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    disabled={!logoUrl}
+                    onClick={() => setLogoUrl(null)}
+                  >
                     Remove
                   </Button>
                 </div>
               </div>
-              <p className="text-muted-foreground text-[11px]">PNG, JPG or SVG. Max 2MB.</p>
+              <p className="text-muted-foreground text-[11px]">
+                PNG, JPG or SVG. Max 2MB.
+              </p>
             </Field>
           </CardContent>
         </Card>
@@ -97,7 +161,9 @@ export const GeneralSettings = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <Field>
-                <FieldLabel className="text-muted-foreground text-xs">Account ID</FieldLabel>
+                <FieldLabel className="text-muted-foreground text-xs">
+                  Account ID
+                </FieldLabel>
                 <div className="relative">
                   <Input
                     readOnly
@@ -140,7 +206,11 @@ export const GeneralSettings = () => {
                 onClick={() => setDeleteOpen(true)}
                 className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive w-full gap-1.5"
               >
-                <HugeiconsIcon icon={Delete02Icon} strokeWidth={1.75} className="size-4" />
+                <HugeiconsIcon
+                  icon={Delete02Icon}
+                  strokeWidth={1.75}
+                  className="size-4"
+                />
                 Delete account
               </Button>
             </CardContent>
@@ -153,8 +223,8 @@ export const GeneralSettings = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Delete account?</AlertDialogTitle>
             <AlertDialogDescription>
-              This permanently deletes your workspace and all associated data. This action cannot be
-              undone.
+              This permanently deletes your workspace and all associated data. This action
+              cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

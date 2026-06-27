@@ -20,9 +20,12 @@ const TAB_ITEMS: Array<{ value: IntegrationTab; label: string }> = [
   { value: 'available', label: 'Available' },
 ];
 
-export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) => {
+export const IntegrationsBrowser = ({
+  integrations: initialIntegrations,
+}: IntegrationsBrowserProps) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<IntegrationTab>('all');
+  const [integrations, setIntegrations] = useState(initialIntegrations);
 
   const connectedIntegrations = useMemo(
     () => integrations.filter((integration) => integration.status === 'connected'),
@@ -43,7 +46,11 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
   };
 
   const handleDelete = (integration: Integration) => {
-    void integration;
+    setIntegrations((prev) =>
+      prev.map((item) =>
+        item.id === integration.id ? { ...item, status: 'available' } : item,
+      ),
+    );
   };
 
   return (
@@ -64,7 +71,7 @@ export const IntegrationsBrowser = ({ integrations }: IntegrationsBrowserProps) 
         onValueChange={(value) => setActiveTab(value as IntegrationTab)}
         className="min-h-0 flex-1 gap-0"
       >
-        <div className="border-border overflow-x-auto border-b px-4 sm:px-6">
+        <div className="border-border overflow-x-auto overflow-y-hidden border-b px-4 sm:px-6">
           <TabsList variant="line" className="gap-8 p-0">
             {TAB_ITEMS.map((item) => (
               <TabsTrigger

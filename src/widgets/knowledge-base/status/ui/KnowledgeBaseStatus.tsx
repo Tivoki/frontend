@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { KnowledgeBaseItemRow } from '~/entities/knowledge-base-item';
 import type { KnowledgeBaseItem } from '~/entities/knowledge-base-item';
 
@@ -13,14 +15,18 @@ interface KnowledgeBaseStatusProps {
   items?: KnowledgeBaseItem[];
 }
 
-export const KnowledgeBaseStatus = ({ items = MOCK_KB_ITEMS }: KnowledgeBaseStatusProps) => {
+export const KnowledgeBaseStatus = ({
+  items = MOCK_KB_ITEMS,
+}: KnowledgeBaseStatusProps) => {
   return (
-    <div className="rounded-xl border border-border bg-background p-4">
+    <div className="border-border bg-background rounded-xl border p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-foreground">Knowledge Base Status</h3>
-        <button className="text-xs text-primary hover:underline">View All</button>
+        <h3 className="text-foreground text-sm font-semibold">Knowledge Base Status</h3>
+        <Link href="/knowledge-base" className="text-primary text-xs hover:underline">
+          View All
+        </Link>
       </div>
-      <div className="divide-y divide-border">
+      <div className="divide-border divide-y">
         {items.map((item) => (
           <KnowledgeBaseItemRow key={item.id} item={item} />
         ))}

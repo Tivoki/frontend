@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParam } from '~/shared/lib';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
 import { ApiKeysSettings } from './ApiKeysSettings';
 import { BillingSettings } from './BillingSettings';
@@ -18,9 +19,11 @@ const TABS = [
 ] as const;
 
 export const SettingsTabs = () => {
+  const [tab, setTab] = useSearchParam('tab', 'general');
+
   return (
-    <Tabs defaultValue="general" className="gap-4">
-      <div className="border-border -mx-4 overflow-x-auto border-b px-4 sm:-mx-6 sm:px-6">
+    <Tabs value={tab} onValueChange={setTab} className="gap-4">
+      <div className="border-border -mx-4 overflow-x-auto overflow-y-hidden border-b px-4 sm:-mx-6 sm:px-6">
         <TabsList variant="line" className="w-max">
           {TABS.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>

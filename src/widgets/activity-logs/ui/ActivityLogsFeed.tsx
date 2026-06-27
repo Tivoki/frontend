@@ -67,13 +67,6 @@ export const ActivityLogsFeed = ({ className }: { className?: string }) => {
         </div>
       )}
 
-      {/* End of list */}
-      {!hasMore && !error && entries.length > 0 && (
-        <div className="text-muted-foreground border-border border-t px-4 py-4 text-center text-xs">
-          You’ve reached the end.
-        </div>
-      )}
-
       {/* Infinite-scroll sentinel (kept in the DOM while more pages exist) */}
       {hasMore && !error && <div ref={sentinelRef} aria-hidden className="h-px" />}
     </div>

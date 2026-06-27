@@ -13,20 +13,22 @@ export function SourcesTable({ sources, onEdit }: SourcesTableProps) {
     <Table>
       <TableHeader>
         <TableRow className="bg-muted/40 hover:bg-muted/40">
-          <TableHead className="pl-4 text-xs font-medium text-muted-foreground">Source</TableHead>
-          <TableHead className="text-center text-xs font-medium text-muted-foreground">
+          <TableHead className="text-muted-foreground pl-4 text-xs font-medium">
+            Source
+          </TableHead>
+          <TableHead className="text-muted-foreground text-center text-xs font-medium">
             Type
           </TableHead>
-          <TableHead className="text-center text-xs font-medium text-muted-foreground">
+          <TableHead className="text-muted-foreground text-center text-xs font-medium">
             Documents
           </TableHead>
-          <TableHead className="hidden text-center text-xs font-medium text-muted-foreground sm:table-cell">
+          <TableHead className="text-muted-foreground hidden text-center text-xs font-medium sm:table-cell">
             Chunks
           </TableHead>
-          <TableHead className="hidden text-center text-xs font-medium text-muted-foreground md:table-cell">
+          <TableHead className="text-muted-foreground hidden text-center text-xs font-medium md:table-cell">
             Updated
           </TableHead>
-          <TableHead className="text-center text-xs font-medium text-muted-foreground">
+          <TableHead className="text-muted-foreground text-center text-xs font-medium">
             Status
           </TableHead>
           <TableHead className="pr-2" />
@@ -34,11 +36,7 @@ export function SourcesTable({ sources, onEdit }: SourcesTableProps) {
       </TableHeader>
       <TableBody>
         {sources.map((source) => (
-          <SourceTableRow
-            key={source.id}
-            source={source}
-            onEdit={() => onEdit(source)}
-          />
+          <SourceTableRow key={source.id} source={source} onEdit={() => onEdit(source)} />
         ))}
       </TableBody>
     </Table>
