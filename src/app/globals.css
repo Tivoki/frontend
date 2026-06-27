@@ -165,6 +165,14 @@
   color: oklch(0.72 0.199 265.638);
 }
 
+.auth-right-bg {
+  background: linear-gradient(160deg, oklch(0.97 0.01 250) 0%, oklch(1 0 0) 55%);
+}
+
+.dark .auth-right-bg {
+  background: linear-gradient(160deg, oklch(0.17 0.01 250) 0%, oklch(0.148 0.004 228.8) 55%);
+}
+
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: rgba(181, 187, 196, 0.35) transparent;

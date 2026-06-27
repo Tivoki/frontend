@@ -1,11 +1,5 @@
-import React from 'react';
+import { LoginPage } from '~/views/auth-login';
 
-const Page = () => {
-  return (
-    <div>
-      
-    </div>
-  );
-};
-
-export default Page;
+export default function Page() {
+  return <LoginPage />;
+}
