@@ -24,8 +24,8 @@ const MOCK_USER: CurrentUser = {
 };
 
 const LINK_ITEMS = [
-  { icon: UserIcon, label: 'Profile', href: '/profile' },
-  { icon: AccountSetting01Icon, label: 'Settings', href: '/settings' },
+  { icon: UserIcon, label: 'Profile', href: '/dashboard/profile' },
+  { icon: AccountSetting01Icon, label: 'Settings', href: '/dashboard/settings' },
 ] as const;
 
 interface UserMenuProps {

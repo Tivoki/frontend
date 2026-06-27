@@ -15,7 +15,7 @@ export const BillingPlansPage = () => {
           size="sm"
           className="text-muted-foreground -ml-2 w-fit"
         >
-          <Link href="/billing">
+          <Link href="/dashboard/billing">
             <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={1.8} className="size-4" />
             Back to billing
           </Link>

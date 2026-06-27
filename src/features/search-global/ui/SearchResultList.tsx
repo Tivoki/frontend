@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
+import type { Route } from 'next';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 import {
@@ -15,7 +16,7 @@ import type { SearchGroup } from '../model/types';
 interface SearchResultListProps {
   groups: SearchGroup[];
   query: string;
-  onSelect: (href?: string, onSelect?: () => void) => void;
+  onSelect: (href?: Route, onSelect?: () => void) => void;
   listClassName?: string;
 }
 

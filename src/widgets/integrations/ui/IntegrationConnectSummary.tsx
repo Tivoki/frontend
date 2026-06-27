@@ -52,7 +52,7 @@ export const IntegrationConnectSummary = ({
       </dl>
 
       <Button asChild variant="outline" className="mt-5 w-full">
-        <Link href="/integrations">Cancel</Link>
+        <Link href="/dashboard/integrations">Cancel</Link>
       </Button>
     </aside>
   );

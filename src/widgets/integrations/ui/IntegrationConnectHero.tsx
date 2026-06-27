@@ -18,7 +18,7 @@ export const IntegrationConnectHero = ({ integration }: IntegrationConnectHeroPr
         size="sm"
         className="text-muted-foreground mb-5 w-fit"
       >
-        <Link href="/integrations">
+        <Link href="/dashboard/integrations">
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={1.8} className="size-4" />
           Back to integrations
         </Link>

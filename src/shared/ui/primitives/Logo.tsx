@@ -6,7 +6,7 @@ import { cn } from '~/shared/lib';
 
 import { LogoIcon } from './LogoIcon';
 
-type LogoProps = Omit<ComponentPropsWithoutRef<'a'>, 'children'> & {
+type LogoProps = Omit<ComponentPropsWithoutRef<'a'>, 'children' | 'href'> & {
   name?: string;
   showText?: boolean;
   iconClassName?: string;
@@ -23,7 +23,7 @@ export function Logo({
 }: LogoProps) {
   return (
     <Link
-      href="/"
+      href="/dashboard"
       className={cn('inline-flex select-none items-center gap-2.5', className)}
       {...props}
     >

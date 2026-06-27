@@ -39,7 +39,7 @@ export const PlanSummaryCard = () => {
         </ul>
 
         <Button asChild className="w-full">
-          <Link href="/billing/plans">Manage plan</Link>
+          <Link href="/dashboard/billing/plans">Manage plan</Link>
         </Button>
       </CardContent>
     </Card>

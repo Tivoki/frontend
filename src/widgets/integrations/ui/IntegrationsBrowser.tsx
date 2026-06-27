@@ -38,11 +38,11 @@ export const IntegrationsBrowser = ({
   );
 
   const handleConnect = (integration: Integration) => {
-    router.push(`/integrations/${integration.id}/connect`);
+    router.push(`/dashboard/integrations/${integration.id}/connect`);
   };
 
   const handleEdit = (integration: Integration) => {
-    router.push(`/integrations/${integration.id}/edit`);
+    router.push(`/dashboard/integrations/${integration.id}/edit`);
   };
 
   const handleDelete = (integration: Integration) => {

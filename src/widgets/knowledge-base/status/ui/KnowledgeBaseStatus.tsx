@@ -22,7 +22,7 @@ export const KnowledgeBaseStatus = ({
     <div className="border-border bg-background rounded-xl border p-4">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-foreground text-sm font-semibold">Knowledge Base Status</h3>
-        <Link href="/knowledge-base" className="text-primary text-xs hover:underline">
+        <Link href="/dashboard/knowledge-base" className="text-primary text-xs hover:underline">
           View All
         </Link>
       </div>

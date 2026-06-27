@@ -2,6 +2,7 @@
 
 import { useCallback } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { toRoute } from '../utils';
 
 interface Options {
   /** Use router.replace (default) instead of router.push — avoids polluting history */
@@ -39,9 +40,9 @@ export function useSearchParam(key: string, defaultValue?: string, options: Opti
       const query = params.toString();
       const url = query ? `${pathname}?${query}` : pathname;
       if (replace) {
-        router.replace(url);
+        router.replace(toRoute(url));
       } else {
-        router.push(url);
+        router.push(toRoute(url));
       }
     },
     [key, pathname, replace, router, searchParams],

@@ -69,7 +69,7 @@ export const UsageOverviewCard = () => {
         })}
 
         <Button asChild variant="outline" className="w-full">
-          <Link href="/settings?tab=usage">View full usage analytics</Link>
+          <Link href="/dashboard/settings?tab=usage">View full usage analytics</Link>
         </Button>
       </CardContent>
     </Card>

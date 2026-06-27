@@ -57,7 +57,7 @@ export const RecentConversations = ({
     <div className={cn('min-w-0 rounded-xl border border-border bg-background', className)}>
       <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
         <h3 className="text-sm font-semibold text-foreground">Recent Conversations</h3>
-        <Link href="/conversations" className="shrink-0 text-xs font-medium text-primary hover:underline">
+        <Link href="/dashboard/conversations" className="shrink-0 text-xs font-medium text-primary hover:underline">
           View All
         </Link>
       </div>

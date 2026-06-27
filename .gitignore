@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# openapi-typescript generated
+/src/shared/api/schema.d.ts

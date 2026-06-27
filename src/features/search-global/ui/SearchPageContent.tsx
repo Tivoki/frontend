@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, Search01Icon } from '@hugeicons/core-free-icons';
@@ -27,7 +28,7 @@ export const SearchPageContent = ({ className }: SearchPageContentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSelect = useCallback(
-    (href?: string, onSelect?: () => void) => {
+    (href?: Route, onSelect?: () => void) => {
       if (onSelect) {
         onSelect();
         return;

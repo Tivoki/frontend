@@ -20,7 +20,7 @@ export const BillingPage = () => {
 
         <div>
           <Button asChild>
-            <Link href="/billing/plans">
+            <Link href="/dashboard/billing/plans">
               <HugeiconsIcon icon={Wallet01Icon} strokeWidth={1.75} className="size-4" />
               Manage plan
             </Link>

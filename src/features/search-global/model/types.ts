@@ -1,3 +1,4 @@
+import type { Route } from 'next';
 import type { IconSvgElement } from '@hugeicons/react';
 
 export interface SearchItem {
@@ -5,7 +6,7 @@ export interface SearchItem {
   label: string;
   description?: string;
   icon?: IconSvgElement;
-  href?: string;
+  href?: Route;
   onSelect?: () => void;
   keywords?: string[];
 }

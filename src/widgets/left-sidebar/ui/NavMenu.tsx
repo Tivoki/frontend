@@ -30,30 +30,30 @@ const NAV_GROUPS = [
   {
     title: 'Workspace',
     items: [
-      { id: 'copilot', label: 'Overview', href: '/', icon: HomeIcon },
-      { id: 'conversations', label: 'Conversations', href: '/conversations', icon: BubbleChatIcon },
+      { id: 'copilot', label: 'Overview', href: '/dashboard', icon: HomeIcon },
+      { id: 'conversations', label: 'Conversations', href: '/dashboard/conversations', icon: BubbleChatIcon },
     ],
   },
   {
     title: 'Build',
     items: [
-      { id: 'knowledge-base', label: 'Knowledge Base', href: '/knowledge-base', icon: BookOpen01Icon },
-      { id: 'widget', label: 'Widget', href: '/widget', icon: BrowserIcon },
-      { id: 'integrations', label: 'Integrations', href: '/integrations', icon: PuzzleIcon },
+      { id: 'knowledge-base', label: 'Knowledge Base', href: '/dashboard/knowledge-base', icon: BookOpen01Icon },
+      { id: 'widget', label: 'Widget', href: '/dashboard/widget', icon: BrowserIcon },
+      { id: 'integrations', label: 'Integrations', href: '/dashboard/integrations', icon: PuzzleIcon },
     ],
   },
   {
     title: 'Monitor',
     items: [
-      { id: 'escalation', label: 'Escalation', href: '/escalation', icon: AlertDiamondIcon },
-      { id: 'activity-logs', label: 'Activity logs', href: '/logs', icon: ChartAnalysisIcon },
+      { id: 'escalation', label: 'Escalation', href: '/dashboard/escalation', icon: AlertDiamondIcon },
+      { id: 'activity-logs', label: 'Activity logs', href: '/dashboard/logs', icon: ChartAnalysisIcon },
     ],
   },
   {
     title: 'Account',
     items: [
-      { id: 'settings', label: 'Settings', href: '/settings', icon: CogIcon },
-      { id: 'billing', label: 'Billing', href: '/billing', icon: Wallet01Icon },
+      { id: 'settings', label: 'Settings', href: '/dashboard/settings', icon: CogIcon },
+      { id: 'billing', label: 'Billing', href: '/dashboard/billing', icon: Wallet01Icon },
     ],
   },
 ] as const;

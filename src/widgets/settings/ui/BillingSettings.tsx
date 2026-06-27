@@ -66,7 +66,7 @@ export const BillingSettings = () => {
             </div>
             <div className="flex gap-2">
               <Button asChild variant="outline" size="sm">
-                <Link href="/billing/plans">Change plan</Link>
+                <Link href="/dashboard/billing/plans">Change plan</Link>
               </Button>
               <Button
                 type="button"

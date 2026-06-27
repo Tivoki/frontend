@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 
 import { Command, CommandDialog, CommandInput } from '~/shared/ui/kit';
@@ -17,7 +18,7 @@ export const SearchCommandDialog = ({ open, onOpenChange }: SearchCommandDialogP
   const groups = useSearchItems(query);
   const router = useRouter();
 
-  const handleSelect = (href?: string, onSelect?: () => void) => {
+  const handleSelect = (href?: Route, onSelect?: () => void) => {
     onOpenChange(false);
     setQuery('');
 

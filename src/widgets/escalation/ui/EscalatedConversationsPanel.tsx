@@ -64,7 +64,7 @@ export const EscalatedConversationsPanel = () => {
   const router = useRouter();
 
   const openEscalation = (id: string) =>
-    router.push(`/conversations?tab=escalated&id=${id}`);
+    router.push(`/dashboard/conversations?tab=escalated&id=${id}`);
 
   return (
     <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
@@ -74,7 +74,7 @@ export const EscalatedConversationsPanel = () => {
             Escalated conversations
           </h2>
           <Button type="button" variant="link" size="sm" className="h-auto p-0" asChild>
-            <Link href="/conversations?tab=escalated">View all</Link>
+            <Link href="/dashboard/conversations?tab=escalated">View all</Link>
           </Button>
         </div>
 
