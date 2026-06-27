@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+  TIKKETI — MAILGUN EMAIL TEMPLATES
+================================================================================
+  Templates use Handlebars syntax ({{variable}}) as supported by Mailgun.
+  Logo: replace [LOGO_IMG_URL] with your hosted PNG/JPEG logo URL.
+
+  COLOR REFERENCE (converted from design system oklch tokens):
+  --primary:           #4F46E5  (indigo-600)
+  --primary-dark:      #1E1B4B  (indigo-950, gradient start)
+  --primary-mid:       #3730A3  (indigo-800, gradient mid)
+  --foreground:        #0F172A  (slate-950)
+  --muted-foreground:  #637389  (slate-500ish)
+  --muted:             #F3F6F9  (slate-50ish)
+  --border:            #E4EAF0  (slate-200ish)
+  --success:           #16A34A  (green-700)
+  --success-subtle:    #DCFCE7  (green-50)
+  --destructive:       #DC2626  (red-600)
+  --destructive-subtle:#FEE2E2  (red-50)
+  --warning:           #D97706  (amber-600)
+  --warning-subtle:    #FEF3C7  (amber-50)
+
+  TEMPLATES:
+  1. Welcome / Account Created
+  2. Verify Email (OTP)
+  3. Password Reset
+  4. Team Invitation
+  5. Payment Confirmed
+  6. Payment Failed
+================================================================================
+-->
+
+
+<!-- ============================================================
+     SHARED PARTIALS (copy into each template as needed)
+     ============================================================
+
+  HEADER partial — paste at top of <body>:
+
+  FOOTER partial — paste at bottom of <body>:
+
+  Both are baked into each template below.
+-->
+
+
+<!-- ############################################################
+     TEMPLATE 2 — VERIFY EMAIL (OTP)
+     Subject: {{otp_code}} is your tikketi verification code
+     Variables: {{first_name}}, {{otp_code}}, {{expires_minutes}}
+     ############################################################ -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Verify your email</title>
+  <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+  <style type="text/css">
+    #outlook a { padding: 0; }
+    body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; display: block; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F3F6F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    Your verification code is {{otp_code}}. It expires in {{expires_minutes}} minutes.&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F9;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="border-radius:16px 16px 0 0;background:linear-gradient(145deg,#1E1B4B 0%,#3730A3 55%,#4F46E5 100%);padding:32px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <img src="https://pub-76aedd8cf76c4935b1467b6c21740b56.r2.dev/icon.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.3px;">tikketi</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background-color:#FFFFFF;padding:40px 40px 36px;">
+
+              <!-- Lock icon area -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td align="center" style="width:56px;height:56px;background-color:#EEF2FF;border-radius:14px;">
+                    <span style="font-size:28px;line-height:56px;display:block;">🔐</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;font-size:22px;font-weight:700;color:#0F172A;text-align:center;letter-spacing:-0.4px;">
+                Verify your email
+              </p>
+              <p style="margin:0 0 32px;font-size:14px;color:#637389;text-align:center;line-height:1.6;">
+                Hi {{first_name}}, enter the code below in the tikketi app to verify your email address.
+              </p>
+
+              <!-- OTP Code Block -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 32px;width:100%;max-width:320px;">
+                <tr>
+                  <td align="center" style="background-color:#F3F6F9;border:2px dashed #C7D2FE;border-radius:14px;padding:24px 32px;">
+                    <p style="margin:0 0 6px;font-size:11px;font-weight:600;color:#637389;letter-spacing:1px;text-transform:uppercase;">
+                      Verification Code
+                    </p>
+                    <p style="margin:0;font-size:44px;font-weight:700;color:#4F46E5;letter-spacing:10px;font-variant-numeric:tabular-nums;">
+                      {{otp_code}}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Expiry notice -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;width:100%;max-width:400px;">
+                <tr>
+                  <td style="background-color:#FEF3C7;border-radius:10px;padding:12px 16px;text-align:center;">
+                    <p style="margin:0;font-size:13px;color:#92400E;line-height:1.5;">
+                      ⏱ This code expires in <strong>{{expires_minutes}} minutes</strong>. Do not share it with anyone.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr><td style="border-top:1px solid #E4EAF0;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="margin:0;font-size:13px;color:#637389;text-align:center;line-height:1.6;">
+                Didn't request this? You can safely ignore this email.<br />
+                If you're concerned, <a href="{{support_url}}" style="color:#4F46E5;text-decoration:underline;">contact our support team</a>.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#F3F6F9;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #E4EAF0;">
+              <p style="margin:0;font-size:11px;color:#9CAAB8;text-align:center;">
+                © 2025 tikketi. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+<!-- END TEMPLATE 2 -->
+
+
+
+
+<!-- ############################################################
+     TEMPLATE 3 — PASSWORD RESET
+     Subject: Reset your tikketi password
+     Variables: {{first_name}}, {{reset_url}}, {{expires_hours}}
+     ############################################################ -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Reset your password</title>
+  <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+  <style type="text/css">
+    #outlook a { padding: 0; }
+    body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; display: block; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F3F6F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    We received a request to reset your password. The link expires in {{expires_hours}} hour(s).&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F9;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="border-radius:16px 16px 0 0;background:linear-gradient(145deg,#1E1B4B 0%,#3730A3 55%,#4F46E5 100%);padding:32px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <img src="https://pub-76aedd8cf76c4935b1467b6c21740b56.r2.dev/icon.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.3px;">tikketi</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background-color:#FFFFFF;padding:40px 40px 36px;">
+
+              <!-- Icon -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td align="center" style="width:56px;height:56px;background-color:#EEF2FF;border-radius:14px;">
+                    <span style="font-size:28px;line-height:56px;display:block;">🔑</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;font-size:22px;font-weight:700;color:#0F172A;text-align:center;letter-spacing:-0.4px;">
+                Reset your password
+              </p>
+              <p style="margin:0 0 28px;font-size:14px;color:#637389;text-align:center;line-height:1.6;">
+                Hi {{first_name}}, we received a request to reset the password for your tikketi account.
+                Click the button below to choose a new password.
+              </p>
+
+              <!-- CTA Button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;">
+                <tr>
+                  <td align="center" style="border-radius:10px;background-color:#4F46E5;">
+                    <a href="{{reset_url}}" style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:600;color:#FFFFFF;text-decoration:none;letter-spacing:-0.1px;border-radius:10px;">
+                      Reset password
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Fallback link -->
+              <p style="margin:0 0 28px;font-size:12px;color:#637389;text-align:center;line-height:1.6;">
+                Button not working? Copy and paste this URL into your browser:<br />
+                <a href="{{reset_url}}" style="color:#4F46E5;word-break:break-all;">{{reset_url}}</a>
+              </p>
+
+              <!-- Divider -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr><td style="border-top:1px solid #E4EAF0;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <!-- Security notices -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="background-color:#FEE2E2;border-radius:10px;padding:14px 18px;margin-bottom:12px;">
+                    <p style="margin:0;font-size:13px;color:#991B1B;line-height:1.5;">
+                      🚨 <strong>This link expires in {{expires_hours}} hour(s)</strong> and can only be used once. If you didn't request a password reset, you can safely ignore this email — your password will not change.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#F3F6F9;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #E4EAF0;">
+              <p style="margin:0 0 8px;font-size:12px;color:#637389;text-align:center;line-height:1.6;">
+                <a href="{{unsubscribe_url}}" style="color:#4F46E5;text-decoration:underline;">Unsubscribe</a>
+                &nbsp;·&nbsp;
+                <a href="{{privacy_url}}" style="color:#4F46E5;text-decoration:underline;">Privacy Policy</a>
+              </p>
+              <p style="margin:0;font-size:11px;color:#9CAAB8;text-align:center;">
+                © 2025 tikketi. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+<!-- END TEMPLATE 3 -->
+
+
+
+
+<!-- ############################################################
+     TEMPLATE 4 — TEAM INVITATION
+     Subject: {{inviter_name}} invited you to join {{workspace_name}} on tikketi
+     Variables: {{inviter_name}}, {{inviter_email}}, {{workspace_name}},
+                {{role}}, {{accept_url}}, {{expires_days}}
+     ############################################################ -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>You've been invited to tikketi</title>
+  <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+  <style type="text/css">
+    #outlook a { padding: 0; }
+    body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; display: block; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F3F6F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    {{inviter_name}} has invited you to join {{workspace_name}} as {{role}}.&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F9;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="border-radius:16px 16px 0 0;background:linear-gradient(145deg,#1E1B4B 0%,#3730A3 55%,#4F46E5 100%);padding:32px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <img src="https://pub-76aedd8cf76c4935b1467b6c21740b56.r2.dev/icon.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.3px;">tikketi</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background-color:#FFFFFF;padding:40px 40px 36px;">
+
+              <!-- Avatar placeholder -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td align="center" style="width:56px;height:56px;background-color:#EEF2FF;border-radius:50%;">
+                    <span style="font-size:24px;line-height:56px;display:block;">👥</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;font-size:22px;font-weight:700;color:#0F172A;text-align:center;letter-spacing:-0.4px;">
+                You've been invited!
+              </p>
+              <p style="margin:0 0 28px;font-size:14px;color:#637389;text-align:center;line-height:1.6;">
+                <strong style="color:#0F172A;">{{inviter_name}}</strong> ({{inviter_email}}) has invited you to join their workspace on tikketi.
+              </p>
+
+              <!-- Workspace info card -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td style="background-color:#F3F6F9;border:1px solid #E4EAF0;border-radius:12px;padding:20px 24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td width="50%" style="padding-bottom:12px;">
+                          <p style="margin:0 0 3px;font-size:11px;font-weight:600;color:#9CAAB8;text-transform:uppercase;letter-spacing:0.6px;">Workspace</p>
+                          <p style="margin:0;font-size:14px;font-weight:600;color:#0F172A;">{{workspace_name}}</p>
+                        </td>
+                        <td width="50%" style="padding-bottom:12px;">
+                          <p style="margin:0 0 3px;font-size:11px;font-weight:600;color:#9CAAB8;text-transform:uppercase;letter-spacing:0.6px;">Your role</p>
+                          <p style="margin:0;">
+                            <span style="display:inline-block;padding:2px 10px;font-size:12px;font-weight:600;color:#4F46E5;background-color:#EEF2FF;border-radius:20px;">{{role}}</span>
+                          </p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <p style="margin:0 0 3px;font-size:11px;font-weight:600;color:#9CAAB8;text-transform:uppercase;letter-spacing:0.6px;">Invited by</p>
+                          <p style="margin:0;font-size:14px;color:#0F172A;">{{inviter_name}} &lt;{{inviter_email}}&gt;</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA Button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 20px;">
+                <tr>
+                  <td align="center" style="border-radius:10px;background-color:#4F46E5;">
+                    <a href="{{accept_url}}" style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:600;color:#FFFFFF;text-decoration:none;letter-spacing:-0.1px;border-radius:10px;">
+                      Accept invitation
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 28px;font-size:12px;color:#9CAAB8;text-align:center;">
+                This invitation expires in {{expires_days}} days.
+              </p>
+
+              <!-- Divider -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr><td style="border-top:1px solid #E4EAF0;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="margin:0;font-size:13px;color:#637389;text-align:center;line-height:1.6;">
+                Don't recognize this invitation? You can safely ignore this email.<br />
+                Questions? <a href="{{support_url}}" style="color:#4F46E5;text-decoration:underline;">Contact support</a>.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#F3F6F9;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #E4EAF0;">
+              <p style="margin:0 0 8px;font-size:12px;color:#637389;text-align:center;line-height:1.6;">
+                <a href="{{unsubscribe_url}}" style="color:#4F46E5;text-decoration:underline;">Unsubscribe</a>
+                &nbsp;·&nbsp;
+                <a href="{{privacy_url}}" style="color:#4F46E5;text-decoration:underline;">Privacy Policy</a>
+              </p>
+              <p style="margin:0;font-size:11px;color:#9CAAB8;text-align:center;">
+                © 2025 tikketi. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+<!-- END TEMPLATE 4 -->
+
+
+
+
+<!-- ############################################################
+     TEMPLATE 5 — PAYMENT CONFIRMED
+     Subject: Payment confirmed — {{plan_name}} plan
+     Variables: {{first_name}}, {{plan_name}}, {{amount}}, {{currency}},
+                {{invoice_number}}, {{billing_date}}, {{next_billing_date}},
+                {{payment_method_last4}}, {{invoice_url}}, {{dashboard_url}}
+     ############################################################ -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Payment confirmed</title>
+  <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+  <style type="text/css">
+    #outlook a { padding: 0; }
+    body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; display: block; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F3F6F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    Your payment of {{amount}} {{currency}} for the {{plan_name}} plan has been confirmed.&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F9;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+          <!-- HEADER -->
+          <tr>
+            <td style="border-radius:16px 16px 0 0;background:linear-gradient(145deg,#1E1B4B 0%,#3730A3 55%,#4F46E5 100%);padding:32px 40px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="vertical-align:middle;padding-right:10px;">
+                    <img src="https://pub-76aedd8cf76c4935b1467b6c21740b56.r2.dev/icon.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
+                  </td>
+                  <td style="vertical-align:middle;">
+                    <span style="font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.3px;">tikketi</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background-color:#FFFFFF;padding:40px 40px 36px;">
+
+              <!-- Success badge -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td align="center" style="width:56px;height:56px;background-color:#DCFCE7;border-radius:14px;">
+                    <span style="font-size:28px;line-height:56px;display:block;">✅</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 6px;font-size:22px;font-weight:700;color:#0F172A;text-align:center;letter-spacing:-0.4px;">
+                Payment confirmed
+              </p>
+              <p style="margin:0 0 8px;font-size:14px;color:#637389;text-align:center;line-height:1.6;">
+                Hi {{first_name}}, your subscription has been renewed successfully.
+              </p>
+
+              <!-- Amount highlight -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;">
+                <tr>
+                  <td align="center">
+                    <p style="margin:0;font-size:36px;font-weight:700;color:#16A34A;letter-spacing:-1px;">
+                      {{amount}} <span style="font-size:20px;font-weight:600;">{{currency}}</span>
+                    </p>
+                    <p style="margin:4px 0 0;font-size:13px;color:#637389;">
+                      {{plan_name}} plan &nbsp;·&nbsp; Billed on {{billing_date}}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Invoice table -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;border:1px solid #E4EAF0;border-radius:12px;overflow:hidden;">
+                <tr>
+                  <td style="background-color:#F3F6F9;padding:12px 20px;border-bottom:1px solid #E4EAF0;">
+                    <p style="margin:0;font-size:12px;font-weight:600;color:#637389;text-transform:uppercase;letter-spacing:0.6px;">Invoice details</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="font-size:13px;color:#637389;">Invoice #</td>
+                              <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">{{invoice_number}}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="font-size:13px;color:#637389;">Plan</td>
+                              <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">{{plan_name}}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="font-size:13px;color:#637389;">Payment method</td>
+                              <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">•••• {{payment_method_last4}}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="font-size:13px;color:#637389;">Next billing date</td>
+                              <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">{{next_billing_date}}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:14px 20px;">
+                          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                              <td style="font-size:14px;font-weight:700;color:#0F172A;">Total charged</td>
+                              <td align="right" style="font-size:14px;font-weight:700;color:#0F172A;">{{amount}} {{currency}}</td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Action buttons -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;">
+                <tr>
+                  <td width="50%" style="padding-right:8px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td align="center" style="border-radius:10px;background-color:#4F46E5;">
+                          <a href="{{invoice_url}}" style="display:block;padding:12px 0;font-size:13px;font-weight:600;color:#FFFFFF;text-decoration:none;text-align:center;border-radius:10px;">
+                            Download invoice
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td width="50%" style="padding-left:8px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td align="center" style="border-radius:10px;border:1.5px solid #E4EAF0;">
+                          <a href="{{dashboard_url}}" style="display:block;padding:12px 0;font-size:13px;font-weight:600;color:#0F172A;text-decoration:none;text-align:center;border-radius:10px;">
+                            Go to dashboard
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr><td style="border-top:1px solid #E4EAF0;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="margin:0;font-size:13px;color:#637389;text-align:center;line-height:1.6;">
+                Questions about your invoice? <a href="{{support_url}}" style="color:#4F46E5;text-decoration:underline;">Contact our billing team</a>.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#F3F6F9;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #E4EAF0;">
+              <p style="margin:0 0 8px;font-size:12px;color:#637389;text-align:center;line-height:1.6;">
+                <a href="{{unsubscribe_url}}" style="color:#4F46E5;text-decoration:underline;">Unsubscribe</a>
+                &nbsp;·&nbsp;
+                <a href="{{privacy_url}}" style="color:#4F46E5;text-decoration:underline;">Privacy Policy</a>
+              </p>
+              <p style="margin:0;font-size:11px;color:#9CAAB8;text-align:center;">
+                © 2025 tikketi. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+<!-- END TEMPLATE 5 -->
+
+
+
+
+<!-- ############################################################
+     TEMPLATE 6 — PAYMENT FAILED
+     Subject: ⚠️ Action required: Your tikketi payment failed
+     Variables: {{first_name}}, {{plan_name}}, {{amount}}, {{currency}},
+                {{failed_date}}, {{retry_date}}, {{update_payment_url}},
+                {{payment_method_last4}}
+     ############################################################ -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <title>Payment failed — action required</title>
+  <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
+  <style type="text/css">
+    #outlook a { padding: 0; }
+    body { margin: 0 !important; padding: 0 !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    img { -ms-interpolation-mode: bicubic; border: 0; outline: none; text-decoration: none; display: block; }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F3F6F9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <div style="display:none;max-height:0;overflow:hidden;mso-hide:all;">
+    We couldn't process your payment of {{amount}} {{currency}}. Please update your payment method to keep your subscription active.&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F3F6F9;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+
+          <!-- HEADER (warning tone — keep brand gradient, add red accent) -->
+          <tr>
+            <td style="border-radius:16px 16px 0 0;background:linear-gradient(145deg,#1E1B4B 0%,#3730A3 55%,#4F46E5 100%);padding:32px 40px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td>
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="vertical-align:middle;padding-right:10px;">
+                          <img src="https://pub-76aedd8cf76c4935b1467b6c21740b56.r2.dev/icon.png" alt="" width="28" height="28" style="display:block;border-radius:7px;" />
+                        </td>
+                        <td style="vertical-align:middle;">
+                          <span style="font-size:18px;font-weight:600;color:#FFFFFF;letter-spacing:-0.3px;">tikketi</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td align="right">
+                    <span style="display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;color:#FFFFFF;background-color:#DC2626;border-radius:20px;letter-spacing:0.3px;">
+                      ACTION REQUIRED
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- BODY -->
+          <tr>
+            <td style="background-color:#FFFFFF;padding:40px 40px 36px;">
+
+              <!-- Error badge -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+                <tr>
+                  <td align="center" style="width:56px;height:56px;background-color:#FEE2E2;border-radius:14px;">
+                    <span style="font-size:28px;line-height:56px;display:block;">❌</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:0 0 8px;font-size:22px;font-weight:700;color:#0F172A;text-align:center;letter-spacing:-0.4px;">
+                Payment failed
+              </p>
+              <p style="margin:0 0 28px;font-size:14px;color:#637389;text-align:center;line-height:1.6;">
+                Hi {{first_name}}, we were unable to process your payment of <strong style="color:#0F172A;">{{amount}} {{currency}}</strong> for the {{plan_name}} plan on {{failed_date}}.
+              </p>
+
+              <!-- Alert banner -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+                <tr>
+                  <td style="background-color:#FEF3C7;border-left:4px solid #D97706;border-radius:0 10px 10px 0;padding:14px 18px;">
+                    <p style="margin:0;font-size:13px;color:#92400E;line-height:1.6;">
+                      ⚠️ <strong>Your subscription may be paused</strong> if payment isn't updated by <strong>{{retry_date}}</strong>. We'll retry automatically, but we recommend updating your payment method now to avoid any service interruption.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Payment details -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px;border:1px solid #E4EAF0;border-radius:12px;overflow:hidden;">
+                <tr>
+                  <td style="background-color:#F3F6F9;padding:12px 20px;border-bottom:1px solid #E4EAF0;">
+                    <p style="margin:0;font-size:12px;font-weight:600;color:#637389;text-transform:uppercase;letter-spacing:0.6px;">Failed payment details</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size:13px;color:#637389;">Plan</td>
+                        <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">{{plan_name}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size:13px;color:#637389;">Amount</td>
+                        <td align="right" style="font-size:13px;font-weight:600;color:#DC2626;">{{amount}} {{currency}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 20px;border-bottom:1px solid #E4EAF0;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size:13px;color:#637389;">Card on file</td>
+                        <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">•••• {{payment_method_last4}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 20px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-size:13px;color:#637389;">Next retry</td>
+                        <td align="right" style="font-size:13px;font-weight:600;color:#0F172A;">{{retry_date}}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA Button -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 28px;">
+                <tr>
+                  <td align="center" style="border-radius:10px;background-color:#DC2626;">
+                    <a href="{{update_payment_url}}" style="display:inline-block;padding:14px 36px;font-size:15px;font-weight:600;color:#FFFFFF;text-decoration:none;letter-spacing:-0.1px;border-radius:10px;">
+                      Update payment method
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:20px;">
+                <tr><td style="border-top:1px solid #E4EAF0;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="margin:0;font-size:13px;color:#637389;text-align:center;line-height:1.6;">
+                Need help? <a href="{{support_url}}" style="color:#4F46E5;text-decoration:underline;">Contact our billing team</a> and we'll sort it out quickly.
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td style="background-color:#F3F6F9;border-radius:0 0 16px 16px;padding:24px 40px;border-top:1px solid #E4EAF0;">
+              <p style="margin:0 0 8px;font-size:12px;color:#637389;text-align:center;line-height:1.6;">
+                <a href="{{unsubscribe_url}}" style="color:#4F46E5;text-decoration:underline;">Unsubscribe</a>
+                &nbsp;·&nbsp;
+                <a href="{{privacy_url}}" style="color:#4F46E5;text-decoration:underline;">Privacy Policy</a>
+              </p>
+              <p style="margin:0;font-size:11px;color:#9CAAB8;text-align:center;">
+                © 2025 tikketi. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
+<!-- END TEMPLATE 6 -->

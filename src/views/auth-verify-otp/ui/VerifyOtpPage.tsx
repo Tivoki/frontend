@@ -1,9 +1,15 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-import { RegisterForm } from '~/features/auth';
+import { VerifyOtpForm } from '~/features/auth-verify-otp';
 import { AuthBrandPanel } from '~/shared/ui/primitives';
 
-export function RegisterPage() {
+export function VerifyOtpPage() {
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') ?? '';
+
   return (
     <div className="flex h-full min-h-svh">
       <AuthBrandPanel />
@@ -12,28 +18,29 @@ export function RegisterPage() {
         <main className="flex flex-1 flex-col items-center justify-center px-6 py-12">
           <div className="w-full max-w-sm rounded-2xl bg-card px-8 py-8 ring-1 ring-foreground/10 xl:max-w-md xl:px-10 xl:py-10">
             <div className="mb-6 text-center">
-              <h1 className="text-2xl font-bold tracking-tight">Create an account</h1>
+              <h1 className="text-2xl font-bold tracking-tight">Check your email</h1>
               <p className="mt-1.5 text-sm text-muted-foreground">
-                Start your free trial — no credit card required
+                We sent a 6-digit code to{' '}
+                <span className="font-medium text-foreground">{email}</span>
               </p>
             </div>
 
-            <RegisterForm />
+            <VerifyOtpForm email={email} />
 
             <p className="mt-5 text-center text-sm text-muted-foreground">
-              Already have an account?{' '}
+              Wrong email?{' '}
               <Link
-                href="/auth/login"
+                href="/auth/register"
                 className="font-medium text-foreground underline-offset-4 hover:underline"
               >
-                Sign in
+                Go back
               </Link>
             </p>
           </div>
         </main>
 
         <footer className="pb-6 text-center text-xs text-muted-foreground">
-          © 2024 Tikketi. All rights reserved.
+          © 2026 Tikketi. All rights reserved.
         </footer>
       </div>
     </div>

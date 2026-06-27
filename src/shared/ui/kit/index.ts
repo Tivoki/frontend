@@ -175,5 +175,6 @@ export {
   SelectTrigger,
   SelectValue,
 } from './select';
-export { Switch } from './switch'
-
+export { Switch } from './switch';
+export { Toaster } from './sonner';
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './input-otp';

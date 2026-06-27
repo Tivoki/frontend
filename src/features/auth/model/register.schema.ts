@@ -12,10 +12,7 @@ export const registerSchema = z
       .max(50, 'Name cannot exceed 50 characters'),
     email: z.email('Enter a valid email address'),
     password: z
-      .string()
-      .min(8, 'Password must be at least 8 characters')
-      .regex(/[A-Z]/, 'Must contain at least one uppercase letter')
-      .regex(/[0-9]/, 'Must contain at least one number'),
+      .string(),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {

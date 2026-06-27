@@ -8,7 +8,6 @@ import {
   EyeIcon,
   LockPasswordIcon,
   Mail01Icon,
-  UserIcon,
   ViewOffIcon,
 } from '@hugeicons/core-free-icons';
 
@@ -23,15 +22,19 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from '~/shared/ui/kit';
+} from '~/shared/ui/kit/index';
+import { toast } from 'sonner';
+import { getApiErrorMessage } from '~/shared/api/index';
 
-import { registerSchema, type RegisterFormData } from '../model/schema';
+import { registerSchema, type RegisterFormData } from '../model/register.schema';
+import { useRegister } from '../model/use-register';
 
 const FORM_ID = 'register-form';
 
 export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const { mutate } = useRegister();
 
   const form = useForm<RegisterFormData>({
     resolver: standardSchemaResolver(registerSchema),
@@ -45,13 +48,13 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
     <form id={FORM_ID} onSubmit={form.handleSubmit(onSubmit)} noValidate>
       <FieldGroup>
-        <div className="flex gap-5 flex-col sm:flex-row sm:gap-2">
+        <div className="flex flex-col gap-5 sm:flex-row sm:gap-2">
           <Controller
             name="firstName"
             control={form.control}
@@ -59,15 +62,6 @@ export const RegisterForm = () => {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={`${FORM_ID}-firstName`}>First name</FieldLabel>
                 <InputGroup>
-                  <InputGroupAddon>
-                    <InputGroupText>
-                      <HugeiconsIcon
-                        icon={UserIcon}
-                        strokeWidth={1.75}
-                        className="size-4"
-                      />
-                    </InputGroupText>
-                  </InputGroupAddon>
                   <InputGroupInput
                     {...field}
                     id={`${FORM_ID}-firstName`}
@@ -87,17 +81,8 @@ export const RegisterForm = () => {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={`${FORM_ID}-lastName`}>First name</FieldLabel>
+                <FieldLabel htmlFor={`${FORM_ID}-lastName`}>Last name</FieldLabel>
                 <InputGroup>
-                  <InputGroupAddon>
-                    <InputGroupText>
-                      <HugeiconsIcon
-                        icon={UserIcon}
-                        strokeWidth={1.75}
-                        className="size-4"
-                      />
-                    </InputGroupText>
-                  </InputGroupAddon>
                   <InputGroupInput
                     {...field}
                     id={`${FORM_ID}-lastName`}

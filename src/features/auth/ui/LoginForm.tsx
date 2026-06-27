@@ -22,16 +22,17 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-  Separator,
-} from '~/shared/ui/kit';
-import { GoogleIcon } from '~/shared/icons';
+} from '~/shared/ui/kit/index';
+import { GoogleIcon } from '~/shared/icons/index';
 
-import { loginSchema, type LoginFormData } from '../model/schema';
+import { loginSchema, type LoginFormData } from '../model/login.schema';
+import { useLogin } from '../model/use-login';
 
 const FORM_ID = 'login-form';
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const {mutate} = useLogin();
 
   const form = useForm<LoginFormData>({
     resolver: standardSchemaResolver(loginSchema),
@@ -39,7 +40,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+    mutate(data);
   };
 
   return (
