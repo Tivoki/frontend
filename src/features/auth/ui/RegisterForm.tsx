@@ -23,8 +23,6 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '~/shared/ui/kit/index';
-import { toast } from 'sonner';
-import { getApiErrorMessage } from '~/shared/api/index';
 
 import { registerSchema, type RegisterFormData } from '../model/register.schema';
 import { useRegister } from '../model/use-register';
@@ -48,7 +46,12 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (data: RegisterFormData) => {
-    mutate(data);
+    mutate({
+      email: data.email,
+      password: data.password,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    });
   };
 
   return (

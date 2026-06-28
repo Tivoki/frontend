@@ -17,6 +17,7 @@ import {
   Separator,
 } from '~/shared/ui/kit';
 import type { CurrentUser } from '../model/types';
+import { useLogout } from '~/features/auth/index';
 
 const MOCK_USER: CurrentUser = {
   name: 'John Doe',
@@ -34,8 +35,13 @@ interface UserMenuProps {
 
 export const UserMenu = ({ user = MOCK_USER }: UserMenuProps) => {
   const [open, setOpen] = useState(false);
-
+  const { mutate: logoutMutate } = useLogout();
   const initials = getInitials(user.name);
+
+  const handleLogout = () => {
+    setOpen(false);
+    logoutMutate();
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -87,7 +93,7 @@ export const UserMenu = ({ user = MOCK_USER }: UserMenuProps) => {
         <Button
           variant="ghost"
           className="text-destructive hover:bg-destructive/10 hover:text-destructive w-full justify-start text-sm font-normal"
-          onClick={() => setOpen(false)}
+          onClick={handleLogout}
         >
           <HugeiconsIcon icon={Logout01Icon} strokeWidth={1.75} className="size-4" />
           Sign out
