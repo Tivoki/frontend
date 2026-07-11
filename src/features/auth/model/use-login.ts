@@ -1,11 +1,11 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import type { Route } from 'next';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { AUTH_ERRORS } from '~/features/auth/model/auth.constants';
 import { apiClient, getApiErrorMessage } from '~/shared/api';
 import type { components } from '~/shared/api';
-import { AUTH_ERRORS } from '~/features/auth/model/auth.constants';
+import type { Route } from 'next';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 
 // A local path only, so a crafted ?redirect= can't bounce the user to another

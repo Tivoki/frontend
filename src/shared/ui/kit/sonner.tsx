@@ -1,16 +1,16 @@
 'use client';
 
-import { useTheme } from 'next-themes';
-import { Toaster as Sonner, type ToasterProps } from 'sonner';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
+  Alert02Icon,
   CheckmarkCircle02Icon,
   InformationCircleIcon,
-  Alert02Icon,
-  MultiplicationSignCircleIcon,
   Loading03Icon,
+  MultiplicationSignCircleIcon,
 } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { useTheme } from 'next-themes';
 import type React from 'react';
+import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = 'system' } = useTheme();

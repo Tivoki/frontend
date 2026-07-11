@@ -1,6 +1,6 @@
-import type { LogLevel } from '../model/types';
 import { cn } from '~/shared/lib';
 import { Badge } from '~/shared/ui/kit';
+import type { LogLevel } from '../model/types';
 
 const LEVEL_STYLES: Record<LogLevel, string> = {
   info: 'bg-primary/10 text-primary',

@@ -2,9 +2,7 @@
 
 import { ComputerIcon, SmartPhone01Icon, Tablet01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-
 import { cn } from '~/shared/lib';
-
 import type { DeviceType } from '../model/types';
 
 const DEVICES: { id: DeviceType; icon: typeof ComputerIcon; label: string }[] = [

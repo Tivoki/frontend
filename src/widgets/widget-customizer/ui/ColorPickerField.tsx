@@ -1,8 +1,7 @@
 'use client';
 
-import * as React from 'react';
-
 import { cn } from '~/shared/lib';
+import * as React from 'react';
 
 interface ColorPickerFieldProps {
   value: string;

@@ -1,6 +1,6 @@
 import type {
-  KnowledgeBaseSourceType,
   KnowledgeBaseSourceStatus,
+  KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
 
 export const TYPE_LABELS: Record<KnowledgeBaseSourceType, string> = {

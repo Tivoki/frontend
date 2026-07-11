@@ -1,11 +1,10 @@
 'use client';
 
-import { useCallback, useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { CommandIcon, SearchIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { cn, useIsTouchPointer, useKeyboardShortcut, useModKey } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
+import { useCallback, useState } from 'react';
 import { SearchCommandDialog } from './SearchCommandDialog';
 
 interface SearchBarProps {

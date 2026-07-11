@@ -1,12 +1,11 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import { SearchIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { ConversationCard } from '~/entities/conversation';
 import type { Conversation, ConversationStatus } from '~/entities/conversation';
 import { cn, useSearchParam } from '~/shared/lib';
-import { Input } from '~/shared/ui/kit';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '~/shared/ui/kit';
+import { Input, Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
 
 type FilterTab = 'all' | 'escalated' | ConversationStatus;
 

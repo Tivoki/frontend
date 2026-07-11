@@ -1,7 +1,6 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-
+import type { WidgetConfig } from '~/entities/widget';
 import {
   Field,
   FieldContent,
@@ -9,7 +8,7 @@ import {
   FieldLabel,
   Switch,
 } from '~/shared/ui/kit';
-import type { WidgetConfig } from '~/entities/widget';
+import { Controller, useFormContext } from 'react-hook-form';
 
 // Only the boolean keys of WidgetConfig are valid switch targets.
 type BooleanKey = {

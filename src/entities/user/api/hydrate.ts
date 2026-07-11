@@ -1,5 +1,4 @@
 import type { QueryClient } from '@tanstack/react-query';
-
 import { userKeys } from '../model/keys';
 import type { Me } from '../model/types';
 

@@ -1,9 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-
 import { apiClient } from '~/shared/api';
-
 import { workspaceKeys } from '../model/keys';
 import type { WorkspaceWithMembers } from '../model/types';
 

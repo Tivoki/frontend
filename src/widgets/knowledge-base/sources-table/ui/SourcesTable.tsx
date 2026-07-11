@@ -1,6 +1,5 @@
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
 import type { KnowledgeBaseSource } from '~/entities/knowledge-base-source';
-
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
 import { SourceTableRow } from './SourceTableRow';
 
 interface SourcesTableProps {

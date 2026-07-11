@@ -1,6 +1,5 @@
 'use client';
 
-import { Controller, useForm } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import {
   Button,
@@ -9,10 +8,10 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '~/shared/ui/kit';
-
+import { Controller, useForm } from 'react-hook-form';
 import { verifyOtpSchema, type VerifyOtpFormData } from '../model/schema';
-import { useVerifyOtp } from '../model/use-verify-otp';
 import { useResendOtp } from '../model/use-resend-otp';
+import { useVerifyOtp } from '../model/use-verify-otp';
 
 const OTP_LENGTH = 6;
 

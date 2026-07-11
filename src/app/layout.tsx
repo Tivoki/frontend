@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import { Geist } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { Geist } from 'next/font/google';
 import './globals.css';
 import React from 'react';
 import { Providers } from './providers';

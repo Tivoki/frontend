@@ -1,6 +1,6 @@
+import { AiBrain01Icon, Clock01Icon, Tag01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { AiBrain01Icon, Tag01Icon, Clock01Icon } from '@hugeicons/core-free-icons';
-import { STATUS_STYLES, STATUS_LABELS } from '~/entities/conversation';
+import { STATUS_LABELS, STATUS_STYLES } from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
 import { cn } from '~/shared/lib';
 import { Badge } from '~/shared/ui/kit';

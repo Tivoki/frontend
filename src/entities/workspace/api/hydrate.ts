@@ -1,5 +1,4 @@
 import type { QueryClient } from '@tanstack/react-query';
-
 import { workspaceKeys } from '../model/keys';
 import type {
   Page,

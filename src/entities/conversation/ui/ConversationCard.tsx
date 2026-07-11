@@ -1,5 +1,5 @@
 import { cn } from '~/shared/lib';
-import { STATUS_STYLES, STATUS_LABELS } from '../model/config';
+import { STATUS_LABELS, STATUS_STYLES } from '../model/config';
 import type { Conversation } from '../model/types';
 
 interface ConversationCardProps {

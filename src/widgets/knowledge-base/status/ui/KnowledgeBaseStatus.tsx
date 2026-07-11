@@ -1,10 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-
 import { KnowledgeBaseItemRow } from '~/entities/knowledge-base-item';
 import type { KnowledgeBaseItem } from '~/entities/knowledge-base-item';
 import { useWorkspaceHref } from '~/features/switch-workspace';
+import Link from 'next/link';
 
 const MOCK_KB_ITEMS: KnowledgeBaseItem[] = [
   { id: '1', title: 'Shipping Policy', status: 'published', updatedAt: '2d ago' },

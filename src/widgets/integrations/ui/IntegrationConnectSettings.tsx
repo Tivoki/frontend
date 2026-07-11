@@ -1,6 +1,5 @@
 import { Key02Icon, Link02Icon, Shield02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-
 import type { Integration } from '~/entities/integration';
 import { Badge } from '~/shared/ui/kit';
 

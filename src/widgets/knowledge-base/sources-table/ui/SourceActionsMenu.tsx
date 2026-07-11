@@ -1,11 +1,10 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  Edit01Icon,
   Delete01Icon,
-  Refresh01Icon,
+  Edit01Icon,
   MoreHorizontalIcon,
+  Refresh01Icon,
 } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Button,
   DropdownMenu,

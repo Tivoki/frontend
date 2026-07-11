@@ -6,7 +6,6 @@ import {
   WorkflowSquare06Icon,
   ZapIcon,
 } from '@hugeicons/core-free-icons';
-
 import type { Integration } from './types';
 
 export const INTEGRATIONS: Integration[] = [

@@ -57,8 +57,8 @@ Headless components built on **Radix UI** (`radix-ui` package — the monorepo e
 Use **`@hugeicons/react`** (`HugeiconsIcon` component) with icons from **`@hugeicons/core-free-icons`**. Never use inline SVGs.
 
 ```tsx
-import { HugeiconsIcon } from '@hugeicons/react';
 import { BellDotIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 
 <HugeiconsIcon icon={BellDotIcon} strokeWidth={1.75} className="size-5" />;
 ```

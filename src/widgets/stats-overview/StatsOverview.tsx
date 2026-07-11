@@ -3,10 +3,9 @@ import {
   CheckmarkBadge01Icon,
   User02Icon,
 } from '@hugeicons/core-free-icons';
-
+import { cn } from '~/shared/lib';
 import { KpiCard } from '~/shared/ui/primitives';
 import type { KpiStat } from '~/shared/ui/primitives';
-import { cn } from '~/shared/lib';
 
 const MOCK_STATS: KpiStat[] = [
   {

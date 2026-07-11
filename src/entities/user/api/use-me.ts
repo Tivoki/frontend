@@ -1,9 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-
 import { apiClient } from '~/shared/api';
-
 import { userKeys } from '../model/keys';
 import type { Me } from '../model/types';
 

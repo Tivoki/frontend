@@ -1,21 +1,20 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
-
 import { cn, useMediaQuery } from '~/shared/lib';
 import {
-  type ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
+  type ChartConfig,
 } from '~/shared/ui/kit';
+import { useMemo, useState } from 'react';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
 interface ChartDataPoint {
   date: string;

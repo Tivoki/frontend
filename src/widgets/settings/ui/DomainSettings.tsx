@@ -1,9 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { Delete01Icon, Globe02Icon, PlusSignIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { DOMAINS } from '~/entities/settings';
 import type { Domain, DomainStatus } from '~/entities/settings';
 import {
@@ -18,6 +16,7 @@ import {
   FieldLabel,
   Input,
 } from '~/shared/ui/kit';
+import { useState } from 'react';
 
 const STATUS_BADGE: Record<DomainStatus, { label: string; className: string }> = {
   verified: {

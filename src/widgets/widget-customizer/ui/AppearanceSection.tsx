@@ -1,10 +1,9 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-
 import { ImageUploadIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-
+import { WELCOME_MSG_MAX } from '~/entities/widget';
+import type { WidgetConfig } from '~/entities/widget';
 import { cn } from '~/shared/lib';
 import {
   Button,
@@ -15,9 +14,7 @@ import {
   Input,
   Textarea,
 } from '~/shared/ui/kit';
-import { WELCOME_MSG_MAX } from '~/entities/widget';
-import type { WidgetConfig } from '~/entities/widget';
-
+import { Controller, useFormContext } from 'react-hook-form';
 import { ColorPickerField } from './ColorPickerField';
 
 const LABEL_CLASS = 'text-muted-foreground text-xs';

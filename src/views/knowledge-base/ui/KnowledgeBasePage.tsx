@@ -1,13 +1,11 @@
 'use client';
 
 import { Database01Icon, Doc01Icon, Layers01Icon } from '@hugeicons/core-free-icons';
-import dynamic from 'next/dynamic';
-import { useState } from 'react';
-
 import type { KnowledgeBaseSource } from '~/entities/knowledge-base-source';
 import { KpiCard, type KpiStat } from '~/shared/ui/primitives';
 import { KnowledgeBaseSourcesTable } from '~/widgets/knowledge-base';
-
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 import { KnowledgeBaseHeader } from './KnowledgeBaseHeader';
 
 const AddSourceDialog = dynamic(

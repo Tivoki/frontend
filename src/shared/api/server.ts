@@ -1,9 +1,7 @@
-import { cache } from 'react';
-
+import { toRoute } from '~/shared/lib';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-
-import { toRoute } from '~/shared/lib';
+import { cache } from 'react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

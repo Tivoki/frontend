@@ -1,6 +1,5 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import { Download01Icon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { INVOICES } from '~/entities/billing';
 import {
   Button,

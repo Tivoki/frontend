@@ -1,6 +1,5 @@
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-
 import type { WidgetConfig } from '~/entities/widget';
 
 const WIDGET_THEME = {

@@ -1,6 +1,6 @@
 import { cn } from '~/shared/lib';
 import { TableCell, TableRow } from '~/shared/ui/kit';
-import { STATUS_STYLES, STATUS_LABELS, CHANNEL_LABELS } from '../model/config';
+import { CHANNEL_LABELS, STATUS_LABELS, STATUS_STYLES } from '../model/config';
 import type { Conversation } from '../model/types';
 
 interface ConversationRowProps {

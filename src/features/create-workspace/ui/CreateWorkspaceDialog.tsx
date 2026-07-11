@@ -1,27 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-
 import type { WorkspaceWithMembers } from '~/entities/workspace';
 import {
   Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
   Field,
-  FieldLabel,
   FieldError,
   FieldGroup,
+  FieldLabel,
   Input,
 } from '~/shared/ui/kit';
-
-import { useCreateWorkspace } from '../model/use-create-workspace';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { createWorkspaceSchema, type CreateWorkspaceFormData } from '../model/schema';
+import { useCreateWorkspace } from '../model/use-create-workspace';
 
 const FORM_ID = 'create-workspace-form';
 

@@ -1,8 +1,7 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-
 import { useMe } from '~/entities/user';
+import { useParams } from 'next/navigation';
 
 export const useActiveWorkspaceId = (): string | null => {
   const params = useParams<{ workspaceId?: string }>();

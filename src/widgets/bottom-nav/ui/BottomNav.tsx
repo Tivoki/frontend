@@ -1,17 +1,16 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   BubbleChatIcon,
   CogIcon,
   HomeIcon,
   Search01Icon,
 } from '@hugeicons/core-free-icons';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { cn } from '~/shared/lib';
+import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const NAV_ITEMS = [
   { id: 'overview', label: 'Overview', sub: '', icon: HomeIcon },

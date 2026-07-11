@@ -1,8 +1,7 @@
-import type React from 'react';
-
 import type { Integration } from '~/entities/integration';
 import { IntegrationCard } from '~/entities/integration';
 import { cn } from '~/shared/lib';
+import type React from 'react';
 
 interface IntegrationsSectionProps {
   title: string;

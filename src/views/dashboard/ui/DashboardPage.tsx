@@ -1,6 +1,6 @@
-import { StatsOverview } from '~/widgets/stats-overview';
 import { ConversationChart } from '~/widgets/conversation';
 import { RecentConversations } from '~/widgets/recent-conversations';
+import { StatsOverview } from '~/widgets/stats-overview';
 import { DashboardInfoPanel } from './DashboardInfoPanel';
 
 export const DashboardPage = () => {

@@ -1,5 +1,4 @@
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import {
   getWorkspaceMembers,
   seedWorkspaceMembers,

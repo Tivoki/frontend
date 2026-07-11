@@ -2,7 +2,6 @@
 
 import { Add01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-
 import { Button } from '~/shared/ui/kit';
 
 interface KnowledgeBaseHeaderProps {

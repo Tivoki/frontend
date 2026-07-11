@@ -1,6 +1,5 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import { CreditCardIcon, PlusSignIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { PAYMENT_METHODS } from '~/entities/billing';
 import {
   Badge,

@@ -1,8 +1,12 @@
 'use client';
 
-import { ConversationRow } from '~/entities/conversation';
+import {
+  CHANNEL_LABELS,
+  ConversationRow,
+  STATUS_LABELS,
+  STATUS_STYLES,
+} from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
-import { STATUS_STYLES, STATUS_LABELS, CHANNEL_LABELS } from '~/entities/conversation';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { cn } from '~/shared/lib';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';

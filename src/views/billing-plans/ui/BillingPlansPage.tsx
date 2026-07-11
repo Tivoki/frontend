@@ -1,9 +1,8 @@
 import { ArrowLeft01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import Link from 'next/link';
-
 import { Button } from '~/shared/ui/kit';
 import { PlansGrid } from '~/widgets/billing';
+import Link from 'next/link';
 
 export const BillingPlansPage = () => {
   return (

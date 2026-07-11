@@ -1,8 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-
+import type { Conversation } from '~/entities/conversation';
 import { cn, useSearchParam } from '~/shared/lib';
 import {
   ResizableHandle,
@@ -14,8 +12,9 @@ import {
   SheetTitle,
   useSidebar,
 } from '~/shared/ui/kit';
-import type { Conversation } from '~/entities/conversation';
 import { ConversationList } from '~/widgets/conversation';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 const ConversationThread = dynamic(
   () => import('~/widgets/conversation').then((m) => ({ default: m.ConversationThread })),

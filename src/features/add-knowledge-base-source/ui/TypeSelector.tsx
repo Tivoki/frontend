@@ -1,17 +1,16 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
-import type { IconSvgElement } from '@hugeicons/react';
 import {
-  Globe02Icon,
-  File01Icon,
   Doc01Icon,
   Edit01Icon,
+  File01Icon,
+  Globe02Icon,
 } from '@hugeicons/core-free-icons';
-
-import { Button, DialogFooter } from '~/shared/ui/kit';
-import { cn } from '~/shared/lib';
+import { HugeiconsIcon } from '@hugeicons/react';
+import type { IconSvgElement } from '@hugeicons/react';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
+import { cn } from '~/shared/lib';
+import { Button, DialogFooter } from '~/shared/ui/kit';
 
 interface SourceTypeOption {
   value: KnowledgeBaseSourceType;

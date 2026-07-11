@@ -1,11 +1,10 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Analytics01Icon,
   FlashIcon,
   TrendingUpDownIcon,
 } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import type { IconSvgElement } from '@hugeicons/react';
-
 import { Logo } from './Logo';
 import { WidgetPreviewIllustration } from './WidgetPreviewIllustration';
 

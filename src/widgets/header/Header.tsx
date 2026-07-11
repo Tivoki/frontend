@@ -1,9 +1,9 @@
 'use client';
 
-import { SearchBar } from '~/features/search-global';
 import { NotificationsButton } from '~/features/notifications';
-import { WorkspaceSwitcher } from '~/features/switch-workspace';
+import { SearchBar } from '~/features/search-global';
 import { ThemeToggle } from '~/features/switch-theme';
+import { WorkspaceSwitcher } from '~/features/switch-workspace';
 import { UserMenu } from '~/features/user-menu';
 import { cn } from '~/shared/lib';
 import { SidebarTrigger } from '~/shared/ui/kit';

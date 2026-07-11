@@ -1,6 +1,5 @@
 'use client';
 
-import { HelpCard, Logo } from '~/shared/ui/primitives';
 import {
   Sidebar,
   SidebarContent,
@@ -9,7 +8,7 @@ import {
   SidebarRail,
   useSidebar,
 } from '~/shared/ui/kit';
-
+import { HelpCard, Logo } from '~/shared/ui/primitives';
 import { NavMenu } from './ui/NavMenu';
 
 export const LeftSidebar = () => {

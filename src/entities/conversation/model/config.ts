@@ -1,4 +1,4 @@
-import type { ConversationStatus, ConversationChannel } from './types';
+import type { ConversationChannel, ConversationStatus } from './types';
 
 export const STATUS_STYLES: Record<ConversationStatus, string> = {
   open: 'bg-info-subtle text-info-foreground',

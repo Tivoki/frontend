@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Add01Icon,
   BubbleChatIcon,
@@ -10,7 +8,7 @@ import {
   TelegramIcon,
   WebhookIcon,
 } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import type { EscalationDestination, RoutingRule } from '~/entities/escalation';
 import { DEFAULT_ESCALATION_DESTINATION, ROUTING_RULES } from '~/entities/escalation';
 import {
@@ -28,6 +26,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/shared/ui/kit';
+import { useState } from 'react';
 import { RoutingRuleActions } from './RoutingRuleActions';
 import { RoutingRuleDeleteDialog } from './RoutingRuleDeleteDialog';
 import { RoutingRuleFormDialog } from './RoutingRuleFormDialog';

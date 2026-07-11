@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
+import { z } from 'zod';
 
 export const addSourceBaseSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),

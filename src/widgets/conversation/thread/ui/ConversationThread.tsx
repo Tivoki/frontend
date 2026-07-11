@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { CHANNEL_LABELS } from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
 import { Badge, Button } from '~/shared/ui/kit';
+import { useEffect, useRef } from 'react';
 import { MessageBubble } from './MessageBubble';
 import { ReplyComposer } from './ReplyComposer';
 

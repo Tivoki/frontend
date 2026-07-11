@@ -1,6 +1,5 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import { Tick02Icon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import type { PlanTier } from '~/entities/billing';
 import { cn } from '~/shared/lib';
 import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '~/shared/ui/kit';

@@ -1,15 +1,13 @@
 'use client';
 
-import { FormProvider, useForm } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-
-import { cn } from '~/shared/lib';
-import { Button } from '~/shared/ui/kit';
 import { DEFAULT_WIDGET_CONFIG, widgetConfigSchema } from '~/entities/widget';
 import type { WidgetConfig } from '~/entities/widget';
-import { WidgetCustomizer } from '~/widgets/widget-customizer';
-
+import { cn } from '~/shared/lib';
+import { Button } from '~/shared/ui/kit';
 import { WidgetPreviewPanel } from '~/widgets/widget';
+import { WidgetCustomizer } from '~/widgets/widget-customizer';
+import { FormProvider, useForm } from 'react-hook-form';
 
 export const WidgetPage = () => {
   const form = useForm<WidgetConfig>({

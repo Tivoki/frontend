@@ -1,8 +1,7 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { IconSvgElement } from '@hugeicons/react';
-
 import { cn } from '~/shared/lib';
-import { Card, CardHeader, CardContent, CardFooter } from '~/shared/ui/kit';
+import { Card, CardContent, CardFooter, CardHeader } from '~/shared/ui/kit';
 
 export interface KpiStat {
   id: string;

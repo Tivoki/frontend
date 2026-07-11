@@ -1,11 +1,9 @@
 'use client';
 
-import { useMemo } from 'react';
-
 import { useActiveWorkspaceId, useScopedHref } from '~/features/switch-workspace';
-
-import type { SearchGroup, SearchItem } from './types';
+import { useMemo } from 'react';
 import { STATIC_SEARCH_GROUPS } from './data';
+import type { SearchGroup, SearchItem } from './types';
 
 const matchesQuery = (item: SearchItem, q: string) =>
   !q ||

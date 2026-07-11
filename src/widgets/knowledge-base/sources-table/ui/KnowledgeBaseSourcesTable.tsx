@@ -1,13 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-
-import { Card, Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
 import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-
+import { Card, Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
+import { useState } from 'react';
 import { SourceCard } from './SourceCard';
 import { SourcesTable } from './SourcesTable';
 

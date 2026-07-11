@@ -1,10 +1,8 @@
 import { HugeiconsIcon } from '@hugeicons/react';
-
-import { cn } from '~/shared/lib';
 import { DiscordIcon, GoogleSheetIcon, NotionIcon, SlackIcon } from '~/shared/icons';
-
-import type { IntegrationBrand, IntegrationCustomIcon } from '../model/types';
+import { cn } from '~/shared/lib';
 import type React from 'react';
+import type { IntegrationBrand, IntegrationCustomIcon } from '../model/types';
 
 const CUSTOM_ICONS: Record<
   IntegrationCustomIcon,

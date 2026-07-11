@@ -2,8 +2,8 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { apiClient, getApiErrorMessage } from '~/shared/api';
-import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 export const useLogout = () => {
   const router = useRouter();

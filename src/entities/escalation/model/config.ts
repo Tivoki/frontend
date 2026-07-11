@@ -4,7 +4,6 @@ import {
   TelegramIcon,
   WebhookIcon,
 } from '@hugeicons/core-free-icons';
-
 import type {
   Escalation,
   EscalationDestination,

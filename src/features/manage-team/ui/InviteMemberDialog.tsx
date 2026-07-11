@@ -1,23 +1,20 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-
 import { WORKSPACE_ROLE_LABELS } from '~/entities/workspace';
 import type { WorkspaceRole } from '~/entities/workspace';
 import {
   Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
   Field,
-  FieldLabel,
   FieldError,
   FieldGroup,
+  FieldLabel,
   Input,
   Select,
   SelectContent,
@@ -25,9 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/shared/ui/kit';
-
-import { useInviteMember } from '../model/use-invite-member';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { inviteMemberSchema, type InviteMemberFormData } from '../model/schema';
+import { useInviteMember } from '../model/use-invite-member';
 
 const FORM_ID = 'invite-member-form';
 

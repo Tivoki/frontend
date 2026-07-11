@@ -1,21 +1,20 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
-import type { IconSvgElement } from '@hugeicons/react';
 import {
-  Globe02Icon,
-  File01Icon,
   Doc01Icon,
   Edit01Icon,
+  File01Icon,
+  Globe02Icon,
 } from '@hugeicons/core-free-icons';
-
-import { Badge } from '~/shared/ui/kit';
-import { cn } from '~/shared/lib';
+import { HugeiconsIcon } from '@hugeicons/react';
+import type { IconSvgElement } from '@hugeicons/react';
 import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-import { TYPE_LABELS, TYPE_BADGE_VARIANTS, STATUS_CONFIG } from '../model/config';
+import { cn } from '~/shared/lib';
+import { Badge } from '~/shared/ui/kit';
+import { STATUS_CONFIG, TYPE_BADGE_VARIANTS, TYPE_LABELS } from '../model/config';
 import { SourceActionsMenu } from './SourceActionsMenu';
 
 const TYPE_ICONS: Record<KnowledgeBaseSourceType, IconSvgElement> = {

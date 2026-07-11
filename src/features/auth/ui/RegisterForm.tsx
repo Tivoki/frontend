@@ -1,16 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   EyeIcon,
   LockPasswordIcon,
   Mail01Icon,
   ViewOffIcon,
 } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import {
   Button,
   Field,
@@ -23,7 +20,8 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '~/shared/ui/kit';
-
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { registerSchema, type RegisterFormData } from '../model/register.schema';
 import { useRegister } from '../model/use-register';
 

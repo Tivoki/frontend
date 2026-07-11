@@ -1,21 +1,17 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
-  BookOpen01Icon,
-  BubbleChatIcon,
-  CogIcon,
   AlertDiamondIcon,
-  PuzzleIcon,
-  HomeIcon,
+  BookOpen01Icon,
   BrowserIcon,
-  Wallet01Icon,
+  BubbleChatIcon,
   ChartAnalysisIcon,
+  CogIcon,
+  HomeIcon,
+  PuzzleIcon,
+  Wallet01Icon,
 } from '@hugeicons/core-free-icons';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { useScopedHref } from '~/features/switch-workspace';
 import {
   SidebarGroup,
@@ -26,6 +22,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '~/shared/ui/kit';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 const NAV_GROUPS = [
   {

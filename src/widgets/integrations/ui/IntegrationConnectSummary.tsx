@@ -2,11 +2,10 @@
 
 import { InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import Link from 'next/link';
-
 import type { Integration } from '~/entities/integration';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Button } from '~/shared/ui/kit';
+import Link from 'next/link';
 
 interface IntegrationConnectSummaryProps {
   integration: Integration;

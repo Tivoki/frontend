@@ -1,9 +1,7 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import { CreditCardIcon, Download01Icon } from '@hugeicons/core-free-icons';
-import Link from 'next/link';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { CURRENT_PLAN, INVOICES, PAYMENT_METHOD } from '~/entities/settings';
 import type { InvoiceStatus } from '~/entities/settings';
 import { cn } from '~/shared/lib';
@@ -22,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from '~/shared/ui/kit';
+import Link from 'next/link';
 
 const INVOICE_STATUS: Record<InvoiceStatus, { label: string; className: string }> = {
   paid: {

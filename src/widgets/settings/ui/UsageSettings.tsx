@@ -1,4 +1,3 @@
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   AiBrain01Icon,
   HardDriveIcon,
@@ -6,8 +5,8 @@ import {
   ServerStack01Icon,
   UserGroupIcon,
 } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import type { IconSvgElement } from '@hugeicons/react';
-
 import { CURRENT_PLAN, USAGE_METRICS } from '~/entities/settings';
 import { cn } from '~/shared/lib';
 import {

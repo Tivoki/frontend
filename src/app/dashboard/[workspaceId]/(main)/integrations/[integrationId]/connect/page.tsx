@@ -1,7 +1,6 @@
-import { notFound } from 'next/navigation';
-
 import { getIntegrationById, INTEGRATIONS } from '~/entities/integration';
 import { IntegrationConnectPage } from '~/views/integration-connect';
+import { notFound } from 'next/navigation';
 
 export const generateStaticParams = () => {
   return INTEGRATIONS.map((integration) => ({ integrationId: integration.id }));

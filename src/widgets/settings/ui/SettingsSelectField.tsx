@@ -1,7 +1,6 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-
+import type { SettingsValues } from '~/entities/settings';
 import {
   Field,
   FieldLabel,
@@ -11,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/shared/ui/kit';
-import type { SettingsValues } from '~/entities/settings';
+import { Controller, useFormContext } from 'react-hook-form';
 import type { SettingsStringField } from '../model/field-names';
 
 interface SettingsSelectFieldProps {

@@ -1,9 +1,8 @@
 'use client';
 
-import { Controller, useFormContext } from 'react-hook-form';
-
-import { Field, FieldError, FieldLabel, Input } from '~/shared/ui/kit';
 import type { SettingsValues } from '~/entities/settings';
+import { Field, FieldError, FieldLabel, Input } from '~/shared/ui/kit';
+import { Controller, useFormContext } from 'react-hook-form';
 import type { SettingsStringField } from '../model/field-names';
 
 interface SettingsInputFieldProps {

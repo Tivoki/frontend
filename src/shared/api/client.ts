@@ -1,7 +1,6 @@
 'use client';
 
 import ky from 'ky';
-
 import { CSRF_TOKEN_COOKIE } from './auth-session';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

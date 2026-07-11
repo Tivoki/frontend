@@ -1,5 +1,5 @@
-import type { Route } from 'next';
 import { clsx, type ClassValue } from 'clsx';
+import type { Route } from 'next';
 import { twMerge } from 'tailwind-merge';
 
 export const toRoute = (url: string): Route => url as Route;

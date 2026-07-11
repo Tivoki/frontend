@@ -1,7 +1,7 @@
 'use client';
 
-import { Controller, useFormContext, useWatch } from 'react-hook-form';
-
+import { AUTO_OPEN_DELAYS } from '~/entities/widget';
+import type { WidgetConfig } from '~/entities/widget';
 import {
   Field,
   FieldLabel,
@@ -10,9 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from '~/shared/ui/kit';
-import { AUTO_OPEN_DELAYS } from '~/entities/widget';
-import type { WidgetConfig } from '~/entities/widget';
-
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { SwitchField } from './SwitchField';
 
 const LABEL_CLASS = 'text-muted-foreground text-xs';

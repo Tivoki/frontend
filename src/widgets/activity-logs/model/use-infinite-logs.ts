@@ -1,9 +1,8 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-
 import type { LogEntry } from '~/entities/log';
 import { fetchLogs } from '~/entities/log';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface UseInfiniteLogsResult {
   entries: LogEntry[];

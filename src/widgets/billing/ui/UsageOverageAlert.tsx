@@ -1,8 +1,7 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import { AlertDiamondIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { USAGE_OVERAGE } from '~/entities/billing';
 import { useSearchParam } from '~/shared/lib';
 import { Button, Card, CardContent, CardHeader, CardTitle } from '~/shared/ui/kit';

@@ -1,7 +1,6 @@
-import { redirect } from 'next/navigation';
-
 import { getWorkspaces } from '~/entities/workspace/index.server';
 import { NewWorkspacePage } from '~/views/new-workspace';
+import { redirect } from 'next/navigation';
 
 export default async function Page() {
   const workspacesResult = await getWorkspaces();

@@ -1,7 +1,6 @@
-import { notFound } from 'next/navigation';
-
 import { getIntegrationById, INTEGRATIONS } from '~/entities/integration';
 import { IntegrationEditPage } from '~/views/integration-edit';
+import { notFound } from 'next/navigation';
 
 export const generateStaticParams = () => {
   return INTEGRATIONS.filter((i) => i.status === 'connected').map((i) => ({

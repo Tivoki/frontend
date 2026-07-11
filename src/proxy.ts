@@ -1,13 +1,12 @@
+import {
+  ACCESS_TOKEN_COOKIE,
+  appendSetCookies,
+  REFRESH_TOKEN_COOKIE,
+  refreshAuthCookies,
+} from '~/shared/api/index.server';
 import { decodeJwt } from 'jose';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-import {
-  ACCESS_TOKEN_COOKIE,
-  REFRESH_TOKEN_COOKIE,
-  appendSetCookies,
-  refreshAuthCookies,
-} from '~/shared/api/index.server';
 
 // A token about to expire is as good as expired: don't let a request start
 // with an access token that dies mid-flight.

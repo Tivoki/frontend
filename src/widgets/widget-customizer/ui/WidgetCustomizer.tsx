@@ -1,7 +1,6 @@
 'use client';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
-
 import { AdvancedSection } from './AdvancedSection';
 import { BehaviorSection } from './BehaviorSection';
 import { CustomizeTab } from './CustomizeTab';

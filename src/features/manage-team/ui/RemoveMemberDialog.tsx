@@ -10,7 +10,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '~/shared/ui/kit';
-
 import { useRemoveMember } from '../model/use-remove-member';
 
 export interface RemovableMember {

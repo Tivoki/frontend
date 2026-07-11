@@ -1,18 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-
+import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '~/shared/ui/kit';
-import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
+import { useState } from 'react';
 import type { AddSourceFormData } from '../model/schema';
-import { TypeSelector, SOURCE_TYPE_OPTIONS } from './TypeSelector';
 import { SourceForm } from './SourceForm';
+import { SOURCE_TYPE_OPTIONS, TypeSelector } from './TypeSelector';
 
 export interface AddSourceDialogProps {
   open: boolean;

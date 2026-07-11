@@ -1,6 +1,5 @@
 import { serverApiGet } from '~/shared/api/index.server';
 import type { ServerApiResult } from '~/shared/api/index.server';
-
 import { WORKSPACE_PAGE_SIZE } from '../model/config';
 import type { Page, Workspace } from '../model/types';
 

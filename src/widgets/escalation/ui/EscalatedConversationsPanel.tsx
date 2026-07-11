@@ -1,14 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   BubbleChatIcon,
   Mail01Icon,
   TelegramIcon,
   WebhookIcon,
 } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import type { Escalation, EscalationDestination } from '~/entities/escalation';
 import { ESCALATIONS } from '~/entities/escalation';
 import { useWorkspaceHref } from '~/features/switch-workspace';
@@ -25,6 +23,7 @@ import {
   TableRow,
 } from '~/shared/ui/kit';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const DESTINATION_ICON: Record<EscalationDestination, typeof TelegramIcon> = {
   telegram: TelegramIcon,

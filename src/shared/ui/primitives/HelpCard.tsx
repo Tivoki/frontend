@@ -1,8 +1,8 @@
 'use client';
 
-import React, { type ComponentProps, type FC } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { BookOpenTextIcon, LinkSquare02Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { cn } from '~/shared/lib';
 import {
   Button,
   Tooltip,
@@ -10,7 +10,7 @@ import {
   TooltipTrigger,
   useSidebar,
 } from '~/shared/ui/kit';
-import { cn } from '~/shared/lib';
+import React, { type ComponentProps, type FC } from 'react';
 
 type HelpCardProps = ComponentProps<'div'> & {};
 

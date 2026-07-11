@@ -1,20 +1,19 @@
 import {
-  BookOpen01Icon,
-  BubbleChatIcon,
-  CogIcon,
   AlertDiamondIcon,
-  PuzzleIcon,
-  HomeIcon,
+  BookOpen01Icon,
   BrowserIcon,
-  Wallet01Icon,
+  BubbleChatIcon,
   ChartAnalysisIcon,
-  UserAdd01Icon,
-  FileAddIcon,
-  Doc01Icon,
   CodeCircleIcon,
+  CogIcon,
+  Doc01Icon,
+  FileAddIcon,
+  HomeIcon,
+  PuzzleIcon,
   Settings01Icon,
+  UserAdd01Icon,
+  Wallet01Icon,
 } from '@hugeicons/core-free-icons';
-
 import type { SearchGroup } from './types';
 
 export const STATIC_SEARCH_GROUPS: SearchGroup[] = [

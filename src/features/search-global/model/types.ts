@@ -1,5 +1,5 @@
-import type { Route } from 'next';
 import type { IconSvgElement } from '@hugeicons/react';
+import type { Route } from 'next';
 
 export interface SearchItem {
   id: string;

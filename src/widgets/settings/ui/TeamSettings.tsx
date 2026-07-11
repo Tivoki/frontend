@@ -1,17 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { UserAdd01Icon } from '@hugeicons/core-free-icons';
-import { useInView } from 'react-intersection-observer';
-
-import { WORKSPACE_ROLE_LABELS, useWorkspaceMembers } from '~/entities/workspace';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { useWorkspaceMembers, WORKSPACE_ROLE_LABELS } from '~/entities/workspace';
 import type { WorkspaceMemberWithUser } from '~/entities/workspace';
 import { InviteMemberDialog, RemoveMemberDialog } from '~/features/manage-team';
 import type { RemovableMember } from '~/features/manage-team';
 import { useActiveWorkspaceId } from '~/features/switch-workspace';
 import { getInitials } from '~/shared/lib';
-import { LoadingMoreRow } from '~/shared/ui/primitives';
 import {
   Avatar,
   AvatarFallback,
@@ -31,6 +27,9 @@ import {
   TableHeader,
   TableRow,
 } from '~/shared/ui/kit';
+import { LoadingMoreRow } from '~/shared/ui/primitives';
+import { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const ROLE_BADGE: Record<string, string> = {
   OWNER: 'bg-primary/10 text-primary border-transparent',

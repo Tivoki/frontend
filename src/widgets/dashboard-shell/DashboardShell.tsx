@@ -1,9 +1,8 @@
-import type { ReactNode } from 'react';
-
+import { SidebarInset, SidebarProvider } from '~/shared/ui/kit';
 import { BottomNav } from '~/widgets/bottom-nav';
 import { Header } from '~/widgets/header';
 import { LeftSidebar } from '~/widgets/left-sidebar';
-import { SidebarInset, SidebarProvider } from '~/shared/ui/kit';
+import type { ReactNode } from 'react';
 
 export const DashboardShell = ({ children }: { children: ReactNode }) => (
   <SidebarProvider className="h-svh">

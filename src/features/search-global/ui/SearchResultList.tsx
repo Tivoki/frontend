@@ -1,9 +1,6 @@
 'use client';
 
-import { Fragment } from 'react';
-import type { Route } from 'next';
 import { HugeiconsIcon } from '@hugeicons/react';
-
 import {
   CommandEmpty,
   CommandGroup,
@@ -11,6 +8,8 @@ import {
   CommandList,
   CommandSeparator,
 } from '~/shared/ui/kit';
+import type { Route } from 'next';
+import { Fragment } from 'react';
 import type { SearchGroup } from '../model/types';
 
 interface SearchResultListProps {

@@ -1,9 +1,7 @@
 'use client';
 
-import type { Route } from 'next';
-
 import { toRoute } from '~/shared/lib';
-
+import type { Route } from 'next';
 import { useWorkspaceHref } from './use-workspace-href';
 
 export type NavScope = 'workspace' | 'account';

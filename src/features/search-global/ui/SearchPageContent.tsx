@@ -1,11 +1,7 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
-import type { Route } from 'next';
-import { useRouter } from 'next/navigation';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { Cancel01Icon, Search01Icon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import { cn } from '~/shared/lib';
 import {
   Command,
@@ -14,6 +10,9 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '~/shared/ui/kit';
+import type { Route } from 'next';
+import { useRouter } from 'next/navigation';
+import { useCallback, useRef, useState } from 'react';
 import { useSearchItems } from '../model/use-search-items';
 import { SearchResultList } from './SearchResultList';
 

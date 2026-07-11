@@ -1,8 +1,7 @@
 'use client';
 
-import { HugeiconsIcon } from '@hugeicons/react';
 import { CreditCardIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
 import {
   CURRENT_CYCLE,
   NEXT_PAYMENT_DATE,

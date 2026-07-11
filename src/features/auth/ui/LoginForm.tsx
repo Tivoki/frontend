@@ -1,16 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { HugeiconsIcon } from '@hugeicons/react';
 import {
   EyeIcon,
   LockPasswordIcon,
   Mail01Icon,
   ViewOffIcon,
 } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
+import { GoogleIcon } from '~/shared/icons';
 import {
   Button,
   Field,
@@ -23,8 +21,8 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '~/shared/ui/kit';
-import { GoogleIcon } from '~/shared/icons';
-
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { loginSchema, type LoginFormData } from '../model/login.schema';
 import { useLogin } from '../model/use-login';
 

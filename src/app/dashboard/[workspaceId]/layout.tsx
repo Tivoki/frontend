@@ -1,15 +1,14 @@
-import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
-import { redirect } from 'next/navigation';
-import type { ReactNode } from 'react';
-
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { getMe, seedMe } from '~/entities/user/index.server';
-import { toRoute } from '~/shared/lib';
 import {
   getWorkspace,
   getWorkspaces,
   seedWorkspaceDetail,
   seedWorkspaceList,
 } from '~/entities/workspace/index.server';
+import { toRoute } from '~/shared/lib';
+import { redirect } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 const WorkspaceLayout = async ({
   params,

@@ -1,22 +1,21 @@
 'use client';
 
-import { useForm, Controller } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft01Icon, CloudUploadIcon } from '@hugeicons/core-free-icons';
-
+import { HugeiconsIcon } from '@hugeicons/react';
+import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
+import { cn } from '~/shared/lib';
 import {
   Button,
   DialogFooter,
   Field,
-  FieldLabel,
   FieldError,
   FieldGroup,
+  FieldLabel,
   Input,
   Textarea,
 } from '~/shared/ui/kit';
-import { cn } from '~/shared/lib';
-import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
+import { Controller, useForm } from 'react-hook-form';
 import { getSchemaForType, type AddSourceFormData } from '../model/schema';
 
 const FORM_ID = 'add-source-form';

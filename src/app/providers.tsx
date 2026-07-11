@@ -2,9 +2,9 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Toaster, TooltipProvider } from '~/shared/ui/kit';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { TooltipProvider, Toaster } from '~/shared/ui/kit';
 
 export const Providers = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(

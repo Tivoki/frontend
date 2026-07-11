@@ -4,7 +4,6 @@ import {
   Doc01Icon,
   MessageMultiple01Icon,
 } from '@hugeicons/core-free-icons';
-
 import type {
   BillingCycle,
   BillingHistoryEntry,
