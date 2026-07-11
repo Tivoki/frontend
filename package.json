@@ -39,6 +39,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@google/genai": "^2.11.0",
+    "@octokit/rest": "^22.0.1",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.101.1",
     "@types/node": "^20",

@@ -1,0 +1,41 @@
+name: Gemini PR Review on Command
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  gemini-review:
+    if: >-
+      ${{ github.event.issue.pull_request &&
+          contains(github.event.comment.body, '@gemini') &&
+          github.event.comment.user.type != 'Bot' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @google/genai @octokit/rest tsx
+
+      - name: Get PR Diff
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.issue.pull_request.url }}
+        run: |
+          curl -s -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3.diff" $PR_URL > pr_diff.txt
+
+      - name: Run Review Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: npx tsx scripts/gemini-review.ts
