@@ -2,6 +2,7 @@
 
 import { Copy01Icon, Tick01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import {
   Button,
   Select,
@@ -9,7 +10,6 @@ import {
   SelectItem,
   SelectTrigger,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
 
 const FRAMEWORKS = ['HTML', 'React', 'Next.js', 'Vue', 'Angular'];
 

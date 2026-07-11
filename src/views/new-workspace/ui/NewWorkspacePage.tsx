@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { CreateWorkspaceDialog } from '~/features/create-workspace';
 import { toRoute } from '~/shared/lib';
-import { useRouter } from 'next/navigation';
 
 export const NewWorkspacePage = () => {
   const router = useRouter();

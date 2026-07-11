@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import { RegisterForm } from '~/features/auth';
 import { AuthBrandPanel } from '~/shared/ui/primitives';
-import Link from 'next/link';
 
 export function RegisterPage() {
   return (

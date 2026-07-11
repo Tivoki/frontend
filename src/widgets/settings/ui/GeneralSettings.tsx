@@ -7,6 +7,7 @@ import {
   Tick02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useRef, useState } from 'react';
 import {
   ACCOUNT_INFO,
   COMPANY_NAME_MAX,
@@ -33,7 +34,6 @@ import {
   FieldLabel,
   Input,
 } from '~/shared/ui/kit';
-import { useRef, useState } from 'react';
 import { SettingsInputField } from './SettingsInputField';
 import { SettingsSelectField } from './SettingsSelectField';
 

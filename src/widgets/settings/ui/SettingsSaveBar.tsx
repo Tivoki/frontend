@@ -1,9 +1,9 @@
 'use client';
 
+import { useFormContext } from 'react-hook-form';
 import type { SettingsValues } from '~/entities/settings';
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
-import { useFormContext } from 'react-hook-form';
 
 export const SettingsSaveBar = () => {
   const {

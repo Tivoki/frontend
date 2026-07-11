@@ -2,6 +2,7 @@
 
 import { Copy01Icon, Delete01Icon, PlusSignIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import { API_KEYS } from '~/entities/settings';
 import type { ApiKey, ApiKeyScope } from '~/entities/settings';
 import {
@@ -43,7 +44,6 @@ import {
   TableHeader,
   TableRow,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
 
 const SCOPES: ApiKeyScope[] = ['read', 'write', 'admin'];
 

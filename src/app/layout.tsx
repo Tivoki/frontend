@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { Geist } from 'next/font/google';
-import './globals.css';
 import React from 'react';
 import { Providers } from './providers';
+import './globals.css';
 
 export const viewport: Viewport = {
   width: 'device-width',

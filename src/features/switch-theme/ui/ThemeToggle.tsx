@@ -2,10 +2,10 @@
 
 import { Moon02Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { useKeyboardShortcut } from '~/shared/lib';
-import { Button } from '~/shared/ui/kit';
 import { useTheme } from 'next-themes';
 import { useCallback } from 'react';
+import { useKeyboardShortcut } from '~/shared/lib';
+import { Button } from '~/shared/ui/kit';
 
 export const ThemeToggle = () => {
   const { setTheme } = useTheme();

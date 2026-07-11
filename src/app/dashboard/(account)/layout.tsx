@@ -1,8 +1,8 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 import { getMe, seedMe } from '~/entities/user/index.server';
 import { getWorkspaces, seedWorkspaceList } from '~/entities/workspace/index.server';
 import { DashboardShell } from '~/widgets/dashboard-shell';
-import type { ReactNode } from 'react';
 
 const AccountLayout = async ({ children }: Readonly<{ children: ReactNode }>) => {
   const [meResult, workspacesResult] = await Promise.all([getMe(), getWorkspaces()]);

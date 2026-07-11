@@ -2,6 +2,8 @@
 
 import { AccountSetting01Icon, Logout01Icon, UserIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
+import { useState } from 'react';
 import { useLogout } from '~/features/auth';
 import { useScopedHref } from '~/features/switch-workspace';
 import { getInitials } from '~/shared/lib';
@@ -15,8 +17,6 @@ import {
   PopoverTrigger,
   Separator,
 } from '~/shared/ui/kit';
-import Link from 'next/link';
-import { useState } from 'react';
 import type { CurrentUser } from '../model/types';
 
 const MOCK_USER: CurrentUser = {

@@ -1,6 +1,6 @@
-import { cn } from '~/shared/lib';
 import Link from 'next/link';
 import type { ComponentPropsWithoutRef } from 'react';
+import { cn } from '~/shared/lib';
 import { LogoIcon } from './LogoIcon';
 
 type LogoProps = Omit<ComponentPropsWithoutRef<'a'>, 'children' | 'href'> & {

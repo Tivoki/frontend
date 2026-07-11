@@ -2,6 +2,10 @@
 
 import { ArrowUpDownIcon, PlusSignIcon, Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import {
   useWorkspace,
   useWorkspaces,
@@ -18,10 +22,6 @@ import {
   Separator,
 } from '~/shared/ui/kit';
 import { LoadingMoreRow } from '~/shared/ui/primitives';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { useActiveWorkspaceId } from '../model/use-active-workspace-id';
 import { WorkspaceSwitcherSkeleton } from './WorkspaceSwitcherSkeleton';
 

@@ -4,10 +4,10 @@ import {
   Time01Icon,
   UserCheck01Icon,
 } from '@hugeicons/core-free-icons';
+import type { ComponentProps, FC } from 'react';
 import { cn } from '~/shared/lib';
 import type { KpiStat } from '~/shared/ui/primitives';
 import { KpiCard } from '~/shared/ui/primitives';
-import type { ComponentProps, FC } from 'react';
 
 const STATS: KpiStat[] = [
   {

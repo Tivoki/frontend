@@ -1,6 +1,6 @@
-import { clearAuthCookies } from '~/shared/api/index.server';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { clearAuthCookies } from '~/shared/api/index.server';
 
 /**
  * Local session teardown: drops the auth cookies and lands on the login page.

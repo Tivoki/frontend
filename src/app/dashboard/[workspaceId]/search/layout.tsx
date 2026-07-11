@@ -1,6 +1,6 @@
-import { BottomNav } from '~/widgets/bottom-nav';
 import type React from 'react';
 import { Suspense } from 'react';
+import { BottomNav } from '~/widgets/bottom-nav';
 
 const SearchLayout = ({ children }: { children: React.ReactNode }) => (
   <main className="flex min-h-svh flex-col">

@@ -8,6 +8,8 @@ import {
   ViewOffIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { GoogleIcon } from '~/shared/icons';
 import {
   Button,
@@ -21,8 +23,6 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { loginSchema, type LoginFormData } from '../model/login.schema';
 import { useLogin } from '../model/use-login';
 

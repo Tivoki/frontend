@@ -2,10 +2,10 @@
 
 import { Cancel01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { cn } from '~/shared/lib/utils';
-import { Button } from '~/shared/ui/kit/button';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 import * as React from 'react';
+import { cn } from '~/shared/lib/utils';
+import { Button } from '~/shared/ui/kit/button';
 
 function Dialog({ ...props }: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;

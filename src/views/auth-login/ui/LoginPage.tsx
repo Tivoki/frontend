@@ -1,7 +1,7 @@
-import { LoginForm } from '~/features/auth';
-import { AuthBrandPanel } from '~/shared/ui/primitives';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { LoginForm } from '~/features/auth';
+import { AuthBrandPanel } from '~/shared/ui/primitives';
 
 export function LoginPage() {
   return (

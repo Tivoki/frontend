@@ -1,5 +1,5 @@
-import { cn } from '~/shared/lib';
 import type { ComponentPropsWithoutRef } from 'react';
+import { cn } from '~/shared/lib';
 
 type LogoIconProps = Omit<ComponentPropsWithoutRef<'svg'>, 'children'> & {
   label?: string;

@@ -2,10 +2,10 @@
 
 import { ArrowLeft01Icon, Plug01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
 import { IntegrationIcon, type Integration } from '~/entities/integration';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Badge, Button } from '~/shared/ui/kit';
-import Link from 'next/link';
 
 interface IntegrationConnectHeroProps {
   integration: Integration;

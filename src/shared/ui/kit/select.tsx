@@ -7,9 +7,9 @@ import {
   UnfoldMoreIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { cn } from '~/shared/lib/utils';
 import { Select as SelectPrimitive } from 'radix-ui';
 import * as React from 'react';
+import { cn } from '~/shared/lib/utils';
 
 function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root data-slot="select" {...props} />;

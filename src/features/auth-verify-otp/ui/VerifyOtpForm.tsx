@@ -1,6 +1,7 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Button,
   FieldError,
@@ -8,7 +9,6 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from '~/shared/ui/kit';
-import { Controller, useForm } from 'react-hook-form';
 import { verifyOtpSchema, type VerifyOtpFormData } from '../model/schema';
 import { useResendOtp } from '../model/use-resend-otp';
 import { useVerifyOtp } from '../model/use-verify-otp';

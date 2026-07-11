@@ -1,8 +1,8 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { apiClient } from '~/shared/api';
 import { useRouter } from 'next/navigation';
+import { apiClient } from '~/shared/api';
 import type { VerifyOtpFormData } from './schema';
 
 export const useVerifyOtp = (email: string) => {

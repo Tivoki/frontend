@@ -8,6 +8,8 @@ import {
   ViewOffIcon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Button,
   Field,
@@ -20,8 +22,6 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { registerSchema, type RegisterFormData } from '../model/register.schema';
 import { useRegister } from '../model/use-register';
 

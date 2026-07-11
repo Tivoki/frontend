@@ -1,9 +1,9 @@
 'use client';
 
+import { useInView } from 'react-intersection-observer';
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
 import { LoadingMoreRow } from '~/shared/ui/primitives';
-import { useInView } from 'react-intersection-observer';
 import { useInfiniteLogs } from '../model/use-infinite-logs';
 import { ActivityLogsSkeleton } from './ActivityLogsSkeleton';
 import { ActivityLogsTable } from './ActivityLogsTable';

@@ -1,10 +1,10 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { FormProvider, useForm } from 'react-hook-form';
 import { DEFAULT_SETTINGS, settingsSchema } from '~/entities/settings';
 import type { SettingsValues } from '~/entities/settings';
 import { SettingsSaveBar, SettingsTabs } from '~/widgets/settings';
-import { FormProvider, useForm } from 'react-hook-form';
 
 export const SettingsPage = () => {
   const form = useForm<SettingsValues>({

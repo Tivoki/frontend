@@ -1,7 +1,7 @@
 'use client';
 
-import { useActiveWorkspaceId, useScopedHref } from '~/features/switch-workspace';
 import { useMemo } from 'react';
+import { useActiveWorkspaceId, useScopedHref } from '~/features/switch-workspace';
 import { STATIC_SEARCH_GROUPS } from './data';
 import type { SearchGroup, SearchItem } from './types';
 

@@ -1,9 +1,9 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { apiClient, getApiErrorMessage } from '~/shared/api';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { apiClient, getApiErrorMessage } from '~/shared/api';
 
 export const useLogout = () => {
   const router = useRouter();

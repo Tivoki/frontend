@@ -2,10 +2,10 @@
 
 import { Moon02Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import type { WidgetConfig } from '~/entities/widget';
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
-import { useState } from 'react';
 import type { DeviceType } from '../model/types';
 import { DeviceSwitcher } from './DeviceSwitcher';
 import { MockWebsiteContent } from './MockWebsiteContent';

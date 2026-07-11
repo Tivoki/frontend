@@ -1,5 +1,6 @@
 'use client';
 
+import { Controller, useFormContext } from 'react-hook-form';
 import type { WidgetConfig } from '~/entities/widget';
 import {
   Field,
@@ -9,7 +10,6 @@ import {
   Input,
   Textarea,
 } from '~/shared/ui/kit';
-import { Controller, useFormContext } from 'react-hook-form';
 import { SwitchField } from './SwitchField';
 
 const LABEL_CLASS = 'text-muted-foreground text-xs';

@@ -2,11 +2,11 @@
 
 import { Add01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import type { HandoffChannel } from '~/entities/escalation';
 import { HANDOFF_CHANNELS } from '~/entities/escalation';
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
-import { useState } from 'react';
 import { HandoffChannelAddSheet } from './HandoffChannelAddSheet';
 import { HandoffChannelConfigureSheet } from './HandoffChannelConfigureSheet';
 

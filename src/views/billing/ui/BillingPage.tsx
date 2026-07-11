@@ -1,9 +1,9 @@
 import { Wallet01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Button } from '~/shared/ui/kit';
-import { BillingTabs } from '~/widgets/billing';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { Button } from '~/shared/ui/kit';
+import { BillingTabs } from '~/widgets/billing';
 
 export const BillingPage = () => {
   return (

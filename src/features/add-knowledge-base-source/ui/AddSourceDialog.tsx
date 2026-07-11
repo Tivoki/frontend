@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
 import {
   Dialog,
@@ -8,7 +9,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
 import type { AddSourceFormData } from '../model/schema';
 import { SourceForm } from './SourceForm';
 import { SOURCE_TYPE_OPTIONS, TypeSelector } from './TypeSelector';

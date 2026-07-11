@@ -1,7 +1,7 @@
+import { redirect } from 'next/navigation';
 import { getMe } from '~/entities/user/index.server';
 import { getWorkspaces } from '~/entities/workspace/index.server';
 import { toRoute } from '~/shared/lib';
-import { redirect } from 'next/navigation';
 
 export default async function DashboardIndexPage() {
   const meResult = await getMe();

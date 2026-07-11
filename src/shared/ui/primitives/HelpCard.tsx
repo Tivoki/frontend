@@ -2,6 +2,7 @@
 
 import { BookOpenTextIcon, LinkSquare02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import React, { type ComponentProps, type FC } from 'react';
 import { cn } from '~/shared/lib';
 import {
   Button,
@@ -10,7 +11,6 @@ import {
   TooltipTrigger,
   useSidebar,
 } from '~/shared/ui/kit';
-import React, { type ComponentProps, type FC } from 'react';
 
 type HelpCardProps = ComponentProps<'div'> & {};
 

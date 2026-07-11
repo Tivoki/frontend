@@ -1,9 +1,9 @@
 'use client';
 
-import { Command, CommandDialog, CommandInput } from '~/shared/ui/kit';
 import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Command, CommandDialog, CommandInput } from '~/shared/ui/kit';
 import { useSearchItems } from '../model/use-search-items';
 import { SearchResultList } from './SearchResultList';
 

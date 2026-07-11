@@ -2,6 +2,7 @@
 
 import { ImageUploadIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { Controller, useFormContext } from 'react-hook-form';
 import type { WidgetConfig } from '~/entities/widget';
 import {
   Button,
@@ -11,7 +12,6 @@ import {
   FieldLabel,
   Input,
 } from '~/shared/ui/kit';
-import { Controller, useFormContext } from 'react-hook-form';
 
 const LABEL_CLASS = 'text-muted-foreground text-xs';
 

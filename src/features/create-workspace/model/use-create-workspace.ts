@@ -1,11 +1,11 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { workspaceKeys } from '~/entities/workspace';
 import type { WorkspaceWithMembers } from '~/entities/workspace';
 import { apiClient, getApiErrorMessage } from '~/shared/api';
 import type { components } from '~/shared/api';
-import { toast } from 'sonner';
 
 export const useCreateWorkspace = () => {
   const queryClient = useQueryClient();

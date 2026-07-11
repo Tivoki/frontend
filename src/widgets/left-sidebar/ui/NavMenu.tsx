@@ -12,6 +12,9 @@ import {
   Wallet01Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 import { useScopedHref } from '~/features/switch-workspace';
 import {
   SidebarGroup,
@@ -22,9 +25,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '~/shared/ui/kit';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
 
 const NAV_GROUPS = [
   {

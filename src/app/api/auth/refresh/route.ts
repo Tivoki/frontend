@@ -1,10 +1,10 @@
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import {
   appendSetCookies,
   REFRESH_TOKEN_COOKIE,
   refreshAuthCookies,
 } from '~/shared/api/index.server';
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
 /**
  * Client-side session renewal: in-page requests that hit a 401 call this

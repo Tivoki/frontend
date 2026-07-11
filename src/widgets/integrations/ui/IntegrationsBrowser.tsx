@@ -1,10 +1,10 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useMemo, useState } from 'react';
 import type { Integration, IntegrationStatus } from '~/entities/integration';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
-import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
 import { IntegrationsSection } from './IntegrationsSection';
 
 type IntegrationTab = 'all' | IntegrationStatus;

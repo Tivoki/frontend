@@ -2,6 +2,7 @@
 
 import { Notification01Icon, Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import { cn } from '~/shared/lib';
 import {
   Button,
@@ -10,7 +11,6 @@ import {
   PopoverTrigger,
   Separator,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
 import type { Notification } from '../model/types';
 
 const MOCK_NOTIFICATIONS: Notification[] = [

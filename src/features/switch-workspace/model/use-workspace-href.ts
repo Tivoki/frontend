@@ -1,7 +1,7 @@
 'use client';
 
-import { toRoute } from '~/shared/lib';
 import type { Route } from 'next';
+import { toRoute } from '~/shared/lib';
 import { useActiveWorkspaceId } from './use-active-workspace-id';
 
 export const useWorkspaceHref = () => {

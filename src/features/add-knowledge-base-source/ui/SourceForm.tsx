@@ -3,6 +3,7 @@
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 import { ArrowLeft01Icon, CloudUploadIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { Controller, useForm } from 'react-hook-form';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
 import { cn } from '~/shared/lib';
 import {
@@ -15,7 +16,6 @@ import {
   Input,
   Textarea,
 } from '~/shared/ui/kit';
-import { Controller, useForm } from 'react-hook-form';
 import { getSchemaForType, type AddSourceFormData } from '../model/schema';
 
 const FORM_ID = 'add-source-form';

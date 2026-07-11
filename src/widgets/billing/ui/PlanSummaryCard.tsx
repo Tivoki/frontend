@@ -1,8 +1,8 @@
 import { Tick02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
 import { CURRENT_PLAN } from '~/entities/billing';
 import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '~/shared/ui/kit';
-import Link from 'next/link';
 
 export const PlanSummaryCard = () => {
   return (

@@ -7,10 +7,10 @@ import {
   Search01Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { useWorkspaceHref } from '~/features/switch-workspace';
-import { cn } from '~/shared/lib';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useWorkspaceHref } from '~/features/switch-workspace';
+import { cn } from '~/shared/lib';
 
 const NAV_ITEMS = [
   { id: 'overview', label: 'Overview', sub: '', icon: HomeIcon },

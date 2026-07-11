@@ -2,6 +2,8 @@
 
 import { UserAdd01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useWorkspaceMembers, WORKSPACE_ROLE_LABELS } from '~/entities/workspace';
 import type { WorkspaceMemberWithUser } from '~/entities/workspace';
 import { InviteMemberDialog, RemoveMemberDialog } from '~/features/manage-team';
@@ -28,8 +30,6 @@ import {
   TableRow,
 } from '~/shared/ui/kit';
 import { LoadingMoreRow } from '~/shared/ui/primitives';
-import { useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 
 const ROLE_BADGE: Record<string, string> = {
   OWNER: 'bg-primary/10 text-primary border-transparent',

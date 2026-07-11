@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import {
   CHANNEL_LABELS,
   ConversationRow,
@@ -10,7 +11,6 @@ import type { Conversation } from '~/entities/conversation';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import { cn } from '~/shared/lib';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
-import Link from 'next/link';
 
 const MOCK_CONVERSATIONS: Conversation[] = [
   {

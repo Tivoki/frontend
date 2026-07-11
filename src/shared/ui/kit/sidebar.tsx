@@ -2,6 +2,9 @@
 
 import { SidebarLeftIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { Slot } from 'radix-ui';
+import * as React from 'react';
 import { useIsMobile } from '~/shared/lib/hooks/use-mobile';
 import { cn } from '~/shared/lib/utils';
 import { Button } from '~/shared/ui/kit/button';
@@ -16,9 +19,6 @@ import {
 } from '~/shared/ui/kit/sheet';
 import { Skeleton } from '~/shared/ui/kit/skeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '~/shared/ui/kit/tooltip';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { Slot } from 'radix-ui';
-import * as React from 'react';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

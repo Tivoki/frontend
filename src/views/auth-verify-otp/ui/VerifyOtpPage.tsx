@@ -1,9 +1,9 @@
 'use client';
 
-import { VerifyOtpForm } from '~/features/auth-verify-otp';
-import { AuthBrandPanel } from '~/shared/ui/primitives';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { VerifyOtpForm } from '~/features/auth-verify-otp';
+import { AuthBrandPanel } from '~/shared/ui/primitives';
 
 export function VerifyOtpPage() {
   const searchParams = useSearchParams();

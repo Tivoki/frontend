@@ -1,6 +1,7 @@
 'use client';
 
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
 import { USAGE_METRICS } from '~/entities/billing';
 import { useWorkspaceHref } from '~/features/switch-workspace';
 import {
@@ -11,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '~/shared/ui/kit';
-import Link from 'next/link';
 
 export const UsageOverviewCard = () => {
   const workspaceHref = useWorkspaceHref();

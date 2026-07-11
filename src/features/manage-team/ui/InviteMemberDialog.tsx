@@ -1,6 +1,8 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { WORKSPACE_ROLE_LABELS } from '~/entities/workspace';
 import type { WorkspaceRole } from '~/entities/workspace';
 import {
@@ -22,8 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '~/shared/ui/kit';
-import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
 import { inviteMemberSchema, type InviteMemberFormData } from '../model/schema';
 import { useInviteMember } from '../model/use-invite-member';
 

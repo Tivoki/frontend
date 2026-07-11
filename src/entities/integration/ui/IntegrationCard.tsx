@@ -6,6 +6,7 @@ import {
   Settings02Icon,
 } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useState } from 'react';
 import { cn } from '~/shared/lib';
 import {
   AlertDialog,
@@ -23,7 +24,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/shared/ui/kit';
-import { useState } from 'react';
 import type { Integration } from '../model/types';
 import { IntegrationIcon } from './IntegrationIcon';
 

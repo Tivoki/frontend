@@ -2,6 +2,7 @@
 
 import { AttachmentIcon, SentIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useId, useState } from 'react';
 import { cn } from '~/shared/lib';
 import {
   Button,
@@ -12,7 +13,6 @@ import {
   TabsTrigger,
   Textarea,
 } from '~/shared/ui/kit';
-import { useId, useState } from 'react';
 
 interface ReplyComposerProps {
   onSend?: (text: string, type: 'reply' | 'note') => void;
