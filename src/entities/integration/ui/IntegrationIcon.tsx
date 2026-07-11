@@ -4,6 +4,7 @@ import { cn } from '~/shared/lib';
 import { DiscordIcon, GoogleSheetIcon, NotionIcon, SlackIcon } from '~/shared/icons';
 
 import type { IntegrationBrand, IntegrationCustomIcon } from '../model/types';
+import type React from 'react';
 
 const CUSTOM_ICONS: Record<
   IntegrationCustomIcon,

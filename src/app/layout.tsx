@@ -35,6 +35,11 @@ export default function RootLayout({
       className={`${geistSans.variable} h-full antialiased`}
     >
       <body className="flex h-full flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='back_forward'&&n.deliveryType==='cache')location.reload();})();`,
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

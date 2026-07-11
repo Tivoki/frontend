@@ -11,7 +11,7 @@ export const useRegister = () => {
 
   return useMutation({
     mutationFn: (data: components['schemas']['RegisterDto']) =>
-      apiClient.post('api/v1/auth/register', { json: data }).json<void>(),
+      apiClient.post('auth/register', { json: data }).json<void>(),
     onSuccess: (_data, variables) => {
       const params = new URLSearchParams({ email: variables.email });
       router.push(`/auth/verify-otp?${params.toString()}`);

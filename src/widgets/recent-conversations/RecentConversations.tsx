@@ -1,6 +1,9 @@
+'use client';
+
 import { ConversationRow } from '~/entities/conversation';
 import type { Conversation } from '~/entities/conversation';
 import { STATUS_STYLES, STATUS_LABELS, CHANNEL_LABELS } from '~/entities/conversation';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 import { cn } from '~/shared/lib';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '~/shared/ui/kit';
 import Link from 'next/link';
@@ -53,11 +56,13 @@ export const RecentConversations = ({
   conversations = MOCK_CONVERSATIONS,
   className,
 }: RecentConversationsProps) => {
+  const workspaceHref = useWorkspaceHref();
+
   return (
     <div className={cn('min-w-0 rounded-xl border border-border bg-background', className)}>
       <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
         <h3 className="text-sm font-semibold text-foreground">Recent Conversations</h3>
-        <Link href="/dashboard/conversations" className="shrink-0 text-xs font-medium text-primary hover:underline">
+        <Link href={workspaceHref('conversations')} className="shrink-0 text-xs font-medium text-primary hover:underline">
           View All
         </Link>
       </div>

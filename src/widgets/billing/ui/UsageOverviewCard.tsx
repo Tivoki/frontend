@@ -1,7 +1,10 @@
+'use client';
+
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 
 import { USAGE_METRICS } from '~/entities/billing';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 import {
   Button,
   Card,
@@ -12,6 +15,8 @@ import {
 } from '~/shared/ui/kit';
 
 export const UsageOverviewCard = () => {
+  const workspaceHref = useWorkspaceHref();
+
   return (
     <Card>
       <CardHeader>
@@ -69,7 +74,7 @@ export const UsageOverviewCard = () => {
         })}
 
         <Button asChild variant="outline" className="w-full">
-          <Link href="/dashboard/settings?tab=usage">View full usage analytics</Link>
+          <Link href={workspaceHref('settings?tab=usage')}>View full usage analytics</Link>
         </Button>
       </CardContent>
     </Card>

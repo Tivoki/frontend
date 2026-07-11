@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
+import { LoadingMoreRow } from '~/shared/ui/primitives';
 import { useInfiniteLogs } from '../model/use-infinite-logs';
 import { ActivityLogsSkeleton } from './ActivityLogsSkeleton';
 import { ActivityLogsTable } from './ActivityLogsTable';
@@ -12,22 +13,12 @@ export const ActivityLogsFeed = ({ className }: { className?: string }) => {
   const { entries, isLoading, isInitialLoading, error, hasMore, loadMore } =
     useInfiniteLogs();
 
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el || !hasMore || error) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) loadMore();
-      },
-      { rootMargin: '200px' },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [hasMore, error, loadMore, entries.length]);
+  const { ref: sentinelRef } = useInView({
+    rootMargin: '200px',
+    onChange: (inView) => {
+      if (inView && hasMore && !isLoading && !error) loadMore();
+    },
+  });
 
   return (
     <div
@@ -44,10 +35,7 @@ export const ActivityLogsFeed = ({ className }: { className?: string }) => {
 
       {/* Loading-more indicator */}
       {isLoading && !isInitialLoading && (
-        <div className="text-muted-foreground flex items-center justify-center gap-2 px-4 py-4 text-sm">
-          <span className="border-muted-foreground/40 border-t-muted-foreground size-4 animate-spin rounded-full border-2" />
-          Loading more…
-        </div>
+        <LoadingMoreRow label="Loading more…" className="px-4 py-4 text-sm" />
       )}
 
       {/* Error state with retry */}

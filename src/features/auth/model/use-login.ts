@@ -8,10 +8,10 @@ import type { components } from '~/shared/api';
 import { AUTH_ERRORS } from '~/features/auth/model/auth.constants';
 import { toast } from 'sonner';
 
+// A local path only, so a crafted ?redirect= can't bounce the user to another
+// origin (protocol-relative `//` and backslash `/\` variants included).
 const safeRedirect = (target: string | null): Route =>
-  (target && target.startsWith('/') && !target.startsWith('//')
-    ? target
-    : '/dashboard') as Route;
+  (target && /^\/(?![/\\])/.test(target) ? target : '/dashboard') as Route;
 
 export const useLogin = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ export const useLogin = () => {
 
   return useMutation({
     mutationFn: (data: components['schemas']['LoginDto']) =>
-      apiClient.post('api/v1/auth/login', { json: data }).json<void>(),
+      apiClient.post('auth/login', { json: data }).json<void>(),
     onSuccess: () => router.push(safeRedirect(searchParams.get('redirect'))),
     onError: (error, variables) => {
       const message = getApiErrorMessage(error);

@@ -1,8 +1,11 @@
+'use client';
+
 import { InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 
 import type { Integration } from '~/entities/integration';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Button } from '~/shared/ui/kit';
 
 interface IntegrationConnectSummaryProps {
@@ -12,6 +15,8 @@ interface IntegrationConnectSummaryProps {
 export const IntegrationConnectSummary = ({
   integration,
 }: IntegrationConnectSummaryProps) => {
+  const workspaceHref = useWorkspaceHref();
+
   return (
     <aside className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-5 xl:sticky xl:top-4">
       <div className="bg-primary/10 text-primary mb-4 flex size-10 items-center justify-center rounded-full">
@@ -52,7 +57,7 @@ export const IntegrationConnectSummary = ({
       </dl>
 
       <Button asChild variant="outline" className="mt-5 w-full">
-        <Link href="/dashboard/integrations">Cancel</Link>
+        <Link href={workspaceHref('integrations')}>Cancel</Link>
       </Button>
     </aside>
   );

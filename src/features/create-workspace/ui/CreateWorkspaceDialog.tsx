@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
 
+import type { WorkspaceWithMembers } from '~/entities/workspace';
 import {
   Button,
   Dialog,
@@ -19,6 +20,7 @@ import {
   Input,
 } from '~/shared/ui/kit';
 
+import { useCreateWorkspace } from '../model/use-create-workspace';
 import { createWorkspaceSchema, type CreateWorkspaceFormData } from '../model/schema';
 
 const FORM_ID = 'create-workspace-form';
@@ -26,31 +28,44 @@ const FORM_ID = 'create-workspace-form';
 interface CreateWorkspaceDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onCreate?: (data: CreateWorkspaceFormData) => void;
+  onCreated?: (workspace: WorkspaceWithMembers) => void;
+  dismissible?: boolean;
 }
 
 export const CreateWorkspaceDialog = ({
   open,
   onOpenChange,
-  onCreate,
+  onCreated,
+  dismissible = true,
 }: CreateWorkspaceDialogProps) => {
   const form = useForm<CreateWorkspaceFormData>({
     resolver: standardSchemaResolver(createWorkspaceSchema),
-    defaultValues: { name: '', role: '' },
+    defaultValues: { name: '' },
   });
+
+  const { mutate, isPending } = useCreateWorkspace();
 
   useEffect(() => {
     if (!open) form.reset();
   }, [open, form]);
 
   const onSubmit = (data: CreateWorkspaceFormData) => {
-    onCreate?.(data);
-    onOpenChange(false);
+    mutate(data, {
+      onSuccess: (workspace) => {
+        onCreated?.(workspace);
+        onOpenChange(false);
+      },
+    });
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[min(24rem,calc(100%-2rem))]">
+      <DialogContent
+        className="max-w-[min(24rem,calc(100%-2rem))]"
+        showCloseButton={dismissible}
+        onEscapeKeyDown={dismissible ? undefined : (e) => e.preventDefault()}
+        onInteractOutside={dismissible ? undefined : (e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle>New workspace</DialogTitle>
           <DialogDescription>
@@ -77,30 +92,12 @@ export const CreateWorkspaceDialog = ({
                 </Field>
               )}
             />
-
-            <Controller
-              name="role"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={`${FORM_ID}-role`}>Workspace type</FieldLabel>
-                  <Input
-                    {...field}
-                    id={`${FORM_ID}-role`}
-                    placeholder="Customer Workspace"
-                    autoComplete="off"
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-                </Field>
-              )}
-            />
           </FieldGroup>
         </form>
 
-        <DialogFooter showCloseButton>
-          <Button type="submit" form={FORM_ID} disabled={form.formState.isSubmitting}>
-            Create workspace
+        <DialogFooter showCloseButton={dismissible}>
+          <Button type="submit" form={FORM_ID} disabled={isPending}>
+            {isPending ? 'Creating…' : 'Create workspace'}
           </Button>
         </DialogFooter>
       </DialogContent>

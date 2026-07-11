@@ -5,7 +5,6 @@ import type {
   Invoice,
   PaymentMethod,
   PlanInfo,
-  TeamMember,
   UsageMetric,
 } from './types';
 
@@ -29,44 +28,6 @@ export const PAYMENT_METHOD: PaymentMethod = {
   last4: '4242',
   expiry: '08 / 27',
 };
-
-export const TEAM_MEMBERS: TeamMember[] = [
-  {
-    id: 'm1',
-    name: 'Olivia Bennett',
-    email: 'olivia@acme.com',
-    role: 'Owner',
-    status: 'active',
-  },
-  {
-    id: 'm2',
-    name: 'Marcus Lee',
-    email: 'marcus.lee@acme.com',
-    role: 'Admin',
-    status: 'active',
-  },
-  {
-    id: 'm3',
-    name: 'Amanda Torres',
-    email: 'amanda.t@acme.com',
-    role: 'Agent',
-    status: 'active',
-  },
-  {
-    id: 'm4',
-    name: 'Robert Wilson',
-    email: 'r.wilson@acme.com',
-    role: 'Agent',
-    status: 'active',
-  },
-  {
-    id: 'm5',
-    name: 'Jennifer Smith',
-    email: 'jennifer.smith@acme.com',
-    role: 'Viewer',
-    status: 'invited',
-  },
-];
 
 export const INVOICES: Invoice[] = [
   {

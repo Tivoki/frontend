@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 
 import { KnowledgeBaseItemRow } from '~/entities/knowledge-base-item';
 import type { KnowledgeBaseItem } from '~/entities/knowledge-base-item';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 
 const MOCK_KB_ITEMS: KnowledgeBaseItem[] = [
   { id: '1', title: 'Shipping Policy', status: 'published', updatedAt: '2d ago' },
@@ -18,11 +21,13 @@ interface KnowledgeBaseStatusProps {
 export const KnowledgeBaseStatus = ({
   items = MOCK_KB_ITEMS,
 }: KnowledgeBaseStatusProps) => {
+  const workspaceHref = useWorkspaceHref();
+
   return (
     <div className="border-border bg-background rounded-xl border p-4">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-foreground text-sm font-semibold">Knowledge Base Status</h3>
-        <Link href="/dashboard/knowledge-base" className="text-primary text-xs hover:underline">
+        <Link href={workspaceHref('knowledge-base')} className="text-primary text-xs hover:underline">
           View All
         </Link>
       </div>

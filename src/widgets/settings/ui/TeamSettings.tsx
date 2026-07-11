@@ -3,10 +3,15 @@
 import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { UserAdd01Icon } from '@hugeicons/core-free-icons';
+import { useInView } from 'react-intersection-observer';
 
-import { TEAM_MEMBERS } from '~/entities/settings';
-import type { TeamMember, TeamRole } from '~/entities/settings';
-import { cn, getInitials } from '~/shared/lib';
+import { WORKSPACE_ROLE_LABELS, useWorkspaceMembers } from '~/entities/workspace';
+import type { WorkspaceMemberWithUser } from '~/entities/workspace';
+import { InviteMemberDialog, RemoveMemberDialog } from '~/features/manage-team';
+import type { RemovableMember } from '~/features/manage-team';
+import { useActiveWorkspaceId } from '~/features/switch-workspace';
+import { getInitials } from '~/shared/lib';
+import { LoadingMoreRow } from '~/shared/ui/primitives';
 import {
   Avatar,
   AvatarFallback,
@@ -18,21 +23,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  Field,
-  FieldLabel,
-  Input,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -41,40 +32,37 @@ import {
   TableRow,
 } from '~/shared/ui/kit';
 
-const INVITABLE_ROLES: TeamRole[] = ['Admin', 'Agent', 'Viewer'];
+const ROLE_BADGE: Record<string, string> = {
+  OWNER: 'bg-primary/10 text-primary border-transparent',
+  ADMIN: 'bg-muted text-foreground border-transparent',
+  AGENT: 'bg-muted text-muted-foreground border-transparent',
+  VIEWER: 'bg-muted text-muted-foreground border-transparent',
+};
 
-const ROLE_BADGE: Record<TeamRole, string> = {
-  Owner: 'bg-primary/10 text-primary border-transparent',
-  Admin: 'bg-muted text-foreground border-transparent',
-  Agent: 'bg-muted text-muted-foreground border-transparent',
-  Viewer: 'bg-muted text-muted-foreground border-transparent',
+const memberName = (member: WorkspaceMemberWithUser) => {
+  const fullName = [member.user.firstName, member.user.lastName]
+    .filter(Boolean)
+    .join(' ');
+  return fullName || member.user.email;
 };
 
 export const TeamSettings = () => {
-  const [members, setMembers] = useState<TeamMember[]>(TEAM_MEMBERS);
+  const workspaceId = useActiveWorkspaceId();
+
+  const { data, isPending, isError, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useWorkspaceMembers(workspaceId);
+
+  const members = data?.pages.flatMap((page) => page.data) ?? [];
+
   const [inviteOpen, setInviteOpen] = useState(false);
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState<TeamRole>('Agent');
+  const [memberToRemove, setMemberToRemove] = useState<RemovableMember | null>(null);
 
-  const removeMember = (id: string) =>
-    setMembers((prev) => prev.filter((m) => m.id !== id));
-
-  const sendInvite = () => {
-    if (!email) return;
-    setMembers((prev) => [
-      ...prev,
-      {
-        id: `m_${Date.now()}`,
-        name: email.split('@')[0],
-        email,
-        role,
-        status: 'invited',
-      },
-    ]);
-    setEmail('');
-    setRole('Agent');
-    setInviteOpen(false);
-  };
+  const { ref: sentinelRef } = useInView({
+    rootMargin: '200px',
+    onChange: (inView) => {
+      if (inView && hasNextPage && !isFetchingNextPage) void fetchNextPage();
+    },
+  });
 
   return (
     <Card>
@@ -86,6 +74,7 @@ export const TeamSettings = () => {
             type="button"
             size="sm"
             className="gap-1.5"
+            disabled={!workspaceId}
             onClick={() => setInviteOpen(true)}
           >
             <HugeiconsIcon icon={UserAdd01Icon} strokeWidth={1.75} className="size-4" />
@@ -95,162 +84,157 @@ export const TeamSettings = () => {
       </CardHeader>
 
       <CardContent className="px-0">
-        {/* Mobile: cards */}
-        <div className="divide-border divide-y md:hidden">
-          {members.map((member) => (
-            <div key={member.id} className="flex items-center gap-3 px-4 py-3">
-              <Avatar className="size-9 shrink-0">
-                <AvatarFallback className="text-xs">
-                  {getInitials(member.name)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="min-w-0 flex-1">
-                <p className="text-foreground truncate text-sm font-medium">
-                  {member.name}
-                </p>
-                <p className="text-muted-foreground truncate text-xs">{member.email}</p>
-                <div className="mt-1.5 flex items-center gap-2">
-                  <Badge className={ROLE_BADGE[member.role]}>{member.role}</Badge>
-                  {member.status === 'invited' && (
-                    <Badge className="border-transparent bg-amber-500/15 text-amber-600 dark:text-amber-400">
-                      Invited
-                    </Badge>
-                  )}
+        {isPending && (
+          <div className="space-y-3 px-4 py-3 sm:px-5">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <Skeleton className="size-8 shrink-0 rounded-full" />
+                <div className="flex-1 space-y-1.5">
+                  <Skeleton className="h-3.5 w-40" />
+                  <Skeleton className="h-3 w-28" />
                 </div>
               </div>
-              {member.role !== 'Owner' && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="text-muted-foreground hover:text-destructive shrink-0"
-                  onClick={() => removeMember(member.id)}
-                >
-                  Remove
-                </Button>
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
-        {/* Desktop: table */}
-        <div className="hidden md:block">
-          <Table className="min-w-150">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="px-4 sm:px-5">Member</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+        {!isPending && isError && (
+          <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
+            <p className="text-muted-foreground text-sm">Couldn’t load team members.</p>
+          </div>
+        )}
+
+        {!isPending && !isError && members.length === 0 && (
+          <div className="flex items-center justify-center px-4 py-10">
+            <p className="text-muted-foreground text-sm">No members yet.</p>
+          </div>
+        )}
+
+        {!isPending && !isError && members.length > 0 && (
+          <>
+            {/* Mobile: cards */}
+            <div className="divide-border divide-y md:hidden">
               {members.map((member) => (
-                <TableRow key={member.id}>
-                  <TableCell className="px-4 sm:px-5">
-                    <div className="flex items-center gap-2.5">
-                      <Avatar className="size-8 shrink-0">
-                        <AvatarFallback className="text-xs">
-                          {getInitials(member.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="min-w-0">
-                        <p className="text-foreground leading-tight font-medium">
-                          {member.name}
-                        </p>
-                        <p className="text-muted-foreground truncate text-xs">
-                          {member.email}
-                        </p>
-                      </div>
+                <div key={member.id} className="flex items-center gap-3 px-4 py-3">
+                  <Avatar className="size-9 shrink-0">
+                    <AvatarFallback className="text-xs">
+                      {getInitials(memberName(member))}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-foreground truncate text-sm font-medium">
+                      {memberName(member)}
+                    </p>
+                    <p className="text-muted-foreground truncate text-xs">
+                      {member.user.email}
+                    </p>
+                    <div className="mt-1.5">
+                      <Badge className={ROLE_BADGE[member.role]}>
+                        {WORKSPACE_ROLE_LABELS[member.role]}
+                      </Badge>
                     </div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge className={ROLE_BADGE[member.role]}>{member.role}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={cn(
-                        'text-xs font-medium capitalize',
-                        member.status === 'active'
-                          ? 'text-success-foreground'
-                          : 'text-amber-600 dark:text-amber-400',
-                      )}
+                  </div>
+                  {member.role !== 'OWNER' && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="text-muted-foreground hover:text-destructive shrink-0"
+                      onClick={() =>
+                        setMemberToRemove({ id: member.id, label: memberName(member) })
+                      }
                     >
-                      {member.status}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {member.role !== 'Owner' && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="text-muted-foreground hover:text-destructive"
-                        onClick={() => removeMember(member.id)}
-                      >
-                        Remove
-                      </Button>
-                    )}
-                  </TableCell>
-                </TableRow>
+                      Remove
+                    </Button>
+                  )}
+                </div>
               ))}
-            </TableBody>
-          </Table>
-        </div>
+            </div>
+
+            {/* Desktop: table */}
+            <div className="hidden md:block">
+              <Table className="min-w-150">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="px-4 sm:px-5">Member</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead />
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {members.map((member) => (
+                    <TableRow key={member.id}>
+                      <TableCell className="px-4 sm:px-5">
+                        <div className="flex items-center gap-2.5">
+                          <Avatar className="size-8 shrink-0">
+                            <AvatarFallback className="text-xs">
+                              {getInitials(memberName(member))}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="min-w-0">
+                            <p className="text-foreground leading-tight font-medium">
+                              {memberName(member)}
+                            </p>
+                            <p className="text-muted-foreground truncate text-xs">
+                              {member.user.email}
+                            </p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={ROLE_BADGE[member.role]}>
+                          {WORKSPACE_ROLE_LABELS[member.role]}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {member.role !== 'OWNER' && (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            className="text-muted-foreground hover:text-destructive"
+                            onClick={() =>
+                              setMemberToRemove({
+                                id: member.id,
+                                label: memberName(member),
+                              })
+                            }
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {isFetchingNextPage && (
+              <LoadingMoreRow label="Loading more…" className="px-4 py-4 text-sm" />
+            )}
+
+            {hasNextPage && !isFetchingNextPage && (
+              <div ref={sentinelRef} aria-hidden className="h-px" />
+            )}
+          </>
+        )}
       </CardContent>
 
-      <Dialog open={inviteOpen} onOpenChange={setInviteOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Invite member</DialogTitle>
-            <DialogDescription>Send an invite to join this workspace.</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <Field>
-              <FieldLabel
-                htmlFor="invite-email"
-                className="text-muted-foreground text-xs"
-              >
-                Email
-              </FieldLabel>
-              <Input
-                id="invite-email"
-                type="email"
-                placeholder="name@company.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="invite-role" className="text-muted-foreground text-xs">
-                Role
-              </FieldLabel>
-              <Select value={role} onValueChange={(v) => setRole(v as TeamRole)}>
-                <SelectTrigger id="invite-role" className="w-full">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {INVITABLE_ROLES.map((r) => (
-                    <SelectItem key={r} value={r}>
-                      {r}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Field>
-          </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button type="button" variant="ghost">
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button type="button" disabled={!email} onClick={sendInvite}>
-              Send invite
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {workspaceId && (
+        <>
+          <InviteMemberDialog
+            workspaceId={workspaceId}
+            open={inviteOpen}
+            onOpenChange={setInviteOpen}
+          />
+          <RemoveMemberDialog
+            workspaceId={workspaceId}
+            member={memberToRemove}
+            onClose={() => setMemberToRemove(null)}
+          />
+        </>
+      )}
     </Card>
   );
 };

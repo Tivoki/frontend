@@ -22,8 +22,8 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from '~/shared/ui/kit/index';
-import { GoogleIcon } from '~/shared/icons/index';
+} from '~/shared/ui/kit';
+import { GoogleIcon } from '~/shared/icons';
 
 import { loginSchema, type LoginFormData } from '../model/login.schema';
 import { useLogin } from '../model/use-login';

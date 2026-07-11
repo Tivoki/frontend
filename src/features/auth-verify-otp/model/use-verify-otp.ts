@@ -10,7 +10,7 @@ export const useVerifyOtp = (email: string) => {
 
   return useMutation({
     mutationFn: (data: VerifyOtpFormData) =>
-      apiClient.post('api/v1/auth/verify-otp', { json: { email, ...data } }).json<void>(),
+      apiClient.post('auth/verify-otp', { json: { email, ...data } }).json<void>(),
     onSuccess: () => {
       router.push('/auth/login');
     },

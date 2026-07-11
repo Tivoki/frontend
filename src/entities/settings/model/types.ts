@@ -1,14 +1,3 @@
-export type TeamRole = 'Owner' | 'Admin' | 'Agent' | 'Viewer';
-export type TeamMemberStatus = 'active' | 'invited';
-
-export interface TeamMember {
-  id: string;
-  name: string;
-  email: string;
-  role: TeamRole;
-  status: TeamMemberStatus;
-}
-
 export type InvoiceStatus = 'paid' | 'pending' | 'failed';
 
 export interface Invoice {

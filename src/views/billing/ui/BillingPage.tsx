@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Wallet01Icon } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
@@ -28,7 +30,9 @@ export const BillingPage = () => {
         </div>
       </div>
 
-      <BillingTabs />
+      <Suspense fallback={null}>
+        <BillingTabs />
+      </Suspense>
     </div>
   );
 };

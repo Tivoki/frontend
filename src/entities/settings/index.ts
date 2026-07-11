@@ -23,9 +23,6 @@ export type {
   InvoiceStatus,
   PaymentMethod,
   PlanInfo,
-  TeamMember,
-  TeamMemberStatus,
-  TeamRole,
   UsageMetric,
 } from './model/types';
 export {
@@ -35,6 +32,5 @@ export {
   DOMAINS,
   INVOICES,
   PAYMENT_METHOD,
-  TEAM_MEMBERS,
   USAGE_METRICS,
 } from './model/config';

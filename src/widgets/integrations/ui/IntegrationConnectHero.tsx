@@ -1,8 +1,11 @@
+'use client';
+
 import { ArrowLeft01Icon, Plug01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 
 import { IntegrationIcon, type Integration } from '~/entities/integration';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Badge, Button } from '~/shared/ui/kit';
 
 interface IntegrationConnectHeroProps {
@@ -10,6 +13,8 @@ interface IntegrationConnectHeroProps {
 }
 
 export const IntegrationConnectHero = ({ integration }: IntegrationConnectHeroProps) => {
+  const workspaceHref = useWorkspaceHref();
+
   return (
     <section className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-6">
       <Button
@@ -18,7 +23,7 @@ export const IntegrationConnectHero = ({ integration }: IntegrationConnectHeroPr
         size="sm"
         className="text-muted-foreground mb-5 w-fit"
       >
-        <Link href="/dashboard/integrations">
+        <Link href={workspaceHref('integrations')}>
           <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={1.8} className="size-4" />
           Back to integrations
         </Link>

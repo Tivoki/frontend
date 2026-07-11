@@ -2,36 +2,29 @@
 
 import ky from 'ky';
 
+import { CSRF_TOKEN_COOKIE } from './auth-session';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getCsrfCookie = (): string | undefined => {
   if (typeof document === 'undefined') return undefined;
   return document.cookie
     .split('; ')
-    .find((row) => row.startsWith('csrfToken='))
+    .find((row) => row.startsWith(`${CSRF_TOKEN_COOKIE}=`))
     ?.split('=')[1];
 };
 
-const performRefresh = async (): Promise<boolean> => {
-  if (!API_URL) return false;
-  const csrf = getCsrfCookie();
-  try {
-    const response = await fetch(`${API_URL}/api/v1/auth/refresh`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: csrf ? { 'x-csrf-token': csrf } : undefined,
-    });
-    return response.ok;
-  } catch {
-    return false;
-  }
-};
-
+// Session renewal goes through our same-origin route handler, which talks to
+// the backend and rotates the cookies. Single-flight so parallel 401s don't
+// race the token rotation.
 let refreshPromise: Promise<boolean> | null = null;
 const refreshSession = (): Promise<boolean> => {
-  refreshPromise ??= performRefresh().finally(() => {
-    refreshPromise = null;
-  });
+  refreshPromise ??= fetch('/api/auth/refresh', { method: 'POST' })
+    .then((response) => response.ok)
+    .catch(() => false)
+    .finally(() => {
+      refreshPromise = null;
+    });
   return refreshPromise;
 };
 
@@ -52,7 +45,7 @@ export const apiClient = ky.create({
 
         let token = getCsrfCookie();
         if (!token) {
-          await fetch(`${API_URL}/api/v1/auth/csrf`, {
+          await fetch(`${API_URL}/auth/csrf`, {
             credentials: 'include',
           });
           token = getCsrfCookie();
@@ -67,7 +60,7 @@ export const apiClient = ky.create({
       async ({ request, response, retryCount }) => {
         if (response.status !== 401) return;
 
-        if (request.url.includes('/api/v1/auth/')) return;
+        if (request.url.includes('/auth/')) return;
         if (retryCount > 0) return;
 
         const refreshed = await refreshSession();

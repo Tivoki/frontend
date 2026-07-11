@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { AccountSetting01Icon, Logout01Icon, UserIcon } from '@hugeicons/core-free-icons';
 
+import { useScopedHref } from '~/features/switch-workspace';
 import { getInitials } from '~/shared/lib';
 import {
   Avatar,
@@ -17,7 +18,7 @@ import {
   Separator,
 } from '~/shared/ui/kit';
 import type { CurrentUser } from '../model/types';
-import { useLogout } from '~/features/auth/index';
+import { useLogout } from '~/features/auth';
 
 const MOCK_USER: CurrentUser = {
   name: 'John Doe',
@@ -25,8 +26,8 @@ const MOCK_USER: CurrentUser = {
 };
 
 const LINK_ITEMS = [
-  { icon: UserIcon, label: 'Profile', href: '/dashboard/profile' },
-  { icon: AccountSetting01Icon, label: 'Settings', href: '/dashboard/settings' },
+  { icon: UserIcon, label: 'Profile', sub: 'profile', scope: 'account' },
+  { icon: AccountSetting01Icon, label: 'Settings', sub: 'settings', scope: 'workspace' },
 ] as const;
 
 interface UserMenuProps {
@@ -36,6 +37,7 @@ interface UserMenuProps {
 export const UserMenu = ({ user = MOCK_USER }: UserMenuProps) => {
   const [open, setOpen] = useState(false);
   const { mutate: logoutMutate } = useLogout();
+  const scopedHref = useScopedHref();
   const initials = getInitials(user.name);
 
   const handleLogout = () => {
@@ -70,14 +72,17 @@ export const UserMenu = ({ user = MOCK_USER }: UserMenuProps) => {
 
         <Separator />
 
-        {LINK_ITEMS.map(({ icon, label, href }) => (
+        {LINK_ITEMS.map(({ icon, label, sub, scope }) => (
           <Button
             key={label}
             variant="ghost"
             className="w-full justify-start text-sm font-normal"
             asChild
           >
-            <Link href={href} onClick={() => setOpen(false)}>
+            <Link
+              href={scopedHref(scope, sub)}
+              onClick={() => setOpen(false)}
+            >
               <HugeiconsIcon
                 icon={icon}
                 strokeWidth={1.75}

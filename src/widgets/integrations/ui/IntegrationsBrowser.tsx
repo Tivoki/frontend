@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import type { Integration, IntegrationStatus } from '~/entities/integration';
+import { useWorkspaceHref } from '~/features/switch-workspace';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/shared/ui/kit';
 
 import { IntegrationsSection } from './IntegrationsSection';
@@ -24,6 +25,7 @@ export const IntegrationsBrowser = ({
   integrations: initialIntegrations,
 }: IntegrationsBrowserProps) => {
   const router = useRouter();
+  const workspaceHref = useWorkspaceHref();
   const [activeTab, setActiveTab] = useState<IntegrationTab>('all');
   const [integrations, setIntegrations] = useState(initialIntegrations);
 
@@ -38,11 +40,11 @@ export const IntegrationsBrowser = ({
   );
 
   const handleConnect = (integration: Integration) => {
-    router.push(`/dashboard/integrations/${integration.id}/connect`);
+    router.push(workspaceHref(`integrations/${integration.id}/connect`));
   };
 
   const handleEdit = (integration: Integration) => {
-    router.push(`/dashboard/integrations/${integration.id}/edit`);
+    router.push(workspaceHref(`integrations/${integration.id}/edit`));
   };
 
   const handleDelete = (integration: Integration) => {

@@ -22,7 +22,7 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from '~/shared/ui/kit/index';
+} from '~/shared/ui/kit';
 
 import { registerSchema, type RegisterFormData } from '../model/register.schema';
 import { useRegister } from '../model/use-register';
