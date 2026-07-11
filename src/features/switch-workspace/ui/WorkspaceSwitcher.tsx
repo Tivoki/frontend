@@ -37,8 +37,6 @@ export const WorkspaceSwitcher = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const activeWorkspaceId = useActiveWorkspaceId();
-  // The detail query (hydrated by the workspace layout) resolves the active
-  // workspace even when it sits beyond the loaded pages of the list.
   const { data: active, isPending: isActivePending } = useWorkspace(activeWorkspaceId);
   const { data, isPending, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useWorkspaces();

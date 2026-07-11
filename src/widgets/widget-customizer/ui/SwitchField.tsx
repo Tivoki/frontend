@@ -10,7 +10,6 @@ import {
   Switch,
 } from '~/shared/ui/kit';
 
-// Only the boolean keys of WidgetConfig are valid switch targets.
 type BooleanKey = {
   [K in keyof WidgetConfig]: WidgetConfig[K] extends boolean ? K : never;
 }[keyof WidgetConfig];

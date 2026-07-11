@@ -36,6 +36,7 @@ import {
 } from '~/shared/ui/kit';
 import { SettingsInputField } from './SettingsInputField';
 import { SettingsSelectField } from './SettingsSelectField';
+import Image from 'next/image';
 
 export const GeneralSettings = () => {
   const [copied, setCopied] = useState(false);
@@ -101,8 +102,7 @@ export const GeneralSettings = () => {
               </FieldLabel>
               <div className="flex items-center gap-3">
                 {logoUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     src={logoUrl}
                     alt="Company logo"
                     className="size-9 shrink-0 rounded-lg object-cover"

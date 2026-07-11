@@ -1,17 +1,15 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import type { Route } from 'next';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { AUTH_ERRORS } from '~/features/auth/model/auth.constants';
 import { apiClient, getApiErrorMessage } from '~/shared/api';
 import type { components } from '~/shared/api';
+import { toRoute } from '~/shared/lib';
 
-// A local path only, so a crafted ?redirect= can't bounce the user to another
-// origin (protocol-relative `//` and backslash `/\` variants included).
-const safeRedirect = (target: string | null): Route =>
-  (target && /^\/(?![/\\])/.test(target) ? target : '/dashboard') as Route;
+const safeRedirect = (target: string | null) =>
+  toRoute(target && /^\/(?![/\\])/.test(target) ? target : '/dashboard');
 
 export const useLogin = () => {
   const router = useRouter();

@@ -63,7 +63,6 @@ export const COMPANY_NAME_MAX = 60;
 export const FALLBACK_MSG_MAX = 200;
 
 export const settingsSchema = z.object({
-  // General — Company information
   companyName: z
     .string()
     .min(1, 'Company name is required')
@@ -73,11 +72,9 @@ export const settingsSchema = z.object({
   companySize: z.enum(COMPANY_SIZES),
   website: z.union([z.string().url('Enter a valid URL'), z.literal('')]),
 
-  // General — Regional settings
   timezone: z.enum(TIMEZONES),
   language: z.enum(LANGUAGES),
 
-  // General — Default behavior
   widgetLanguage: z.enum(WIDGET_LANGUAGES),
   aiTone: z.enum(AI_TONES),
   fallback: z.enum(FALLBACK_OPTIONS),
@@ -85,10 +82,8 @@ export const settingsSchema = z.object({
     .string()
     .max(FALLBACK_MSG_MAX, `Keep it under ${FALLBACK_MSG_MAX} characters`),
 
-  // General — Contact email
-  contactEmail: z.string().email('Enter a valid email'),
+  contactEmail: z.email('Enter a valid email'),
 
-  // Security
   twoFactorEnabled: z.boolean(),
   loginAlerts: z.boolean(),
   sessionTimeout: z.enum(SESSION_TIMEOUTS),

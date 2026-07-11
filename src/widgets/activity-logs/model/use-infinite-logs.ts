@@ -20,7 +20,6 @@ export const useInfiniteLogs = (pageSize?: number): UseInfiniteLogsResult => {
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  // Refs guard against duplicate/parallel fetches (e.g. observer + button).
   const cursorRef = useRef<string | null>(null);
   const loadingRef = useRef(false);
   const hasMoreRef = useRef(true);
@@ -47,7 +46,6 @@ export const useInfiniteLogs = (pageSize?: number): UseInfiniteLogsResult => {
     }
   }, [pageSize]);
 
-  // Load the first page once on mount.
   useEffect(() => {
     if (startedRef.current) return;
     startedRef.current = true;

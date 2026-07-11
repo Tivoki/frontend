@@ -28,9 +28,7 @@ import { inviteMemberSchema, type InviteMemberFormData } from '../model/schema';
 import { useInviteMember } from '../model/use-invite-member';
 
 const FORM_ID = 'invite-member-form';
-
-/** Roles that can be assigned when inviting a member (the owner role is immutable). */
-const INVITABLE_ROLES: WorkspaceRole[] = ['ADMIN', 'AGENT', 'VIEWER'];
+const INVITABLE_ROLES: WorkspaceRole[] = ['ADMIN', 'AGENT', 'VIEWER']; // (the owner role is immutable)
 
 interface InviteMemberDialogProps {
   workspaceId: string;
@@ -55,12 +53,8 @@ export const InviteMemberDialog = ({
   }, [open, form]);
 
   const onSubmit = async (data: InviteMemberFormData) => {
-    try {
-      await mutateAsync(data);
-      onOpenChange(false);
-    } catch {
-      // Error toast is surfaced by the mutation's onError handler.
-    }
+    await mutateAsync(data);
+    onOpenChange(false);
   };
 
   return (
