@@ -25,7 +25,11 @@ interface ConversationListProps {
   onSelect: (id: string) => void;
 }
 
-export const ConversationList = ({ conversations, selectedId, onSelect }: ConversationListProps) => {
+export const ConversationList = ({
+  conversations,
+  selectedId,
+  onSelect,
+}: ConversationListProps) => {
   const [tab, setTab] = useSearchParam('tab', 'all');
   const [search, setSearch] = useSearchParam('search', '');
 
@@ -34,7 +38,8 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
   const getFiltered = (tabValue: FilterTab) =>
     conversations.filter((c) => {
       if (tabValue === 'escalated' && !c.isEscalated) return false;
-      if (tabValue !== 'all' && tabValue !== 'escalated' && c.status !== tabValue) return false;
+      if (tabValue !== 'all' && tabValue !== 'escalated' && c.status !== tabValue)
+        return false;
       return (
         !q ||
         c.customerName.toLowerCase().includes(q) ||
@@ -47,18 +52,18 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
     <Tabs
       value={tab}
       onValueChange={setTab}
-      className="flex h-full flex-col border-r border-border bg-background"
+      className="border-border bg-background flex h-full flex-col border-r"
     >
       <TabsList
         variant="line"
-        className="flex h-auto w-full items-end justify-start overflow-x-auto overflow-y-hidden rounded-none border-b border-border bg-transparent px-2 pt-2 pb-0 text-foreground custom-scrollbar"
+        className="border-border text-foreground custom-scrollbar flex h-auto w-full items-end justify-start overflow-x-auto overflow-y-hidden rounded-none border-b bg-transparent px-2 pt-2 pb-0"
       >
         {TABS.map((t) => (
           <TabsTrigger
             key={t.value}
             value={t.value}
             className={cn(
-              'shrink-0 rounded-none px-3 py-2 text-xs font-medium transition-colors hover:bg-transparent hover:text-foreground',
+              'hover:text-foreground shrink-0 rounded-none px-3 py-2 text-xs font-medium transition-colors hover:bg-transparent',
               'h-auto flex-none group-data-horizontal/tabs:after:bottom-0',
               'data-active:bg-transparent',
             )}
@@ -68,12 +73,12 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
         ))}
       </TabsList>
 
-      <div className="border-b border-border p-3">
+      <div className="border-border border-b p-3">
         <div className="relative">
           <HugeiconsIcon
             icon={SearchIcon}
             strokeWidth={1.75}
-            className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            className="text-muted-foreground absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
           />
           <Input
             placeholder="Search conversations..."
@@ -90,10 +95,10 @@ export const ConversationList = ({ conversations, selectedId, onSelect }: Conver
           <TabsContent
             key={t.value}
             value={t.value}
-            className="mt-0 flex-1 overflow-y-auto custom-scrollbar"
+            className="custom-scrollbar mt-0 flex-1 overflow-y-auto"
           >
             {filtered.length === 0 ? (
-              <p className="flex h-24 items-center justify-center text-sm text-muted-foreground">
+              <p className="text-muted-foreground flex h-24 items-center justify-center text-sm">
                 No conversations found
               </p>
             ) : (

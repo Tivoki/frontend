@@ -71,7 +71,7 @@ export const EscalatedConversationsPanel = () => {
   return (
     <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
       <section className="border-border bg-background flex h-95 flex-col rounded-2xl border shadow-xs">
-        <div className="shrink-0 flex items-center justify-between p-4 sm:p-5">
+        <div className="flex shrink-0 items-center justify-between p-4 sm:p-5">
           <h2 className="font-heading text-foreground text-base font-semibold">
             Escalated conversations
           </h2>

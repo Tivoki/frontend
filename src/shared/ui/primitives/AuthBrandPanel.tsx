@@ -46,7 +46,7 @@ export function AuthBrandPanel() {
         aria-hidden
       />
       <div
-        className="absolute -right-24 -top-24 size-[28rem] rounded-full bg-blue-400/25 blur-3xl"
+        className="absolute -top-24 -right-24 size-[28rem] rounded-full bg-blue-400/25 blur-3xl"
         aria-hidden
       />
       <div
@@ -54,7 +54,7 @@ export function AuthBrandPanel() {
         aria-hidden
       />
       <div
-        className="absolute bottom-1/3 right-12 size-40 rounded-full bg-white/10 blur-2xl"
+        className="absolute right-12 bottom-1/3 size-40 rounded-full bg-white/10 blur-2xl"
         aria-hidden
       />
 
@@ -65,7 +65,7 @@ export function AuthBrandPanel() {
 
       {/* Content: sits near the top, right below the logo */}
       <div className="relative z-10 flex-1 px-10 pt-10 pb-8">
-        <h2 className="text-3xl font-bold leading-tight text-white">
+        <h2 className="text-3xl leading-tight font-bold text-white">
           Customer support, <br />
           powered by <span className="text-sky-300">AI</span>
         </h2>
@@ -85,7 +85,7 @@ export function AuthBrandPanel() {
                 />
               </div>
               <div>
-                <p className="text-sm font-semibold leading-snug text-white">
+                <p className="text-sm leading-snug font-semibold text-white">
                   {benefit.title}
                 </p>
                 <p className="mt-0.5 text-xs leading-snug text-white/60">

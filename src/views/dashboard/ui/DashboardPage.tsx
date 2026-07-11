@@ -5,13 +5,13 @@ import { DashboardInfoPanel } from './DashboardInfoPanel';
 
 export const DashboardPage = () => {
   return (
-    <div className="grid flex-1 items-start gap-4 xl:grid-cols-[3fr_1fr] p-4 max-w-400">
+    <div className="grid max-w-400 flex-1 items-start gap-4 p-4 xl:grid-cols-[3fr_1fr]">
       <div className="grid gap-3">
         <StatsOverview />
         <ConversationChart />
         <RecentConversations />
       </div>
-      <div className="hidden xl:block sticky top-0 self-start">
+      <div className="sticky top-0 hidden self-start xl:block">
         <DashboardInfoPanel />
       </div>
     </div>

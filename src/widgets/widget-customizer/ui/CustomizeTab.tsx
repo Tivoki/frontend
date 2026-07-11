@@ -5,7 +5,7 @@ export const CustomizeTab = () => {
   return (
     <div className="space-y-6">
       <AppearanceSection />
-      <div className="border-t border-border" />
+      <div className="border-border border-t" />
       <BrandingSection />
     </div>
   );

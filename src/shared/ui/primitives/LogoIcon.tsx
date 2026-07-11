@@ -51,7 +51,15 @@ export function LogoIcon({
         fill={`url(#${gradientId})`}
       />
 
-      <rect x="43" y="47" width="48" height="27" rx="13.5" fill="white" fillOpacity="0.92" />
+      <rect
+        x="43"
+        y="47"
+        width="48"
+        height="27"
+        rx="13.5"
+        fill="white"
+        fillOpacity="0.92"
+      />
 
       <rect x="56" y="55" width="6" height="12" rx="3" fill="#111827" />
       <rect x="72" y="55" width="6" height="12" rx="3" fill="#111827" />

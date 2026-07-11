@@ -22,13 +22,21 @@ export const ThemeToggle = () => {
     <Button
       variant="ghost"
       size="icon"
-      className="rounded-full text-muted-foreground"
+      className="text-muted-foreground rounded-full"
       onClick={toggle}
       aria-label="Toggle theme"
       aria-keyshortcuts="Control+Shift+L"
     >
-      <HugeiconsIcon icon={Sun01Icon} strokeWidth={1.75} className="hidden size-5 dark:block" />
-      <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.75} className="size-5 dark:hidden" />
+      <HugeiconsIcon
+        icon={Sun01Icon}
+        strokeWidth={1.75}
+        className="hidden size-5 dark:block"
+      />
+      <HugeiconsIcon
+        icon={Moon02Icon}
+        strokeWidth={1.75}
+        className="size-5 dark:hidden"
+      />
     </Button>
   );
 };

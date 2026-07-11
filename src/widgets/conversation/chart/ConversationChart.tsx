@@ -84,9 +84,7 @@ export const ConversationChart = ({
   return (
     <div className={cn('border-border bg-background rounded-xl border p-4', className)}>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <h3 className="text-sm font-semibold">
-          Conversation Volume & AI Resolved
-        </h3>
+        <h3 className="text-sm font-semibold">Conversation Volume & AI Resolved</h3>
         <Tabs
           value={String(period)}
           onValueChange={(value) => setPeriod(Number(value) as ChartPeriod)}

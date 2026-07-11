@@ -1,6 +1,16 @@
-import { BubbleChatIcon, Mail01Icon, TelegramIcon, WebhookIcon } from '@hugeicons/core-free-icons';
+import {
+  BubbleChatIcon,
+  Mail01Icon,
+  TelegramIcon,
+  WebhookIcon,
+} from '@hugeicons/core-free-icons';
 
-import type { Escalation, EscalationDestination, HandoffChannel, RoutingRule } from './types';
+import type {
+  Escalation,
+  EscalationDestination,
+  HandoffChannel,
+  RoutingRule,
+} from './types';
 
 export const HANDOFF_CHANNELS: HandoffChannel[] = [
   {
@@ -36,10 +46,34 @@ export const HANDOFF_CHANNELS: HandoffChannel[] = [
 export const DEFAULT_ESCALATION_DESTINATION: EscalationDestination = 'email';
 
 export const ROUTING_RULES: RoutingRule[] = [
-  { id: 'r1', priority: 1, condition: 'If user asks for human', destinations: ['telegram', 'email'], active: true },
-  { id: 'r2', priority: 2, condition: 'If AI confidence < 65%', destinations: ['webhook'], active: true },
-  { id: 'r3', priority: 3, condition: 'If order issue', destinations: ['email'], active: true },
-  { id: 'r4', priority: 4, condition: 'If VIP customer', destinations: ['external_chat', 'telegram'], active: false },
+  {
+    id: 'r1',
+    priority: 1,
+    condition: 'If user asks for human',
+    destinations: ['telegram', 'email'],
+    active: true,
+  },
+  {
+    id: 'r2',
+    priority: 2,
+    condition: 'If AI confidence < 65%',
+    destinations: ['webhook'],
+    active: true,
+  },
+  {
+    id: 'r3',
+    priority: 3,
+    condition: 'If order issue',
+    destinations: ['email'],
+    active: true,
+  },
+  {
+    id: 'r4',
+    priority: 4,
+    condition: 'If VIP customer',
+    destinations: ['external_chat', 'telegram'],
+    active: false,
+  },
 ];
 
 export const ESCALATIONS: Escalation[] = [
@@ -54,7 +88,8 @@ export const ESCALATIONS: Escalation[] = [
     requestedAt: 'Jun 10, 2024 10:24 AM',
     source: 'Web widget',
     assignedTo: '@support-team',
-    notes: "Customer has not received their order placed on May 28. Tracking shows no updates.",
+    notes:
+      'Customer has not received their order placed on May 28. Tracking shows no updates.',
   },
   {
     id: '2',

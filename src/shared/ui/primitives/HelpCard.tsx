@@ -30,7 +30,7 @@ export const HelpCard: FC<HelpCardProps> = ({ className, ...props }) => {
         <div>
           <h4 className="font-medium">Need help ?</h4>
           <p>
-            Check our docs or {' '}
+            Check our docs or{' '}
             <a className="text-primary underline" href="mailto:test@gmail.com">
               contact support
             </a>

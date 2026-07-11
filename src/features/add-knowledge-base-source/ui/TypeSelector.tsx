@@ -2,7 +2,12 @@
 
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { IconSvgElement } from '@hugeicons/react';
-import { Globe02Icon, File01Icon, Doc01Icon, Edit01Icon } from '@hugeicons/core-free-icons';
+import {
+  Globe02Icon,
+  File01Icon,
+  Doc01Icon,
+  Edit01Icon,
+} from '@hugeicons/core-free-icons';
 
 import { Button, DialogFooter } from '~/shared/ui/kit';
 import { cn } from '~/shared/lib';
@@ -63,7 +68,7 @@ export function TypeSelector({ selected, onSelect, onNext }: TypeSelectorProps) 
             className={cn(
               'flex flex-col items-center gap-2.5 rounded-xl border p-4 text-center transition-all',
               selected === option.value
-                ? 'border-primary bg-primary/5 ring-1 ring-primary/20'
+                ? 'border-primary bg-primary/5 ring-primary/20 ring-1'
                 : 'border-border hover:border-primary/40 hover:bg-muted/40',
             )}
           >
@@ -83,8 +88,8 @@ export function TypeSelector({ selected, onSelect, onNext }: TypeSelectorProps) 
               />
             </div>
             <div>
-              <p className="text-sm font-medium text-foreground">{option.label}</p>
-              <p className="mt-0.5 text-xs text-muted-foreground">{option.description}</p>
+              <p className="text-foreground text-sm font-medium">{option.label}</p>
+              <p className="text-muted-foreground mt-0.5 text-xs">{option.description}</p>
             </div>
           </button>
         ))}

@@ -26,23 +26,24 @@ interface ChatWidgetPreviewProps {
 export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
   const [device, setDevice] = useState<DeviceType>('desktop');
   const [manualTheme, setManualTheme] = useState<'light' | 'dark'>('light');
-  const previewTheme: 'light' | 'dark' = config.theme === 'auto' ? manualTheme : config.theme;
+  const previewTheme: 'light' | 'dark' =
+    config.theme === 'auto' ? manualTheme : config.theme;
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl border border-border bg-background">
-      <div className="flex shrink-0 items-center gap-3 border-b border-border bg-muted/30 px-4 py-2.5">
+    <div className="border-border bg-background flex flex-col overflow-hidden rounded-xl border">
+      <div className="border-border bg-muted/30 flex shrink-0 items-center gap-3 border-b px-4 py-2.5">
         <div className="hidden shrink-0 items-center gap-1.5 sm:flex">
           <div className="size-2.5 rounded-full bg-[#ff5f57]" />
           <div className="size-2.5 rounded-full bg-[#febc2e]" />
           <div className="size-2.5 rounded-full bg-[#28c840]" />
         </div>
         <div className="flex min-w-0 flex-1 items-center justify-center">
-          <div className="flex h-5 w-full max-w-48 min-w-0 items-center justify-center truncate rounded-full bg-muted/80 px-3 text-[10px] text-muted-foreground">
+          <div className="bg-muted/80 text-muted-foreground flex h-5 w-full max-w-48 min-w-0 items-center justify-center truncate rounded-full px-3 text-[10px]">
             yourwebsite.com
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <div className="flex items-center gap-0.5 rounded-md border border-border bg-muted/40 p-0.5">
+          <div className="border-border bg-muted/40 flex items-center gap-0.5 rounded-md border p-0.5">
             <Button
               type="button"
               variant="ghost"
@@ -78,7 +79,7 @@ export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
         </div>
       </div>
 
-      <div className="overflow-hidden bg-muted/20" style={{ minHeight: 480 }}>
+      <div className="bg-muted/20 overflow-hidden" style={{ minHeight: 480 }}>
         <div className={cn('relative transition-all duration-300', FRAME_CLASS[device])}>
           <MockWebsiteContent device={device} />
           <div

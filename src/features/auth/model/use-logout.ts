@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useMutation } from '@tanstack/react-query';
 import { apiClient, getApiErrorMessage } from '~/shared/api';
@@ -14,7 +14,7 @@ export const useLogout = () => {
       toast.error(getApiErrorMessage(error));
     },
     onSuccess: () => {
-      router.push('/')
-    }
+      router.push('/');
+    },
   });
 };

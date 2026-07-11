@@ -79,10 +79,7 @@ export const UserMenu = ({ user = MOCK_USER }: UserMenuProps) => {
             className="w-full justify-start text-sm font-normal"
             asChild
           >
-            <Link
-              href={scopedHref(scope, sub)}
-              onClick={() => setOpen(false)}
-            >
+            <Link href={scopedHref(scope, sub)} onClick={() => setOpen(false)}>
               <HugeiconsIcon
                 icon={icon}
                 strokeWidth={1.75}

@@ -15,7 +15,11 @@ interface ConversationThreadProps {
   onInfo?: () => void;
 }
 
-export const ConversationThread = ({ conversation, onBack, onInfo }: ConversationThreadProps) => {
+export const ConversationThread = ({
+  conversation,
+  onBack,
+  onInfo,
+}: ConversationThreadProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -24,7 +28,7 @@ export const ConversationThread = ({ conversation, onBack, onInfo }: Conversatio
 
   if (!conversation) {
     return (
-      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
+      <div className="text-muted-foreground flex flex-1 items-center justify-center text-sm">
         Select a conversation to view messages
       </div>
     );
@@ -33,14 +37,14 @@ export const ConversationThread = ({ conversation, onBack, onInfo }: Conversatio
   const customerInitial = conversation.customerName.charAt(0);
 
   return (
-    <div className="flex h-full flex-col bg-background">
-      <div className="flex items-center gap-2 border-b border-border px-3 py-3 sm:px-4">
+    <div className="bg-background flex h-full flex-col">
+      <div className="border-border flex items-center gap-2 border-b px-3 py-3 sm:px-4">
         {onBack && (
           <Button
             variant="ghost"
             size="icon"
             onClick={onBack}
-            className="md:hidden shrink-0 text-muted-foreground"
+            className="text-muted-foreground shrink-0 md:hidden"
             aria-label="Back to conversations"
           >
             <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={1.75} className="size-5" />
@@ -49,14 +53,16 @@ export const ConversationThread = ({ conversation, onBack, onInfo }: Conversatio
 
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2">
-            <p className="truncate text-sm font-semibold text-foreground">
+            <p className="text-foreground truncate text-sm font-semibold">
               {conversation.customerName}
             </p>
             <Badge variant="secondary" className="shrink-0 text-xs capitalize">
               {CHANNEL_LABELS[conversation.channel]}
             </Badge>
           </div>
-          <p className="truncate text-xs text-muted-foreground">{conversation.customerEmail}</p>
+          <p className="text-muted-foreground truncate text-xs">
+            {conversation.customerEmail}
+          </p>
         </div>
 
         {onInfo && (
@@ -68,7 +74,11 @@ export const ConversationThread = ({ conversation, onBack, onInfo }: Conversatio
               className="text-muted-foreground"
               aria-label="Conversation info"
             >
-              <HugeiconsIcon icon={InformationCircleIcon} strokeWidth={1.75} className="size-5" />
+              <HugeiconsIcon
+                icon={InformationCircleIcon}
+                strokeWidth={1.75}
+                className="size-5"
+              />
             </Button>
           </div>
         )}

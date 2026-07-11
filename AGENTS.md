@@ -60,7 +60,7 @@ Use **`@hugeicons/react`** (`HugeiconsIcon` component) with icons from **`@hugei
 import { HugeiconsIcon } from '@hugeicons/react';
 import { BellDotIcon } from '@hugeicons/core-free-icons';
 
-<HugeiconsIcon icon={BellDotIcon} strokeWidth={1.75} className="size-5" />
+<HugeiconsIcon icon={BellDotIcon} strokeWidth={1.75} className="size-5" />;
 ```
 
 ### Styling

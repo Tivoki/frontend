@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Delete01Icon, PencilEdit01Icon, Settings02Icon } from '@hugeicons/core-free-icons';
+import {
+  Delete01Icon,
+  PencilEdit01Icon,
+  Settings02Icon,
+} from '@hugeicons/core-free-icons';
 
 import { cn } from '~/shared/lib';
 import {
@@ -65,8 +69,8 @@ export const IntegrationCard = ({
 
         <div className="border-border bg-background/60 mt-auto flex min-h-14 items-center justify-between border-t px-4 py-3 sm:px-5">
           {isConnected ? (
-            <div className="flex items-center gap-2 text-sm font-medium text-success-foreground">
-              <span className="size-2 rounded-full bg-success" aria-hidden="true" />
+            <div className="text-success-foreground flex items-center gap-2 text-sm font-medium">
+              <span className="bg-success size-2 rounded-full" aria-hidden="true" />
               Connected
             </div>
           ) : (
@@ -90,17 +94,32 @@ export const IntegrationCard = ({
                   className="text-muted-foreground hover:text-foreground"
                   aria-label={`Configure ${integration.name}`}
                 >
-                  <HugeiconsIcon icon={Settings02Icon} strokeWidth={1.8} className="size-4" />
+                  <HugeiconsIcon
+                    icon={Settings02Icon}
+                    strokeWidth={1.8}
+                    className="size-4"
+                  />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="min-w-36">
                 <DropdownMenuItem onClick={() => onEdit?.(integration)}>
-                  <HugeiconsIcon icon={PencilEdit01Icon} strokeWidth={1.8} className="size-4" />
+                  <HugeiconsIcon
+                    icon={PencilEdit01Icon}
+                    strokeWidth={1.8}
+                    className="size-4"
+                  />
                   Edit
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive" onClick={() => setDeleteDialogOpen(true)}>
-                  <HugeiconsIcon icon={Delete01Icon} strokeWidth={1.8} className="size-4" />
+                <DropdownMenuItem
+                  variant="destructive"
+                  onClick={() => setDeleteDialogOpen(true)}
+                >
+                  <HugeiconsIcon
+                    icon={Delete01Icon}
+                    strokeWidth={1.8}
+                    className="size-4"
+                  />
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -114,13 +133,16 @@ export const IntegrationCard = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Disconnect {integration.name}?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will remove the {integration.name} integration from your workspace. You can
-              reconnect it at any time.
+              This will remove the {integration.name} integration from your workspace. You
+              can reconnect it at any time.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction variant="destructive" onClick={() => onDelete?.(integration)}>
+            <AlertDialogAction
+              variant="destructive"
+              onClick={() => onDelete?.(integration)}
+            >
               Disconnect
             </AlertDialogAction>
           </AlertDialogFooter>

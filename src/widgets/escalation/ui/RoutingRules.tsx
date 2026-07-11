@@ -64,9 +64,7 @@ export const RoutingRules = () => {
   const [deletingRule, setDeletingRule] = useState<RoutingRule | null>(null);
 
   const toggleRule = (id: string) => {
-    setRules((prev) =>
-      prev.map((r) => (r.id === id ? { ...r, active: !r.active } : r)),
-    );
+    setRules((prev) => prev.map((r) => (r.id === id ? { ...r, active: !r.active } : r)));
   };
 
   const deleteRule = (id: string) => {
@@ -212,7 +210,9 @@ export const RoutingRules = () => {
           <div className="bg-muted/50 border-border flex flex-wrap items-center gap-3 rounded-lg border px-4 py-3">
             <div className="min-w-0 flex-1">
               <p className="text-foreground text-sm font-medium">Fallback</p>
-              <p className="text-muted-foreground text-xs">Triggered when no rule matches</p>
+              <p className="text-muted-foreground text-xs">
+                Triggered when no rule matches
+              </p>
             </div>
             <div className="flex items-center gap-2">
               <Select
@@ -228,7 +228,11 @@ export const RoutingRules = () => {
                     return (
                       <SelectItem key={dest} value={dest}>
                         <div className="flex items-center gap-1.5">
-                          <HugeiconsIcon icon={Icon} strokeWidth={1.75} className="size-4" />
+                          <HugeiconsIcon
+                            icon={Icon}
+                            strokeWidth={1.75}
+                            className="size-4"
+                          />
                           {DESTINATION_LABEL[dest]}
                         </div>
                       </SelectItem>
@@ -243,7 +247,11 @@ export const RoutingRules = () => {
                 className="text-muted-foreground hover:text-foreground"
                 onClick={openFallbackEdit}
               >
-                <HugeiconsIcon icon={PencilEdit01Icon} strokeWidth={1.75} className="size-4" />
+                <HugeiconsIcon
+                  icon={PencilEdit01Icon}
+                  strokeWidth={1.75}
+                  className="size-4"
+                />
               </Button>
             </div>
           </div>

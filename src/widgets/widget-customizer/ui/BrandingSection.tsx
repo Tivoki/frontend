@@ -28,11 +28,17 @@ export const BrandingSection = () => {
         <Field>
           <FieldLabel className={LABEL_CLASS}>Logo</FieldLabel>
           <div className="flex items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-dashed border-border bg-muted text-muted-foreground">
-              <HugeiconsIcon icon={ImageUploadIcon} strokeWidth={1.75} className="size-4" />
+            <div className="border-border bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-lg border border-dashed">
+              <HugeiconsIcon
+                icon={ImageUploadIcon}
+                strokeWidth={1.75}
+                className="size-4"
+              />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-xs text-muted-foreground">acme-logo.png — 32 × 32</p>
+              <p className="text-muted-foreground truncate text-xs">
+                acme-logo.png — 32 × 32
+              </p>
             </div>
             <Button type="button" variant="outline" size="sm">
               Change
@@ -40,7 +46,7 @@ export const BrandingSection = () => {
           </div>
         </Field>
 
-        <div className="grid sm:grid-cols-2 gap-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           <Controller
             control={control}
             name="brandingTitle"

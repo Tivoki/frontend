@@ -5,10 +5,17 @@ interface HandoffChannelAddSheetProps {
   onClose: () => void;
 }
 
-export const HandoffChannelAddSheet = ({ open, onClose }: HandoffChannelAddSheetProps) => {
+export const HandoffChannelAddSheet = ({
+  open,
+  onClose,
+}: HandoffChannelAddSheetProps) => {
   return (
     <Sheet open={open} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="right" className="w-full max-w-sm p-0" aria-describedby={undefined}>
+      <SheetContent
+        side="right"
+        className="w-full max-w-sm p-0"
+        aria-describedby={undefined}
+      >
         <SheetHeader className="border-border border-b px-4 py-3">
           <SheetTitle className="text-sm">Add channel</SheetTitle>
         </SheetHeader>

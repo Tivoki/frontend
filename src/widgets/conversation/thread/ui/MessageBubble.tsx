@@ -23,21 +23,27 @@ export const MessageBubble = ({ message, customerInitial }: MessageBubbleProps) 
               : 'bg-success-subtle text-success-foreground',
         )}
       >
-        {message.role === 'customer' ? customerInitial : message.role === 'ai' ? 'AI' : 'A'}
+        {message.role === 'customer'
+          ? customerInitial
+          : message.role === 'ai'
+            ? 'AI'
+            : 'A'}
       </div>
       <div
         className={cn(
           'max-w-[70%] rounded-2xl px-4 py-2.5 text-sm',
           message.role === 'customer'
-            ? 'rounded-tl-sm bg-muted text-foreground'
-            : 'rounded-tr-sm bg-primary text-primary-foreground',
+            ? 'bg-muted text-foreground rounded-tl-sm'
+            : 'bg-primary text-primary-foreground rounded-tr-sm',
         )}
       >
         <p className="leading-relaxed">{message.content}</p>
         <p
           className={cn(
             'mt-1 text-xs',
-            message.role === 'customer' ? 'text-muted-foreground' : 'text-primary-foreground/70',
+            message.role === 'customer'
+              ? 'text-muted-foreground'
+              : 'text-primary-foreground/70',
           )}
         >
           {message.timestamp}

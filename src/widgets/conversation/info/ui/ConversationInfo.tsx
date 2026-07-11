@@ -12,19 +12,19 @@ interface ConversationInfoProps {
 export const ConversationInfo = ({ conversation }: ConversationInfoProps) => {
   if (!conversation) {
     return (
-      <div className="flex h-full items-center justify-center border-l border-border text-sm text-muted-foreground">
+      <div className="border-border text-muted-foreground flex h-full items-center justify-center border-l text-sm">
         No conversation selected
       </div>
     );
   }
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto border-l border-border bg-background">
-      <div className="border-b border-border p-4">
-        <h3 className="mb-3 text-sm font-semibold text-foreground">Details</h3>
+    <div className="border-border bg-background flex h-full flex-col overflow-y-auto border-l">
+      <div className="border-border border-b p-4">
+        <h3 className="text-foreground mb-3 text-sm font-semibold">Details</h3>
         <dl className="space-y-2.5">
           <div className="flex items-center justify-between gap-2">
-            <dt className="text-xs text-muted-foreground">Status</dt>
+            <dt className="text-muted-foreground text-xs">Status</dt>
             <dd>
               <span
                 className={cn(
@@ -37,46 +37,58 @@ export const ConversationInfo = ({ conversation }: ConversationInfoProps) => {
             </dd>
           </div>
           <div className="flex items-center justify-between gap-2">
-            <dt className="text-xs text-muted-foreground">Source</dt>
-            <dd className="text-xs text-foreground">{conversation.source ?? 'Web widget'}</dd>
+            <dt className="text-muted-foreground text-xs">Source</dt>
+            <dd className="text-foreground text-xs">
+              {conversation.source ?? 'Web widget'}
+            </dd>
           </div>
           <div className="flex items-center justify-between gap-2">
-            <dt className="text-xs text-muted-foreground">Assigned to</dt>
-            <dd className="text-xs text-foreground">{conversation.assignedTo ?? '—'}</dd>
+            <dt className="text-muted-foreground text-xs">Assigned to</dt>
+            <dd className="text-foreground text-xs">{conversation.assignedTo ?? '—'}</dd>
           </div>
           <div className="flex items-center justify-between gap-2">
-            <dt className="text-xs text-muted-foreground">Language</dt>
-            <dd className="text-xs text-foreground">{conversation.language ?? 'English'}</dd>
+            <dt className="text-muted-foreground text-xs">Language</dt>
+            <dd className="text-foreground text-xs">
+              {conversation.language ?? 'English'}
+            </dd>
           </div>
           <div className="flex items-center justify-between gap-2">
-            <dt className="text-xs text-muted-foreground">Created at</dt>
-            <dd className="text-xs text-foreground">{conversation.createdAt ?? '—'}</dd>
+            <dt className="text-muted-foreground text-xs">Created at</dt>
+            <dd className="text-foreground text-xs">{conversation.createdAt ?? '—'}</dd>
           </div>
         </dl>
       </div>
 
-      <div className="border-b border-border p-4">
+      <div className="border-border border-b p-4">
         <div className="mb-2 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5">
-            <HugeiconsIcon icon={AiBrain01Icon} strokeWidth={1.75} className="size-4 text-primary" />
-            <h3 className="text-sm font-semibold text-foreground">AI Summary</h3>
+            <HugeiconsIcon
+              icon={AiBrain01Icon}
+              strokeWidth={1.75}
+              className="text-primary size-4"
+            />
+            <h3 className="text-foreground text-sm font-semibold">AI Summary</h3>
           </div>
-          <button type="button" className="text-xs text-primary hover:underline">
+          <button type="button" className="text-primary text-xs hover:underline">
             Regenerate
           </button>
         </div>
-        <p className="text-xs leading-relaxed text-muted-foreground">
+        <p className="text-muted-foreground text-xs leading-relaxed">
           {conversation.aiSummary ?? 'No summary available.'}
         </p>
       </div>
 
-      <div className="border-b border-border p-4">
+      <div className="border-border border-b p-4">
         <div className="mb-2 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5">
-            <HugeiconsIcon icon={Tag01Icon} strokeWidth={1.75} className="size-4 text-muted-foreground" />
-            <h3 className="text-sm font-semibold text-foreground">Conversation tags</h3>
+            <HugeiconsIcon
+              icon={Tag01Icon}
+              strokeWidth={1.75}
+              className="text-muted-foreground size-4"
+            />
+            <h3 className="text-foreground text-sm font-semibold">Conversation tags</h3>
           </div>
-          <button type="button" className="text-xs text-primary hover:underline">
+          <button type="button" className="text-primary text-xs hover:underline">
             Add tag
           </button>
         </div>
@@ -89,22 +101,26 @@ export const ConversationInfo = ({ conversation }: ConversationInfoProps) => {
             ))}
           </div>
         ) : (
-          <p className="text-xs text-muted-foreground">No tags added</p>
+          <p className="text-muted-foreground text-xs">No tags added</p>
         )}
       </div>
 
-      <div className="p-4 max-h-70 overflow-y-auto">
+      <div className="max-h-70 overflow-y-auto p-4">
         <div className="mb-3 flex items-center gap-1.5">
-          <HugeiconsIcon icon={Clock01Icon} strokeWidth={1.75} className="size-4 text-muted-foreground" />
-          <h3 className="text-sm font-semibold text-foreground">Events</h3>
+          <HugeiconsIcon
+            icon={Clock01Icon}
+            strokeWidth={1.75}
+            className="text-muted-foreground size-4"
+          />
+          <h3 className="text-foreground text-sm font-semibold">Events</h3>
         </div>
         <div className="space-y-3">
           {conversation.events?.map((event) => (
             <div key={event.id} className="flex items-start gap-2.5">
-              <div className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
+              <div className="bg-primary mt-1.5 size-1.5 shrink-0 rounded-full" />
               <div>
-                <p className="text-xs text-foreground">{event.description}</p>
-                <p className="text-xs text-muted-foreground">{event.timestamp}</p>
+                <p className="text-foreground text-xs">{event.description}</p>
+                <p className="text-muted-foreground text-xs">{event.timestamp}</p>
               </div>
             </div>
           ))}

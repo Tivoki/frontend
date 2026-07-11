@@ -21,7 +21,7 @@ export const KnowledgeBaseHeader = ({ onAddSource }: KnowledgeBaseHeaderProps) =
         </p>
       </div>
 
-      <Button size='sm' onClick={onAddSource} className="self-start sm:self-auto">
+      <Button size="sm" onClick={onAddSource} className="self-start sm:self-auto">
         <HugeiconsIcon icon={Add01Icon} strokeWidth={1.75} />
         Add Source
       </Button>

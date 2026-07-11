@@ -10,7 +10,5 @@ import { clearAuthCookies } from '~/shared/api/index.server';
  * unexpired token would otherwise cause.
  */
 export function GET(request: NextRequest) {
-  return clearAuthCookies(
-    NextResponse.redirect(new URL('/auth/login', request.url)),
-  );
+  return clearAuthCookies(NextResponse.redirect(new URL('/auth/login', request.url)));
 }

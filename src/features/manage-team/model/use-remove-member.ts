@@ -16,7 +16,9 @@ export const useRemoveMember = (workspaceId: string) => {
         .delete(`workspaces/${workspaceId}/members/${memberId}`)
         .json<WorkspaceMember>(),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: workspaceKeys.members(workspaceId) });
+      void queryClient.invalidateQueries({
+        queryKey: workspaceKeys.members(workspaceId),
+      });
     },
     onError: (error) => {
       toast.error(getApiErrorMessage(error));

@@ -5,6 +5,5 @@ import { apiClient } from '~/shared/api';
 
 export const useResendOtp = (email: string) =>
   useMutation({
-    mutationFn: () =>
-      apiClient.post('auth/resend-otp', { json: { email } }).json<void>(),
+    mutationFn: () => apiClient.post('auth/resend-otp', { json: { email } }).json<void>(),
   });

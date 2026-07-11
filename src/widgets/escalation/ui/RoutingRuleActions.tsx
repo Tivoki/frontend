@@ -31,7 +31,11 @@ export const RoutingRuleActions = ({ onEdit, onDelete }: RoutingRuleActionsProps
           size="icon-sm"
           className="text-muted-foreground"
         >
-          <HugeiconsIcon icon={MoreHorizontalIcon} strokeWidth={1.75} className="size-4" />
+          <HugeiconsIcon
+            icon={MoreHorizontalIcon}
+            strokeWidth={1.75}
+            className="size-4"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-32">

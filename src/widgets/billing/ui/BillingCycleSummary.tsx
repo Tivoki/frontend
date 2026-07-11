@@ -18,7 +18,7 @@ export const BillingCycleSummary = () => {
 
   return (
     <Card>
-      <CardContent className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-center lg:gap-6 lg:divide-x lg:divide-border">
+      <CardContent className="lg:divide-border grid grid-cols-1 gap-4 lg:grid-cols-3 lg:items-center lg:gap-6 lg:divide-x">
         <div>
           <p className="text-muted-foreground text-sm">Current cycle</p>
           <p className="text-foreground text-lg font-semibold">

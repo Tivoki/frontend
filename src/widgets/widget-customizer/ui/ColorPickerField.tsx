@@ -31,7 +31,7 @@ export const ColorPickerField = ({
     <div
       aria-invalid={props['aria-invalid']}
       className={cn(
-        'flex h-8 items-center gap-2 rounded-lg border border-input bg-transparent px-2.5 focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20',
+        'border-input focus-within:border-ring focus-within:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 flex h-8 items-center gap-2 rounded-lg border bg-transparent px-2.5 focus-within:ring-3 aria-invalid:ring-3',
         className,
       )}
     >
@@ -44,7 +44,7 @@ export const ColorPickerField = ({
           className="absolute size-4 cursor-pointer rounded-sm border-0 bg-transparent p-0 opacity-0"
         />
         <span
-          className="size-4 shrink-0 rounded-sm border border-border"
+          className="border-border size-4 shrink-0 rounded-sm border"
           style={{ backgroundColor: value }}
         />
       </label>

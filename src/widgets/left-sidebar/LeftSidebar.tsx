@@ -23,7 +23,9 @@ export const LeftSidebar = () => {
           className="group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-0"
           iconClassName="group-data-[collapsible=icon]:size-8"
           textClassName="group-data-[collapsible=icon]:hidden"
-          onClick={() => { if (isMobile) setOpenMobile(false); }}
+          onClick={() => {
+            if (isMobile) setOpenMobile(false);
+          }}
         />
       </SidebarHeader>
 

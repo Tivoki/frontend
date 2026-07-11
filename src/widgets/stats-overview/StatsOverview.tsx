@@ -1,4 +1,8 @@
-import { AiBrain03Icon, CheckmarkBadge01Icon, User02Icon } from '@hugeicons/core-free-icons';
+import {
+  AiBrain03Icon,
+  CheckmarkBadge01Icon,
+  User02Icon,
+} from '@hugeicons/core-free-icons';
 
 import { KpiCard } from '~/shared/ui/primitives';
 import type { KpiStat } from '~/shared/ui/primitives';

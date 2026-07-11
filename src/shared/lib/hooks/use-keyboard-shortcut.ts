@@ -35,7 +35,12 @@ export const useKeyboardShortcut = (
       const matchesShift = !mods.includes('shift') || event.shiftKey;
       const matchesAlt = !mods.includes('alt') || event.altKey;
 
-      if (event.key.toLowerCase() === key.toLowerCase() && matchesMod && matchesShift && matchesAlt) {
+      if (
+        event.key.toLowerCase() === key.toLowerCase() &&
+        matchesMod &&
+        matchesShift &&
+        matchesAlt
+      ) {
         event.preventDefault();
         handlerRef.current(event);
       }

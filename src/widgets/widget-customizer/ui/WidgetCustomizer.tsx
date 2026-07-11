@@ -11,7 +11,7 @@ import { SecuritySection } from './SecuritySection';
 export const WidgetCustomizer = () => {
   return (
     <Tabs defaultValue="customize">
-      <TabsList className="w-full justify-start overflow-x-auto custom-scrollbar">
+      <TabsList className="custom-scrollbar w-full justify-start overflow-x-auto">
         <TabsTrigger value="customize">Customize</TabsTrigger>
         <TabsTrigger value="installation">Installation</TabsTrigger>
         <TabsTrigger value="behavior">Behavior</TabsTrigger>

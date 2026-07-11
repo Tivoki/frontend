@@ -49,9 +49,12 @@ export const HandoffChannels = () => {
               <p className="text-muted-foreground text-sm">No channels connected yet.</p>
             </div>
           ) : (
-            <div className="flex flex-col divide-y divide-border">
+            <div className="divide-border flex flex-col divide-y">
               {channels.map((channel) => (
-                <div key={channel.id} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+                <div
+                  key={channel.id}
+                  className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
+                >
                   <div className="bg-muted flex size-9 shrink-0 items-center justify-center rounded-lg">
                     <HugeiconsIcon
                       icon={channel.icon}
@@ -62,7 +65,9 @@ export const HandoffChannels = () => {
 
                   <div className="min-w-0 flex-1">
                     <p className="text-foreground text-sm font-medium">{channel.name}</p>
-                    <p className="text-muted-foreground truncate text-xs">{channel.description}</p>
+                    <p className="text-muted-foreground truncate text-xs">
+                      {channel.description}
+                    </p>
                   </div>
 
                   <div className="flex shrink-0 items-center gap-3">
@@ -72,8 +77,15 @@ export const HandoffChannels = () => {
                         STATUS_TEXT[channel.status],
                       )}
                     >
-                      <span className={cn('size-1.5 rounded-full', STATUS_DOT[channel.status])} />
-                      <span className='hidden sm:inline'>{STATUS_LABEL[channel.status]}</span>
+                      <span
+                        className={cn(
+                          'size-1.5 rounded-full',
+                          STATUS_DOT[channel.status],
+                        )}
+                      />
+                      <span className="hidden sm:inline">
+                        {STATUS_LABEL[channel.status]}
+                      </span>
                     </div>
                     <Button
                       type="button"
@@ -92,7 +104,12 @@ export const HandoffChannels = () => {
         </div>
 
         <div className="border-border shrink-0 border-t px-4 py-3 sm:px-5">
-          <Button type="button" variant="outline" size="sm" onClick={() => setAddOpen(true)}>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setAddOpen(true)}
+          >
             <HugeiconsIcon icon={Add01Icon} strokeWidth={1.75} className="size-4" />
             Add channel
           </Button>

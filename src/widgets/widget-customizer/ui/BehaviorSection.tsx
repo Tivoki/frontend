@@ -42,7 +42,11 @@ export const BehaviorSection = () => {
               <FieldLabel htmlFor="behavior-delay" className={LABEL_CLASS}>
                 Auto-open delay
               </FieldLabel>
-              <Select value={field.value} onValueChange={field.onChange} disabled={!autoOpen}>
+              <Select
+                value={field.value}
+                onValueChange={field.onChange}
+                disabled={!autoOpen}
+              >
                 <SelectTrigger id="behavior-delay" className="w-full">
                   <span className="text-sm">{delayLabel(field.value)}</span>
                 </SelectTrigger>

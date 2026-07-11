@@ -11,7 +11,10 @@ import { KnowledgeBaseSourcesTable } from '~/widgets/knowledge-base';
 import { KnowledgeBaseHeader } from './KnowledgeBaseHeader';
 
 const AddSourceDialog = dynamic(
-  () => import('~/features/add-knowledge-base-source').then((m) => ({ default: m.AddSourceDialog })),
+  () =>
+    import('~/features/add-knowledge-base-source').then((m) => ({
+      default: m.AddSourceDialog,
+    })),
   { ssr: false },
 );
 
@@ -73,9 +76,9 @@ export const KnowledgeBasePage = () => {
           defaultData={
             dialogState.mode === 'edit'
               ? {
-                name: dialogState.source.name,
-                url: dialogState.source.url,
-              }
+                  name: dialogState.source.name,
+                  url: dialogState.source.url,
+                }
               : undefined
           }
         />

@@ -12,7 +12,11 @@ export const HandoffChannelConfigureSheet = ({
 }: HandoffChannelConfigureSheetProps) => {
   return (
     <Sheet open={!!channel} onOpenChange={(open) => !open && onClose()}>
-      <SheetContent side="right" className="w-full max-w-sm p-0" aria-describedby={undefined}>
+      <SheetContent
+        side="right"
+        className="w-full max-w-sm p-0"
+        aria-describedby={undefined}
+      >
         <SheetHeader className="border-border border-b px-4 py-3">
           <SheetTitle className="text-sm">{channel?.name} configuration</SheetTitle>
         </SheetHeader>

@@ -21,8 +21,13 @@ interface KnowledgeBaseItemRowProps {
 export const KnowledgeBaseItemRow = ({ item, className }: KnowledgeBaseItemRowProps) => {
   return (
     <div className={cn('flex items-center justify-between gap-2 py-2', className)}>
-      <p className="text-sm text-foreground truncate flex-1">{item.title}</p>
-      <span className={cn('text-xs font-medium px-2 py-0.5 rounded-full shrink-0', statusStyles[item.status])}>
+      <p className="text-foreground flex-1 truncate text-sm">{item.title}</p>
+      <span
+        className={cn(
+          'shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
+          statusStyles[item.status],
+        )}
+      >
         {statusLabels[item.status]}
       </span>
     </div>

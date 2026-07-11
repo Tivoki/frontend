@@ -22,17 +22,21 @@ interface KpiCardProps {
 
 export const KpiCard = ({ stat, className }: KpiCardProps) => {
   return (
-    <Card className={cn('gap-2 bg-sidebar', className)}>
+    <Card className={cn('bg-sidebar gap-2', className)}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <p>{stat.label}</p>
-          <div className="rounded-full bg-primary/10 p-1">
-            <HugeiconsIcon icon={stat.icon} strokeWidth={1.75} className="size-4 text-primary" />
+          <div className="bg-primary/10 rounded-full p-1">
+            <HugeiconsIcon
+              icon={stat.icon}
+              strokeWidth={1.75}
+              className="text-primary size-4"
+            />
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-xl font-bold text-foreground sm:text-2xl">{stat.value}</p>
+        <p className="text-foreground text-xl font-bold sm:text-2xl">{stat.value}</p>
       </CardContent>
       <CardFooter className="border-none bg-transparent">
         {stat.change && (

@@ -20,7 +20,7 @@ interface DeviceSwitcherProps {
 
 export const DeviceSwitcher = ({ value, onChange }: DeviceSwitcherProps) => {
   return (
-    <div className="flex items-center rounded-lg border border-border bg-muted/60 p-0.5">
+    <div className="border-border bg-muted/60 flex items-center rounded-lg border p-0.5">
       {DEVICES.map(({ id, icon, label }) => (
         <button
           key={id}

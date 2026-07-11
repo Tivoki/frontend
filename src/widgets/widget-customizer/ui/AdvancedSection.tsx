@@ -2,7 +2,14 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Field, FieldDescription, FieldError, FieldLabel, Input, Textarea } from '~/shared/ui/kit';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  Input,
+  Textarea,
+} from '~/shared/ui/kit';
 import type { WidgetConfig } from '~/entities/widget';
 
 import { SwitchField } from './SwitchField';

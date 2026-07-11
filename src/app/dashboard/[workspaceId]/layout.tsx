@@ -33,9 +33,7 @@ const WorkspaceLayout = async ({
   if (workspacesResult.ok) seedWorkspaceList(queryClient, workspacesResult.data);
   if (meResult.ok) seedMe(queryClient, meResult.data);
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>
-  );
+  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
 };
 
 export default WorkspaceLayout;

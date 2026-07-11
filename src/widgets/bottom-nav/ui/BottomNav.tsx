@@ -33,7 +33,7 @@ export const BottomNav = () => {
   }
 
   return (
-    <nav className="z-50 flex h-[calc(4rem+env(safe-area-inset-bottom))] shrink-0 items-stretch border-t border-border bg-background pb-[env(safe-area-inset-bottom)] sm:hidden">
+    <nav className="border-border bg-background z-50 flex h-[calc(4rem+env(safe-area-inset-bottom))] shrink-0 items-stretch border-t pb-[env(safe-area-inset-bottom)] sm:hidden">
       {NAV_ITEMS.map((item) => {
         const href = workspaceHref(item.sub);
         const isActive = pathname === href;

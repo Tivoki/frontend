@@ -52,10 +52,14 @@ export const SearchPageContent = ({ className }: SearchPageContentProps) => {
     <div className={cn('flex flex-col gap-3', className)}>
       <InputGroup className="h-9">
         <InputGroupAddon>
-          <HugeiconsIcon icon={Search01Icon} strokeWidth={2} className="size-4 opacity-50" />
+          <HugeiconsIcon
+            icon={Search01Icon}
+            strokeWidth={2}
+            className="size-4 opacity-50"
+          />
         </InputGroupAddon>
         <InputGroupInput
-          className='text-sm placeholder:text-xs'
+          className="text-sm placeholder:text-xs"
           ref={inputRef}
           autoFocus
           placeholder="Search pages, actions, docs..."
@@ -71,7 +75,7 @@ export const SearchPageContent = ({ className }: SearchPageContentProps) => {
         )}
       </InputGroup>
 
-      <Command shouldFilter={false} className="rounded-xl bg-popover">
+      <Command shouldFilter={false} className="bg-popover rounded-xl">
         <SearchResultList
           groups={groups}
           query={query}

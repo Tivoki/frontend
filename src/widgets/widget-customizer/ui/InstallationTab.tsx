@@ -39,10 +39,12 @@ export const InstallationTab = () => {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="text-sm font-semibold text-foreground">Installation</h2>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <h2 className="text-foreground text-sm font-semibold">Installation</h2>
+        <p className="text-muted-foreground mt-1 text-xs">
           Add this code to your website before the closing{' '}
-          <code className="rounded bg-muted px-1 py-0.5 font-mono text-xs">&lt;/body&gt;</code>{' '}
+          <code className="bg-muted rounded px-1 py-0.5 font-mono text-xs">
+            &lt;/body&gt;
+          </code>{' '}
           tag.
         </p>
       </div>
@@ -61,7 +63,12 @@ export const InstallationTab = () => {
           </SelectContent>
         </Select>
 
-        <Button variant="outline" size="sm" onClick={handleCopy} className="ml-auto gap-1.5">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleCopy}
+          className="ml-auto gap-1.5"
+        >
           <HugeiconsIcon
             icon={copied ? Tick01Icon : Copy01Icon}
             strokeWidth={1.75}
@@ -71,17 +78,22 @@ export const InstallationTab = () => {
         </Button>
       </div>
 
-      <pre className="custom-scrollbar max-w-full overflow-x-auto rounded-xl border border-border bg-muted p-4 text-xs leading-relaxed text-foreground/80">
+      <pre className="custom-scrollbar border-border bg-muted text-foreground/80 max-w-full overflow-x-auto rounded-xl border p-4 text-xs leading-relaxed">
         <code>{CODE_SNIPPET}</code>
       </pre>
 
-      <div className="rounded-xl border border-border bg-card p-4">
-        <p className="text-sm font-medium text-foreground">Need help?</p>
-        <p className="mt-1 text-xs text-muted-foreground">
+      <div className="border-border bg-card rounded-xl border p-4">
+        <p className="text-foreground text-sm font-medium">Need help?</p>
+        <p className="text-muted-foreground mt-1 text-xs">
           Check our{' '}
-          <span className="cursor-pointer text-primary hover:underline">maximise guide</span> ↗ or
-          contact our{' '}
-          <span className="cursor-pointer text-primary hover:underline">support team</span>.
+          <span className="text-primary cursor-pointer hover:underline">
+            maximise guide
+          </span>{' '}
+          ↗ or contact our{' '}
+          <span className="text-primary cursor-pointer hover:underline">
+            support team
+          </span>
+          .
         </p>
       </div>
     </div>

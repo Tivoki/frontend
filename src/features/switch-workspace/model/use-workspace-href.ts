@@ -11,6 +11,8 @@ export const useWorkspaceHref = () => {
 
   return (sub = ''): Route => {
     if (!workspaceId) return toRoute('/dashboard');
-    return toRoute(sub ? `/dashboard/${workspaceId}/${sub}` : `/dashboard/${workspaceId}`);
+    return toRoute(
+      sub ? `/dashboard/${workspaceId}/${sub}` : `/dashboard/${workspaceId}`,
+    );
   };
 };

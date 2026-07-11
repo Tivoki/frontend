@@ -14,12 +14,17 @@ interface HeaderProps {
 
 export const Header = ({ className }: HeaderProps) => {
   return (
-    <header className={cn('flex h-14.25 items-center gap-2 border-b border-border bg-background px-3 sm:gap-3 sm:px-4 md:gap-4', className)}>
-      <SidebarTrigger className="md:hidden shrink-0 size-8 rounded-full border border-border text-muted-foreground hover:bg-muted hover:text-foreground" />
+    <header
+      className={cn(
+        'border-border bg-background flex h-14.25 items-center gap-2 border-b px-3 sm:gap-3 sm:px-4 md:gap-4',
+        className,
+      )}
+    >
+      <SidebarTrigger className="border-border text-muted-foreground hover:bg-muted hover:text-foreground size-8 shrink-0 rounded-full border md:hidden" />
 
       <WorkspaceSwitcher />
 
-      <div className="min-w-0 flex-1 max-w-md mx-auto hidden sm:block">
+      <div className="mx-auto hidden max-w-md min-w-0 flex-1 sm:block">
         <SearchBar />
       </div>
 

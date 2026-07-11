@@ -24,13 +24,18 @@ export function Logo({
   return (
     <Link
       href="/dashboard"
-      className={cn('inline-flex select-none items-center gap-2.5', className)}
+      className={cn('inline-flex items-center gap-2.5 select-none', className)}
       {...props}
     >
       <LogoIcon decorative={showText} label={name} className={iconClassName} />
 
       {showText && (
-        <span className={cn('text-xl font-semibold tracking-tight text-foreground', textClassName)}>
+        <span
+          className={cn(
+            'text-foreground text-xl font-semibold tracking-tight',
+            textClassName,
+          )}
+        >
           {name}
         </span>
       )}

@@ -36,7 +36,13 @@ export interface SourceFormProps {
   onSuccess: () => void;
 }
 
-export function SourceForm({ type, defaultData, mode, onBack, onSuccess }: SourceFormProps) {
+export function SourceForm({
+  type,
+  defaultData,
+  mode,
+  onBack,
+  onSuccess,
+}: SourceFormProps) {
   const schema = getSchemaForType(type);
   const form = useForm<AddSourceFormData>({
     resolver: standardSchemaResolver(schema),
@@ -77,7 +83,9 @@ export function SourceForm({ type, defaultData, mode, onBack, onSuccess }: Sourc
                 <FieldLabel htmlFor={`${FORM_ID}-url`}>
                   URL
                   {type === 'faq' && (
-                    <span className="ml-1 font-normal text-muted-foreground">(optional)</span>
+                    <span className="text-muted-foreground ml-1 font-normal">
+                      (optional)
+                    </span>
                   )}
                 </FieldLabel>
                 <Input
@@ -95,20 +103,22 @@ export function SourceForm({ type, defaultData, mode, onBack, onSuccess }: Sourc
         )}
 
         {type === 'file' && (
-          <div className="flex min-h-35 cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-border p-6 text-center transition-colors hover:border-primary/40 hover:bg-muted/30">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-muted">
+          <div className="border-border hover:border-primary/40 hover:bg-muted/30 flex min-h-35 cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-6 text-center transition-colors">
+            <div className="bg-muted flex size-9 items-center justify-center rounded-xl">
               <HugeiconsIcon
                 icon={CloudUploadIcon}
                 strokeWidth={1.75}
-                className="size-5 text-muted-foreground"
+                className="text-muted-foreground size-5"
               />
             </div>
             <div>
-              <p className="text-sm font-medium text-foreground">
+              <p className="text-foreground text-sm font-medium">
                 Drag & drop or{' '}
                 <span className="text-primary underline underline-offset-2">browse</span>
               </p>
-              <p className="mt-0.5 text-xs text-muted-foreground">PDF, DOCX, TXT, CSV — up to 50 MB</p>
+              <p className="text-muted-foreground mt-0.5 text-xs">
+                PDF, DOCX, TXT, CSV — up to 50 MB
+              </p>
             </div>
           </div>
         )}
@@ -136,8 +146,18 @@ export function SourceForm({ type, defaultData, mode, onBack, onSuccess }: Sourc
 
       <DialogFooter className={cn('mt-4', mode === 'add' ? 'sm:justify-between' : '')}>
         {mode === 'add' && (
-          <Button type="button" variant="ghost" size="sm" onClick={onBack} className="gap-1.5">
-            <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={1.75} className="size-3.5" />
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={onBack}
+            className="gap-1.5"
+          >
+            <HugeiconsIcon
+              icon={ArrowLeft01Icon}
+              strokeWidth={1.75}
+              className="size-3.5"
+            />
             Back
           </Button>
         )}

@@ -2,7 +2,13 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Field, FieldContent, FieldDescription, FieldLabel, Switch } from '~/shared/ui/kit';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  Switch,
+} from '~/shared/ui/kit';
 import type { WidgetConfig } from '~/entities/widget';
 
 // Only the boolean keys of WidgetConfig are valid switch targets.
@@ -30,7 +36,9 @@ export const SwitchField = ({ name, label, description }: SwitchFieldProps) => {
             <FieldLabel htmlFor={id} className="text-sm">
               {label}
             </FieldLabel>
-            {description && <FieldDescription className="text-xs">{description}</FieldDescription>}
+            {description && (
+              <FieldDescription className="text-xs">{description}</FieldDescription>
+            )}
           </FieldContent>
           <Switch id={id} checked={field.value} onCheckedChange={field.onChange} />
         </Field>

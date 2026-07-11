@@ -4,7 +4,15 @@ import { useId, useState } from 'react';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { AttachmentIcon, SentIcon } from '@hugeicons/core-free-icons';
 import { cn } from '~/shared/lib';
-import { Button, buttonVariants, Tabs, TabsContent, TabsList, TabsTrigger, Textarea } from '~/shared/ui/kit';
+import {
+  Button,
+  buttonVariants,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '~/shared/ui/kit';
 
 interface ReplyComposerProps {
   onSend?: (text: string, type: 'reply' | 'note') => void;

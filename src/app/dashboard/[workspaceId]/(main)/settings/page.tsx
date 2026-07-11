@@ -15,7 +15,8 @@ export default async function Page({
   const membersResult = await getWorkspaceMembers(workspaceId);
 
   const queryClient = new QueryClient();
-  if (membersResult.ok) seedWorkspaceMembers(queryClient, workspaceId, membersResult.data);
+  if (membersResult.ok)
+    seedWorkspaceMembers(queryClient, workspaceId, membersResult.data);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

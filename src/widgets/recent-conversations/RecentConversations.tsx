@@ -59,31 +59,44 @@ export const RecentConversations = ({
   const workspaceHref = useWorkspaceHref();
 
   return (
-    <div className={cn('min-w-0 rounded-xl border border-border bg-background', className)}>
-      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-3 sm:px-4">
-        <h3 className="text-sm font-semibold text-foreground">Recent Conversations</h3>
-        <Link href={workspaceHref('conversations')} className="shrink-0 text-xs font-medium text-primary hover:underline">
+    <div
+      className={cn('border-border bg-background min-w-0 rounded-xl border', className)}
+    >
+      <div className="border-border flex items-center justify-between gap-3 border-b px-3 py-3 sm:px-4">
+        <h3 className="text-foreground text-sm font-semibold">Recent Conversations</h3>
+        <Link
+          href={workspaceHref('conversations')}
+          className="text-primary shrink-0 text-xs font-medium hover:underline"
+        >
           View All
         </Link>
       </div>
 
-      <div className="divide-y divide-border md:hidden">
+      <div className="divide-border divide-y md:hidden">
         {conversations.map((conversation) => (
           <article key={conversation.id} className="px-3 py-3">
             <div className="flex min-w-0 items-start gap-3">
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground">
+              <div className="bg-muted text-muted-foreground flex size-9 shrink-0 items-center justify-center rounded-full text-xs font-medium">
                 {conversation.customerName.charAt(0)}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex min-w-0 items-start justify-between gap-2">
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-foreground">{conversation.customerName}</p>
-                    <p className="truncate text-xs text-muted-foreground">{conversation.customerEmail}</p>
+                    <p className="text-foreground truncate text-sm font-medium">
+                      {conversation.customerName}
+                    </p>
+                    <p className="text-muted-foreground truncate text-xs">
+                      {conversation.customerEmail}
+                    </p>
                   </div>
-                  <span className="shrink-0 text-xs text-muted-foreground">{conversation.time}</span>
+                  <span className="text-muted-foreground shrink-0 text-xs">
+                    {conversation.time}
+                  </span>
                 </div>
 
-                <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{conversation.lastMessage}</p>
+                <p className="text-muted-foreground mt-2 line-clamp-2 text-xs">
+                  {conversation.lastMessage}
+                </p>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <span
@@ -94,7 +107,9 @@ export const RecentConversations = ({
                   >
                     {STATUS_LABELS[conversation.status]}
                   </span>
-                  <span className="text-xs text-muted-foreground">{CHANNEL_LABELS[conversation.channel]}</span>
+                  <span className="text-muted-foreground text-xs">
+                    {CHANNEL_LABELS[conversation.channel]}
+                  </span>
                 </div>
               </div>
             </div>
@@ -105,20 +120,20 @@ export const RecentConversations = ({
       <div className="hidden md:block">
         <Table className="min-w-150">
           <TableHeader>
-            <TableRow className="border-b border-border hover:bg-transparent">
-              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+            <TableRow className="border-border border-b hover:bg-transparent">
+              <TableHead className="text-muted-foreground h-auto px-4 py-2.5 text-left text-xs font-medium">
                 Name
               </TableHead>
-              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+              <TableHead className="text-muted-foreground h-auto px-4 py-2.5 text-left text-xs font-medium">
                 Message
               </TableHead>
-              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+              <TableHead className="text-muted-foreground h-auto px-4 py-2.5 text-left text-xs font-medium">
                 Status
               </TableHead>
-              <TableHead className="h-auto px-4 py-2.5 text-left text-xs font-medium text-muted-foreground">
+              <TableHead className="text-muted-foreground h-auto px-4 py-2.5 text-left text-xs font-medium">
                 Channel
               </TableHead>
-              <TableHead className="h-auto px-4 py-2.5 text-right text-xs font-medium text-muted-foreground">
+              <TableHead className="text-muted-foreground h-auto px-4 py-2.5 text-right text-xs font-medium">
                 Time
               </TableHead>
             </TableRow>

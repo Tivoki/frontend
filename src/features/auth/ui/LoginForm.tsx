@@ -32,7 +32,7 @@ const FORM_ID = 'login-form';
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const {mutate} = useLogin();
+  const { mutate } = useLogin();
 
   const form = useForm<LoginFormData>({
     resolver: standardSchemaResolver(loginSchema),

@@ -47,7 +47,9 @@ export const AppearanceSection = () => {
                     onClick={() => field.onChange(t)}
                     className={cn(
                       'flex-1 capitalize',
-                      field.value === t ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10' : '',
+                      field.value === t
+                        ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10'
+                        : '',
                     )}
                   >
                     {t}
@@ -56,7 +58,7 @@ export const AppearanceSection = () => {
               </div>
               <p className="text-muted-foreground text-[11px] leading-relaxed">
                 {field.value === 'auto'
-                  ? 'Follows the visitor\'s OS preference automatically.'
+                  ? "Follows the visitor's OS preference automatically."
                   : field.value === 'light'
                     ? 'Always renders in light mode.'
                     : 'Always renders in dark mode.'}
@@ -110,7 +112,10 @@ export const AppearanceSection = () => {
             name="secondaryColorDark"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="appearance-secondary-color-dark" className={LABEL_CLASS}>
+                <FieldLabel
+                  htmlFor="appearance-secondary-color-dark"
+                  className={LABEL_CLASS}
+                >
                   Bubble — dark
                 </FieldLabel>
                 <ColorPickerField
@@ -142,7 +147,9 @@ export const AppearanceSection = () => {
                     onClick={() => field.onChange(pos)}
                     className={cn(
                       'capitalize',
-                      field.value === pos ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10' : '',
+                      field.value === pos
+                        ? 'border-primary dark:border-primary bg-primary/10 dark:bg-primary/10'
+                        : '',
                     )}
                   >
                     {pos.split('-').join(' ')}
@@ -209,7 +216,11 @@ export const AppearanceSection = () => {
             </div>
             <div className="flex gap-2">
               <Button type="button" variant="outline" size="sm" className="gap-1.5">
-                <HugeiconsIcon icon={ImageUploadIcon} strokeWidth={1.75} className="size-3.5" />
+                <HugeiconsIcon
+                  icon={ImageUploadIcon}
+                  strokeWidth={1.75}
+                  className="size-3.5"
+                />
                 Change avatar
               </Button>
               <Button type="button" variant="ghost" size="sm">

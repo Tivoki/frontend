@@ -5,7 +5,13 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Notification01Icon, Tick02Icon } from '@hugeicons/core-free-icons';
 
 import { cn } from '~/shared/lib';
-import { Button, Popover, PopoverContent, PopoverTrigger, Separator } from '~/shared/ui/kit';
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Separator,
+} from '~/shared/ui/kit';
 import type { Notification } from '../model/types';
 
 const MOCK_NOTIFICATIONS: Notification[] = [
@@ -13,7 +19,7 @@ const MOCK_NOTIFICATIONS: Notification[] = [
     id: '1',
     kind: 'message',
     title: 'New message from Anna K.',
-    body: 'Hi, I still haven\'t received my ticket refund… dsa dsa ds 123 das',
+    body: "Hi, I still haven't received my ticket refund… dsa dsa ds 123 das",
     time: '2 min ago',
     read: false,
   },
@@ -74,8 +80,7 @@ export const NotificationsButton = () => {
   const markRead = (id: string) =>
     setItems((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
 
-  const markAllRead = () =>
-    setItems((prev) => prev.map((n) => ({ ...n, read: true })));
+  const markAllRead = () => setItems((prev) => prev.map((n) => ({ ...n, read: true })));
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -83,24 +88,28 @@ export const NotificationsButton = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="relative rounded-full text-muted-foreground"
+          className="text-muted-foreground relative rounded-full"
           aria-label="Notifications"
         >
-          <HugeiconsIcon icon={Notification01Icon} strokeWidth={1.75} className="size-5" />
+          <HugeiconsIcon
+            icon={Notification01Icon}
+            strokeWidth={1.75}
+            className="size-5"
+          />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 size-2 rounded-full bg-destructive">
+            <span className="bg-destructive absolute top-1 right-1 size-2 rounded-full">
               <span className="sr-only">{unreadCount} unread</span>
             </span>
           )}
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent align='end' sideOffset={8} className="w-60 md:w-80 p-0">
+      <PopoverContent align="end" sideOffset={8} className="w-60 p-0 md:w-80">
         <div className="flex items-center justify-between px-3 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-foreground">Notifications</span>
+            <span className="text-foreground text-sm font-semibold">Notifications</span>
             {unreadCount > 0 && (
-              <span className="flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-primary-foreground">
+              <span className="bg-primary text-primary-foreground flex size-4 items-center justify-center rounded-full text-[10px] font-medium">
                 {unreadCount}
               </span>
             )}
@@ -122,7 +131,9 @@ export const NotificationsButton = () => {
 
         <div className="max-h-80 overflow-y-auto">
           {items.length === 0 ? (
-            <p className="py-8 text-center text-sm text-muted-foreground">All caught up</p>
+            <p className="text-muted-foreground py-8 text-center text-sm">
+              All caught up
+            </p>
           ) : (
             items.map((n) => (
               <button
@@ -145,17 +156,22 @@ export const NotificationsButton = () => {
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <p className={cn('text-xs font-medium leading-tight', !n.read && 'text-foreground')}>
+                  <p
+                    className={cn(
+                      'text-xs leading-tight font-medium',
+                      !n.read && 'text-foreground',
+                    )}
+                  >
                     {n.title}
                   </p>
-                  <p className="mt-0.5 min-w-0 line-clamp-2 wrap-break-word text-[11px] text-muted-foreground">{n.body}</p>
-                  <p className="mt-1 text-[10px] text-muted-foreground/70">{n.time}</p>
+                  <p className="text-muted-foreground mt-0.5 line-clamp-2 min-w-0 text-[11px] wrap-break-word">
+                    {n.body}
+                  </p>
+                  <p className="text-muted-foreground/70 mt-1 text-[10px]">{n.time}</p>
                 </div>
 
                 <div className="flex shrink-0 items-start pt-1">
-                  {!n.read && (
-                    <span className="size-1.5 rounded-full bg-primary" />
-                  )}
+                  {!n.read && <span className="bg-primary size-1.5 rounded-full" />}
                 </div>
               </button>
             ))

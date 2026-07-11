@@ -84,7 +84,12 @@ export const DomainSettings = () => {
               }}
             />
           </Field>
-          <Button type="button" className="gap-1.5" disabled={!newDomain.trim()} onClick={addDomain}>
+          <Button
+            type="button"
+            className="gap-1.5"
+            disabled={!newDomain.trim()}
+            onClick={addDomain}
+          >
             <HugeiconsIcon icon={PlusSignIcon} strokeWidth={1.75} className="size-4" />
             Add domain
           </Button>

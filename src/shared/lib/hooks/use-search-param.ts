@@ -21,7 +21,11 @@ export function useSearchParam(
   options?: Options,
 ): [string | undefined, (value: string | undefined) => void];
 
-export function useSearchParam(key: string, defaultValue?: string, options: Options = {}) {
+export function useSearchParam(
+  key: string,
+  defaultValue?: string,
+  options: Options = {},
+) {
   const { replace = true } = options;
   const router = useRouter();
   const pathname = usePathname();

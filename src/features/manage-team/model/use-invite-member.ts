@@ -17,7 +17,9 @@ export const useInviteMember = (workspaceId: string) => {
         .post(`workspaces/${workspaceId}/members`, { json: data })
         .json<WorkspaceMember>(),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: workspaceKeys.members(workspaceId) });
+      void queryClient.invalidateQueries({
+        queryKey: workspaceKeys.members(workspaceId),
+      });
     },
     onError: (error) => {
       toast.error(getApiErrorMessage(error));

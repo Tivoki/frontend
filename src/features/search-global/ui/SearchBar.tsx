@@ -26,15 +26,15 @@ export const SearchBar = ({ className }: SearchBarProps) => {
         variant="outline"
         onClick={() => setOpen(true)}
         className={cn(
-          'w-full justify-start gap-2 px-3 font-normal text-muted-foreground hover:text-foreground',
+          'text-muted-foreground hover:text-foreground w-full justify-start gap-2 px-3 font-normal',
           className,
         )}
       >
         <HugeiconsIcon icon={SearchIcon} strokeWidth={2} className="size-4 shrink-0" />
-        <span className="flex-1 text-left truncate">Search...</span>
+        <span className="flex-1 truncate text-left">Search...</span>
 
         {!isMobile && (
-          <kbd className="flex items-center gap-0.5 rounded border border-border bg-background px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+          <kbd className="border-border bg-background text-muted-foreground flex items-center gap-0.5 rounded border px-1.5 py-0.5 text-[10px] font-medium">
             {modKey === '⌘' ? (
               <HugeiconsIcon icon={CommandIcon} strokeWidth={2} className="size-3" />
             ) : (

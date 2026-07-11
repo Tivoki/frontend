@@ -21,7 +21,7 @@ const ConversationThread = dynamic(
   () => import('~/widgets/conversation').then((m) => ({ default: m.ConversationThread })),
   {
     loading: () => (
-      <div className="flex flex-1 items-center justify-center text-sm text-muted-foreground">
+      <div className="text-muted-foreground flex flex-1 items-center justify-center text-sm">
         Loading…
       </div>
     ),

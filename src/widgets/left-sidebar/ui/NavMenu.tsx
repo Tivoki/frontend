@@ -32,29 +32,77 @@ const NAV_GROUPS = [
     title: 'Workspace',
     items: [
       { id: 'copilot', label: 'Overview', sub: '', icon: HomeIcon, scope: 'workspace' },
-      { id: 'conversations', label: 'Conversations', sub: 'conversations', icon: BubbleChatIcon, scope: 'workspace' },
+      {
+        id: 'conversations',
+        label: 'Conversations',
+        sub: 'conversations',
+        icon: BubbleChatIcon,
+        scope: 'workspace',
+      },
     ],
   },
   {
     title: 'Build',
     items: [
-      { id: 'knowledge-base', label: 'Knowledge Base', sub: 'knowledge-base', icon: BookOpen01Icon, scope: 'workspace' },
-      { id: 'widget', label: 'Widget', sub: 'widget', icon: BrowserIcon, scope: 'workspace' },
-      { id: 'integrations', label: 'Integrations', sub: 'integrations', icon: PuzzleIcon, scope: 'workspace' },
+      {
+        id: 'knowledge-base',
+        label: 'Knowledge Base',
+        sub: 'knowledge-base',
+        icon: BookOpen01Icon,
+        scope: 'workspace',
+      },
+      {
+        id: 'widget',
+        label: 'Widget',
+        sub: 'widget',
+        icon: BrowserIcon,
+        scope: 'workspace',
+      },
+      {
+        id: 'integrations',
+        label: 'Integrations',
+        sub: 'integrations',
+        icon: PuzzleIcon,
+        scope: 'workspace',
+      },
     ],
   },
   {
     title: 'Monitor',
     items: [
-      { id: 'escalation', label: 'Escalation', sub: 'escalation', icon: AlertDiamondIcon, scope: 'workspace' },
-      { id: 'activity-logs', label: 'Activity logs', sub: 'logs', icon: ChartAnalysisIcon, scope: 'workspace' },
+      {
+        id: 'escalation',
+        label: 'Escalation',
+        sub: 'escalation',
+        icon: AlertDiamondIcon,
+        scope: 'workspace',
+      },
+      {
+        id: 'activity-logs',
+        label: 'Activity logs',
+        sub: 'logs',
+        icon: ChartAnalysisIcon,
+        scope: 'workspace',
+      },
     ],
   },
   {
     title: 'Account',
     items: [
-      { id: 'settings', label: 'Settings', sub: 'settings', icon: CogIcon, scope: 'workspace' },
-      { id: 'billing', label: 'Billing', sub: 'billing', icon: Wallet01Icon, scope: 'account' },
+      {
+        id: 'settings',
+        label: 'Settings',
+        sub: 'settings',
+        icon: CogIcon,
+        scope: 'workspace',
+      },
+      {
+        id: 'billing',
+        label: 'Billing',
+        sub: 'billing',
+        icon: Wallet01Icon,
+        scope: 'account',
+      },
     ],
   },
 ] as const;
@@ -77,7 +125,7 @@ export const NavMenu = () => {
         <SidebarGroup key={group.title}>
           <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className='md:space-y-px'>
+            <SidebarMenu className="md:space-y-px">
               {group.items.map((item) => {
                 const href = scopedHref(item.scope, item.sub);
                 return (

@@ -1,4 +1,7 @@
-import type { KnowledgeBaseSourceType, KnowledgeBaseSourceStatus } from '~/entities/knowledge-base-source';
+import type {
+  KnowledgeBaseSourceType,
+  KnowledgeBaseSourceStatus,
+} from '~/entities/knowledge-base-source';
 
 export const TYPE_LABELS: Record<KnowledgeBaseSourceType, string> = {
   website: 'Website',

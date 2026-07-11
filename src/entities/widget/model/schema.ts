@@ -11,7 +11,9 @@ export const widgetConfigSchema = z.object({
   // Appearance
   primaryColor: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #7C5AED)'),
   secondaryColor: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #EDEDED)'),
-  secondaryColorDark: z.string().regex(HEX_COLOR, 'Enter a valid hex color (e.g. #2D2D3F)'),
+  secondaryColorDark: z
+    .string()
+    .regex(HEX_COLOR, 'Enter a valid hex color (e.g. #2D2D3F)'),
   theme: z.enum(['auto', 'light', 'dark']),
   position: z.enum(['bottom-right', 'bottom-left']),
   launcherStyle: z.enum(LAUNCHER_STYLES),
@@ -19,10 +21,16 @@ export const widgetConfigSchema = z.object({
     .string()
     .min(1, 'Welcome message is required')
     .max(WELCOME_MSG_MAX, `Keep it under ${WELCOME_MSG_MAX} characters`),
-  chatTitle: z.string().min(1, 'Chat title is required').max(50, 'Keep it under 50 characters'),
+  chatTitle: z
+    .string()
+    .min(1, 'Chat title is required')
+    .max(50, 'Keep it under 50 characters'),
 
   // Branding
-  brandingTitle: z.string().min(1, 'Title is required').max(50, 'Keep it under 50 characters'),
+  brandingTitle: z
+    .string()
+    .min(1, 'Title is required')
+    .max(50, 'Keep it under 50 characters'),
   brandingSubtitle: z.string().max(80, 'Keep it under 80 characters'),
 
   // Behavior
