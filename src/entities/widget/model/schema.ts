@@ -52,6 +52,8 @@ export const widgetConfigSchema = z.object({
 });
 
 export type WidgetConfig = z.infer<typeof widgetConfigSchema>;
+export type LauncherStyle = (typeof LAUNCHER_STYLES)[number];
+export type AutoOpenDelay = (typeof AUTO_OPEN_DELAYS)[number];
 
 export const DEFAULT_WIDGET_CONFIG: WidgetConfig = {
   primaryColor: '#7C5AED',

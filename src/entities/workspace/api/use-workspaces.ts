@@ -1,8 +1,8 @@
 'use client';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { apiClient } from '~/shared/api';
-import { nextWorkspacePage, WORKSPACE_PAGE_SIZE } from '../model/config';
+import { apiClient, nextPage } from '~/shared/api';
+import { WORKSPACE_PAGE_SIZE } from '../model/config';
 import { workspaceKeys } from '../model/keys';
 import type { Page, Workspace } from '../model/types';
 
@@ -16,5 +16,5 @@ export const useWorkspaces = () =>
         })
         .json<Page<Workspace>>(),
     initialPageParam: 1,
-    getNextPageParam: nextWorkspacePage,
+    getNextPageParam: nextPage,
   });

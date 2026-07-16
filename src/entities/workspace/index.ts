@@ -4,8 +4,6 @@ export type {
   WorkspaceMemberWithUser,
   WorkspaceWithMembers,
   WorkspaceRole,
-  Page,
-  PageMeta,
 } from './model/types';
 export { workspaceKeys } from './model/keys';
 export { WORKSPACE_ROLE_LABELS } from './model/config';

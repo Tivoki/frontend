@@ -1,9 +1,9 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
-import { ArrowLeft01Icon, CloudUploadIcon } from '@hugeicons/core-free-icons';
+import { ArrowLeft01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
 import { cn } from '~/shared/lib';
 import {
@@ -16,7 +16,12 @@ import {
   Input,
   Textarea,
 } from '~/shared/ui/kit';
+import { sourceFormDataToCreatePayload, sourceFormDataToUpdateDto } from '../model/mappers';
 import { getSchemaForType, type AddSourceFormData } from '../model/schema';
+import { useCreateKnowledgeSource } from '../model/use-create-knowledge-source';
+import { useUpdateKnowledgeSource } from '../model/use-update-knowledge-source';
+import { FaqItemsField } from './FaqItemsField';
+import { FileDropzone } from './FileDropzone';
 
 const FORM_ID = 'add-source-form';
 
@@ -28,33 +33,49 @@ const PLACEHOLDERS: Record<KnowledgeBaseSourceType, string> = {
 };
 
 export interface SourceFormProps {
+  workspaceId: string;
   type: KnowledgeBaseSourceType;
   defaultData?: Partial<AddSourceFormData>;
   mode: 'add' | 'edit';
+  sourceId?: string;
   onBack: () => void;
   onSuccess: () => void;
 }
 
 export function SourceForm({
+  workspaceId,
   type,
   defaultData,
   mode,
+  sourceId,
   onBack,
   onSuccess,
 }: SourceFormProps) {
-  const schema = getSchemaForType(type);
+  const schema = getSchemaForType(type, mode);
   const form = useForm<AddSourceFormData>({
     resolver: standardSchemaResolver(schema),
-    defaultValues: { name: '', url: '', content: '', ...defaultData },
+    defaultValues: { name: '', url: '', content: '', items: [], file: null, ...defaultData },
   });
 
-  const onSubmit = form.handleSubmit(() => {
+  const createSource = useCreateKnowledgeSource(workspaceId);
+  const updateSource = useUpdateKnowledgeSource(workspaceId);
+
+  const onSubmit = form.handleSubmit(async (data) => {
+    if (mode === 'edit' && sourceId) {
+      await updateSource.mutateAsync({
+        sourceId,
+        data: sourceFormDataToUpdateDto(type, data),
+      });
+    } else {
+      await createSource.mutateAsync(sourceFormDataToCreatePayload(type, data));
+    }
     onSuccess();
   });
 
   return (
-    <form id={FORM_ID} onSubmit={onSubmit}>
-      <FieldGroup>
+    <FormProvider {...form}>
+      <form id={FORM_ID} onSubmit={onSubmit}>
+        <FieldGroup>
         <Controller
           name="name"
           control={form.control}
@@ -102,24 +123,18 @@ export function SourceForm({
         )}
 
         {type === 'file' && (
-          <div className="border-border hover:border-primary/40 hover:bg-muted/30 flex min-h-35 cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-6 text-center transition-colors">
-            <div className="bg-muted flex size-9 items-center justify-center rounded-xl">
-              <HugeiconsIcon
-                icon={CloudUploadIcon}
-                strokeWidth={1.75}
-                className="text-muted-foreground size-5"
+          <Controller
+            name="file"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <FileDropzone
+                value={field.value}
+                onChange={field.onChange}
+                invalid={fieldState.invalid}
+                errorMessage={fieldState.error?.message}
               />
-            </div>
-            <div>
-              <p className="text-foreground text-sm font-medium">
-                Drag & drop or{' '}
-                <span className="text-primary underline underline-offset-2">browse</span>
-              </p>
-              <p className="text-muted-foreground mt-0.5 text-xs">
-                PDF, DOCX, TXT, CSV — up to 50 MB
-              </p>
-            </div>
-          </div>
+            )}
+          />
         )}
 
         {type === 'manual' && (
@@ -133,7 +148,7 @@ export function SourceForm({
                   {...field}
                   id={`${FORM_ID}-content`}
                   placeholder="Write the knowledge base content here…"
-                  className="min-h-40 resize-y"
+                  className="max-h-80 min-h-40 resize-y overflow-y-auto"
                   aria-invalid={fieldState.invalid}
                 />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -141,6 +156,8 @@ export function SourceForm({
             )}
           />
         )}
+
+        {type === 'faq' && <FaqItemsField />}
       </FieldGroup>
 
       <DialogFooter className={cn('mt-4', mode === 'add' ? 'sm:justify-between' : '')}>
@@ -164,6 +181,7 @@ export function SourceForm({
           {mode === 'add' ? 'Add Source' : 'Save Changes'}
         </Button>
       </DialogFooter>
-    </form>
+      </form>
+    </FormProvider>
   );
 }
