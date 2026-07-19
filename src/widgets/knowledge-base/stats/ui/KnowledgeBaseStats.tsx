@@ -23,10 +23,10 @@ export const KnowledgeBaseStats = () => {
     );
   }
 
-  const sources = data?.pages.flatMap((page) => page.data) ?? [];
-  const sourcesCount = data?.pages[0]?.meta.itemCount ?? sources.length;
-  const documentsCount = sources.reduce((sum, source) => sum + source.documentsCount, 0);
-  const chunksCount = sources.reduce((sum, source) => sum + source.chunksCount, 0);
+  const meta = data?.pages[0]?.meta;
+  const sourcesCount = meta?.itemCount ?? 0;
+  const documentsCount = meta?.documentsCount ?? 0;
+  const chunksCount = meta?.chunksCount ?? 0;
 
   const stats: KpiStat[] = [
     {

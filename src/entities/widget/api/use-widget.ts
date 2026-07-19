@@ -8,7 +8,10 @@ import type { WidgetDto } from '../model/mappers';
 export const useWidget = (workspaceId: string | null) =>
   useQuery({
     queryKey: widgetKeys.detail(workspaceId ?? ''),
-    queryFn: () => apiClient.get(`workspaces/${workspaceId}/widget`).json<WidgetDto>(),
+    queryFn: () => {
+      if (!workspaceId) throw new Error('Workspace ID is required');
+      return apiClient.get(`workspaces/${workspaceId}/widget`).json<WidgetDto>();
+    },
     enabled: workspaceId !== null,
     retry: false,
   });

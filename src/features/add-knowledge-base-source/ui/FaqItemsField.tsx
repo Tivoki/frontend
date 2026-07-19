@@ -39,6 +39,7 @@ export const FaqItemsField = () => {
                         {...field}
                         id={`${FORM_ID}-item-${index}-question`}
                         placeholder="Question"
+                        aria-label={`Question ${index + 1}`}
                         aria-invalid={fieldState.invalid}
                         autoComplete="off"
                       />
@@ -57,6 +58,7 @@ export const FaqItemsField = () => {
                         placeholder="Answer"
                         rows={2}
                         className="resize-none text-sm"
+                        aria-label={`Answer ${index + 1}`}
                         aria-invalid={fieldState.invalid}
                       />
                       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

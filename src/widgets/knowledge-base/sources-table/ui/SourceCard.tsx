@@ -12,7 +12,7 @@ import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-import { cn } from '~/shared/lib';
+import { cn, formatRelativeTime } from '~/shared/lib';
 import { Badge } from '~/shared/ui/kit';
 import { STATUS_CONFIG, TYPE_BADGE_VARIANTS, TYPE_LABELS } from '../model/config';
 import { SourceActionsMenu } from './SourceActionsMenu';
@@ -81,7 +81,7 @@ export function SourceCard({
         <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-x-3 text-xs">
           <span>{source.documentsCount.toLocaleString('en-US')} docs</span>
           <span>{source.chunksCount.toLocaleString('en-US')} chunks</span>
-          <span>Updated {source.updatedAt}</span>
+          <span>Updated {formatRelativeTime(source.updatedAt)}</span>
         </div>
 
         {source.status === 'error' && source.error && (

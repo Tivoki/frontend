@@ -1,4 +1,3 @@
-import { formatRelativeTime } from '~/shared/lib';
 import type { components } from '~/shared/api';
 import type {
   KnowledgeBaseSource,
@@ -10,6 +9,8 @@ export type KnowledgeSourceDto = components['schemas']['KnowledgeSourceResponseD
 export type CreateKnowledgeSourceDto = components['schemas']['CreateKnowledgeSourceDto'];
 export type UpdateKnowledgeSourceDto = components['schemas']['UpdateKnowledgeSourceDto'];
 export type FaqItemDto = components['schemas']['FaqItemDto'];
+export type KnowledgeSourceListResponseDto =
+  components['schemas']['KnowledgeSourceListResponseDto'];
 
 export const TYPE_TO_FORM: Record<KnowledgeSourceDto['type'], KnowledgeBaseSourceType> = {
   WEBSITE: 'website',
@@ -40,7 +41,7 @@ export const sourceDtoToKnowledgeBaseSource = (dto: KnowledgeSourceDto): Knowled
   type: TYPE_TO_FORM[dto.type],
   documentsCount: dto.documentsCount,
   chunksCount: dto.chunksCount,
-  updatedAt: formatRelativeTime(dto.updatedAt),
+  updatedAt: dto.updatedAt,
   status: STATUS_TO_FORM[dto.status],
   error: dto.error,
   content: dto.content,

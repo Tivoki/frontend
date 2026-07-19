@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import type { KnowledgeBaseSourceType } from '~/entities/knowledge-base-source';
 
+export const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024;
+
 export const faqItemSchema = z.object({
   question: z.string().min(1, 'Question is required').max(500),
   answer: z.string().min(1, 'Answer is required').max(5000),
@@ -13,7 +15,11 @@ export const addSourceBaseSchema = z.object({
   url: z.string().optional(),
   content: z.string().optional(),
   items: z.array(faqItemSchema).optional(),
-  file: z.instanceof(File).nullable().optional(),
+  file: z
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_FILE_SIZE_BYTES, 'File size must be under 50MB')
+    .nullable()
+    .optional(),
 });
 
 export type AddSourceFormData = z.infer<typeof addSourceBaseSchema>;
