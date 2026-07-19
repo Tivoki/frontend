@@ -10,7 +10,7 @@ import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-import { cn } from '~/shared/lib';
+import { cn, formatRelativeTime } from '~/shared/lib';
 import {
   Badge,
   TableCell,
@@ -86,7 +86,7 @@ export function SourceTableRow({
       </TableCell>
 
       <TableCell className="text-muted-foreground hidden text-center text-sm md:table-cell">
-        {source.updatedAt}
+        {formatRelativeTime(source.updatedAt)}
       </TableCell>
 
       <TableCell className="text-center">

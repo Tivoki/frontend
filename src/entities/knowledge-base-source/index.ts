@@ -9,6 +9,7 @@ export type {
   CreateKnowledgeSourceDto,
   UpdateKnowledgeSourceDto,
   FaqItemDto,
+  KnowledgeSourceListResponseDto,
 } from './model/mappers';
 export { TYPE_TO_DTO, TYPE_TO_FORM, sourceDtoToKnowledgeBaseSource } from './model/mappers';
 export { knowledgeBaseKeys } from './model/keys';

@@ -3,16 +3,15 @@
 import type { InfiniteData } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { apiClient, nextPage } from '~/shared/api';
-import type { Page } from '~/shared/api';
 import { KNOWLEDGE_SOURCES_PAGE_SIZE } from '../model/config';
 import { knowledgeBaseKeys } from '../model/keys';
-import type { KnowledgeSourceDto } from '../model/mappers';
+import type { KnowledgeSourceDto, KnowledgeSourceListResponseDto } from '../model/mappers';
 
 const POLL_INTERVAL_MS = 3000;
 
 const IN_FLIGHT_STATUSES: KnowledgeSourceDto['status'][] = ['PENDING', 'INDEXING'];
 
-const hasInFlightSource = (data: InfiniteData<Page<KnowledgeSourceDto>> | undefined) =>
+const hasInFlightSource = (data: InfiniteData<KnowledgeSourceListResponseDto> | undefined) =>
   data?.pages.some((page) =>
     page.data.some((source) => IN_FLIGHT_STATUSES.includes(source.status)),
   ) ?? false;
@@ -21,12 +20,14 @@ const hasInFlightSource = (data: InfiniteData<Page<KnowledgeSourceDto>> | undefi
 export const useKnowledgeSources = (workspaceId: string | null) =>
   useInfiniteQuery({
     queryKey: knowledgeBaseKeys.lists(workspaceId ?? ''),
-    queryFn: ({ pageParam }) =>
-      apiClient
+    queryFn: ({ pageParam }) => {
+      if (!workspaceId) throw new Error('Workspace ID is required');
+      return apiClient
         .get(`workspaces/${workspaceId}/knowledge-sources`, {
           searchParams: { page: pageParam, take: KNOWLEDGE_SOURCES_PAGE_SIZE },
         })
-        .json<Page<KnowledgeSourceDto>>(),
+        .json<KnowledgeSourceListResponseDto>();
+    },
     initialPageParam: 1,
     getNextPageParam: nextPage,
     enabled: workspaceId !== null,
