@@ -5,9 +5,18 @@ import { SourceTableRow } from './SourceTableRow';
 interface SourcesTableProps {
   sources: KnowledgeBaseSource[];
   onEdit: (source: KnowledgeBaseSource) => void;
+  onReindex: (source: KnowledgeBaseSource) => void;
+  onDelete: (source: KnowledgeBaseSource) => void;
+  reindexingSourceId: string | null;
 }
 
-export function SourcesTable({ sources, onEdit }: SourcesTableProps) {
+export function SourcesTable({
+  sources,
+  onEdit,
+  onReindex,
+  onDelete,
+  reindexingSourceId,
+}: SourcesTableProps) {
   return (
     <Table>
       <TableHeader>
@@ -35,7 +44,14 @@ export function SourcesTable({ sources, onEdit }: SourcesTableProps) {
       </TableHeader>
       <TableBody>
         {sources.map((source) => (
-          <SourceTableRow key={source.id} source={source} onEdit={() => onEdit(source)} />
+          <SourceTableRow
+            key={source.id}
+            source={source}
+            onEdit={() => onEdit(source)}
+            onReindex={() => onReindex(source)}
+            onDelete={() => onDelete(source)}
+            isReindexing={reindexingSourceId === source.id}
+          />
         ))}
       </TableBody>
     </Table>

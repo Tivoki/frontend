@@ -1,0 +1,1 @@
+export const KNOWLEDGE_SOURCES_PAGE_SIZE = 50;

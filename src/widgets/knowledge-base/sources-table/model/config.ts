@@ -24,6 +24,11 @@ export const STATUS_CONFIG: Record<
   KnowledgeBaseSourceStatus,
   { label: string; dotClass: string; textClass: string }
 > = {
+  pending: {
+    label: 'Pending',
+    dotClass: 'bg-muted-foreground',
+    textClass: 'text-muted-foreground',
+  },
   active: {
     label: 'Active',
     dotClass: 'bg-success',

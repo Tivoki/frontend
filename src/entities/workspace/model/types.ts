@@ -12,9 +12,4 @@ export type WorkspaceMemberWithUser =
 export type WorkspaceWithMembers =
   components['schemas']['WorkspaceWithMembersResponseDto'];
 
-export type PageMeta = components['schemas']['PageMetaDto'];
-
-export interface Page<T> {
-  data: T[];
-  meta: PageMeta;
-}
+export type { Page, PageMeta } from '~/shared/api';

@@ -14,17 +14,21 @@ import { SourceForm } from './SourceForm';
 import { SOURCE_TYPE_OPTIONS, TypeSelector } from './TypeSelector';
 
 export interface AddSourceDialogProps {
+  workspaceId: string;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   mode?: 'add' | 'edit';
+  sourceId?: string;
   defaultType?: KnowledgeBaseSourceType;
   defaultData?: Partial<AddSourceFormData>;
 }
 
 export function AddSourceDialog({
+  workspaceId,
   open,
   onOpenChange,
   mode = 'add',
+  sourceId,
   defaultType,
   defaultData,
 }: AddSourceDialogProps) {
@@ -82,9 +86,11 @@ export function AddSourceDialog({
           )}
           {step === 2 && selectedType && (
             <SourceForm
+              workspaceId={workspaceId}
               type={selectedType}
               defaultData={defaultData}
               mode={mode}
+              sourceId={mode === 'edit' ? sourceId : undefined}
               onBack={() => setAddStep(1)}
               onSuccess={() => handleOpenChange(false)}
             />
