@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  Delete01Icon,
-  PencilEdit01Icon,
-  Settings02Icon,
-} from '@hugeicons/core-free-icons';
+import { Delete01Icon, FlashIcon, Settings02Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useState } from 'react';
 import { cn } from '~/shared/lib';
@@ -24,26 +20,49 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '~/shared/ui/kit';
-import type { Integration } from '../model/types';
+import { INTEGRATION_CATALOG } from '../model/catalog';
+import type { Integration, IntegrationStatus, IntegrationType } from '../model/types';
 import { IntegrationIcon } from './IntegrationIcon';
 
+const STATUS_DOT: Record<IntegrationStatus, string> = {
+  CONNECTED: 'bg-success',
+  PENDING: 'bg-amber-500',
+  ERROR: 'bg-destructive',
+};
+
+const STATUS_TEXT: Record<IntegrationStatus, string> = {
+  CONNECTED: 'text-success-foreground',
+  PENDING: 'text-amber-600 dark:text-amber-400',
+  ERROR: 'text-destructive',
+};
+
+const STATUS_LABEL: Record<IntegrationStatus, string> = {
+  CONNECTED: 'Connected',
+  PENDING: 'Awaiting confirmation',
+  ERROR: 'Needs attention',
+};
+
 interface IntegrationCardProps {
-  integration: Integration;
-  onConnect?: (integration: Integration) => void;
-  onEdit?: (integration: Integration) => void;
-  onDelete?: (integration: Integration) => void;
+  type: IntegrationType;
+  integration?: Integration;
+  onConnect: (type: IntegrationType) => void;
+  onConfigure: (type: IntegrationType, integration: Integration) => void;
+  onTest: (integration: Integration) => void;
+  onDisconnect: (integration: Integration) => void;
   className?: string;
 }
 
 export const IntegrationCard = ({
+  type,
   integration,
   onConnect,
-  onEdit,
-  onDelete,
+  onConfigure,
+  onTest,
+  onDisconnect,
   className,
 }: IntegrationCardProps) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const isConnected = integration.status === 'connected';
+  const entry = INTEGRATION_CATALOG[type];
 
   return (
     <>
@@ -54,35 +73,38 @@ export const IntegrationCard = ({
         )}
       >
         <div className="flex-1 space-y-4 p-4 sm:p-5">
-          <IntegrationIcon brand={integration.brand} name={integration.name} />
+          <IntegrationIcon type={type} />
           <div className="min-w-0 space-y-2">
             <h3 className="font-heading text-foreground text-sm leading-5 font-semibold">
-              {integration.name}
+              {entry.name}
             </h3>
             <p className="text-muted-foreground text-sm leading-6 sm:text-[0.8125rem]">
-              {integration.description}
+              {entry.description}
             </p>
           </div>
         </div>
 
         <div className="border-border bg-background/60 mt-auto flex min-h-14 items-center justify-between border-t px-4 py-3 sm:px-5">
-          {isConnected ? (
-            <div className="text-success-foreground flex items-center gap-2 text-sm font-medium">
-              <span className="bg-success size-2 rounded-full" aria-hidden="true" />
-              Connected
-            </div>
-          ) : (
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => onConnect?.(integration)}
-            >
+          {!integration ? (
+            <Button type="button" variant="outline" size="sm" onClick={() => onConnect(type)}>
               Connect
             </Button>
+          ) : (
+            <div
+              className={cn(
+                'flex items-center gap-2 text-sm font-medium',
+                STATUS_TEXT[integration.status],
+              )}
+            >
+              <span
+                className={cn('size-2 rounded-full', STATUS_DOT[integration.status])}
+                aria-hidden="true"
+              />
+              {STATUS_LABEL[integration.status]}
+            </div>
           )}
 
-          {isConnected && (
+          {integration && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -90,7 +112,7 @@ export const IntegrationCard = ({
                   variant="ghost"
                   size="icon-sm"
                   className="text-muted-foreground hover:text-foreground"
-                  aria-label={`Configure ${integration.name}`}
+                  aria-label={`Manage ${entry.name}`}
                 >
                   <HugeiconsIcon
                     icon={Settings02Icon}
@@ -99,26 +121,36 @@ export const IntegrationCard = ({
                   />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-36">
-                <DropdownMenuItem onClick={() => onEdit?.(integration)}>
-                  <HugeiconsIcon
-                    icon={PencilEdit01Icon}
-                    strokeWidth={1.8}
-                    className="size-4"
-                  />
-                  Edit
-                </DropdownMenuItem>
+              <DropdownMenuContent align="end" className="min-w-40">
+                {integration.status === 'PENDING' ? (
+                  <DropdownMenuItem onClick={() => onConfigure(type, integration)}>
+                    View instructions
+                  </DropdownMenuItem>
+                ) : (
+                  <>
+                    {(type === 'EMAIL' || type === 'WEBHOOK') && (
+                      <DropdownMenuItem onClick={() => onConfigure(type, integration)}>
+                        <HugeiconsIcon
+                          icon={Settings02Icon}
+                          strokeWidth={1.8}
+                          className="size-4"
+                        />
+                        Configure
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuItem onClick={() => onTest(integration)}>
+                      <HugeiconsIcon icon={FlashIcon} strokeWidth={1.8} className="size-4" />
+                      Send test notification
+                    </DropdownMenuItem>
+                  </>
+                )}
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   variant="destructive"
                   onClick={() => setDeleteDialogOpen(true)}
                 >
-                  <HugeiconsIcon
-                    icon={Delete01Icon}
-                    strokeWidth={1.8}
-                    className="size-4"
-                  />
-                  Delete
+                  <HugeiconsIcon icon={Delete01Icon} strokeWidth={1.8} className="size-4" />
+                  Disconnect
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -129,17 +161,17 @@ export const IntegrationCard = ({
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent size="sm">
           <AlertDialogHeader>
-            <AlertDialogTitle>Disconnect {integration.name}?</AlertDialogTitle>
+            <AlertDialogTitle>Disconnect {entry.name}?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will remove the {integration.name} integration from your workspace. You
-              can reconnect it at any time.
+              This will remove the {entry.name} integration from your workspace, and it will
+              stop receiving escalations. You can reconnect it at any time.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"
-              onClick={() => onDelete?.(integration)}
+              onClick={() => integration && onDisconnect(integration)}
             >
               Disconnect
             </AlertDialogAction>

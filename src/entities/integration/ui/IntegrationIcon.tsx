@@ -1,48 +1,25 @@
 import { HugeiconsIcon } from '@hugeicons/react';
-import type React from 'react';
-import { DiscordIcon, GoogleSheetIcon, NotionIcon, SlackIcon } from '~/shared/icons';
 import { cn } from '~/shared/lib';
-import type { IntegrationBrand, IntegrationCustomIcon } from '../model/types';
-
-const CUSTOM_ICONS: Record<
-  IntegrationCustomIcon,
-  React.ComponentType<React.ComponentProps<'svg'>>
-> = {
-  discord: DiscordIcon,
-  'google-sheet': GoogleSheetIcon,
-  notion: NotionIcon,
-  slack: SlackIcon,
-};
+import { INTEGRATION_CATALOG } from '../model/catalog';
+import type { IntegrationType } from '../model/types';
 
 interface IntegrationIconProps {
-  brand: IntegrationBrand;
-  name: string;
+  type: IntegrationType;
   className?: string;
 }
 
-export const IntegrationIcon = ({ brand, name, className }: IntegrationIconProps) => {
-  const CustomIcon = brand.customIcon ? CUSTOM_ICONS[brand.customIcon] : undefined;
+export const IntegrationIcon = ({ type, className }: IntegrationIconProps) => {
+  const entry = INTEGRATION_CATALOG[type];
 
   return (
     <div
       className={cn(
-        'flex size-11 shrink-0 items-center justify-center rounded-xl border shadow-sm',
-        brand.background,
-        brand.foreground,
-        brand.border ?? 'border-border',
+        'bg-muted text-foreground flex size-11 shrink-0 items-center justify-center rounded-xl border',
         className,
       )}
       aria-hidden="true"
     >
-      {CustomIcon ? (
-        <CustomIcon className="size-6" />
-      ) : brand.icon ? (
-        <HugeiconsIcon icon={brand.icon} strokeWidth={2.2} className="size-6" />
-      ) : (
-        <span className="font-heading text-lg leading-none font-bold">
-          {brand.mark ?? name[0]}
-        </span>
-      )}
+      <HugeiconsIcon icon={entry.icon} strokeWidth={1.8} className="size-6" />
     </div>
   );
 };

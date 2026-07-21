@@ -1,22 +1,14 @@
 'use client';
 
-import {
-  BubbleChatIcon,
-  Mail01Icon,
-  TelegramIcon,
-  WebhookIcon,
-} from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import type { Escalation, EscalationDestination } from '~/entities/escalation';
-import { ESCALATIONS } from '~/entities/escalation';
-import { useWorkspaceHref } from '~/features/switch-workspace';
-import { cn, getInitials } from '~/shared/lib';
+import type { Escalation, EscalationReason, EscalationStatus } from '~/entities/escalation';
+import { useEscalations } from '~/entities/escalation';
+import { useActiveWorkspaceId, useWorkspaceHref } from '~/features/switch-workspace';
+import { cn } from '~/shared/lib';
 import {
-  Avatar,
-  AvatarFallback,
   Button,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
@@ -25,47 +17,47 @@ import {
   TableRow,
 } from '~/shared/ui/kit';
 
-const DESTINATION_ICON: Record<EscalationDestination, typeof TelegramIcon> = {
-  telegram: TelegramIcon,
-  email: Mail01Icon,
-  webhook: WebhookIcon,
-  external_chat: BubbleChatIcon,
+const REASON_LABEL: Record<EscalationReason, string> = {
+  LOW_CONFIDENCE: 'Low AI confidence',
+  USER_REQUEST: 'Visitor requested human',
+  FALLBACK_RULE: 'Fallback rule',
 };
 
-const DESTINATION_LABEL: Record<EscalationDestination, string> = {
-  telegram: 'Telegram',
-  email: 'Email',
-  webhook: 'Webhook',
-  external_chat: 'External Chat',
-};
-
-const STATUS_CONFIG: Record<
-  Escalation['status'],
-  { label: string; dot: string; text: string }
-> = {
-  waiting_human: {
+const STATUS_CONFIG: Record<EscalationStatus, { label: string; dot: string; text: string }> = {
+  WAITING_HUMAN: {
     label: 'Waiting human',
     dot: 'bg-amber-500',
     text: 'text-amber-600 dark:text-amber-400',
   },
-  in_progress: {
+  IN_PROGRESS: {
     label: 'In progress',
     dot: 'bg-primary',
     text: 'text-primary',
   },
-  resolved: {
+  RESOLVED: {
     label: 'Resolved',
     dot: 'bg-success',
     text: 'text-success-foreground',
   },
 };
 
+const timeFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+const formatTime = (iso: string) => timeFormatter.format(new Date(iso));
+
 export const EscalatedConversationsPanel = () => {
   const router = useRouter();
   const workspaceHref = useWorkspaceHref();
+  const workspaceId = useActiveWorkspaceId();
+  const { data: escalations, isLoading } = useEscalations(workspaceId);
 
-  const openEscalation = (id: string) =>
-    router.push(workspaceHref(`conversations?tab=escalated&id=${id}`));
+  const openEscalation = (escalation: Escalation) =>
+    router.push(workspaceHref(`conversations?tab=escalated&id=${escalation.conversationId}`));
 
   return (
     <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
@@ -80,148 +72,114 @@ export const EscalatedConversationsPanel = () => {
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto">
-          {/* Mobile: card list */}
-          <div className="divide-border divide-y md:hidden">
-            {ESCALATIONS.map((escalation) => {
-              const status = STATUS_CONFIG[escalation.status];
-              const DestIcon = DESTINATION_ICON[escalation.destination];
+          {isLoading ? (
+            <div className="space-y-3 px-4 py-3 sm:px-5">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} className="h-12 w-full" />
+              ))}
+            </div>
+          ) : !escalations || escalations.length === 0 ? (
+            <div className="flex h-full items-center justify-center px-4 text-center">
+              <p className="text-muted-foreground text-sm">
+                No escalations yet. They&apos;ll show up here once a visitor asks for a
+                human.
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Mobile: card list */}
+              <div className="divide-border divide-y md:hidden">
+                {escalations.map((escalation) => {
+                  const status = STATUS_CONFIG[escalation.status];
 
-              return (
-                <article
-                  key={escalation.id}
-                  className="hover:bg-muted/40 cursor-pointer px-4 py-3 transition-colors sm:px-5"
-                  onClick={() => openEscalation(escalation.id)}
-                >
-                  <div className="flex min-w-0 items-start gap-3">
-                    <Avatar className="size-9 shrink-0">
-                      <AvatarFallback className="text-xs">
-                        {getInitials(escalation.visitorName)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
+                  return (
+                    <article
+                      key={escalation.id}
+                      className="hover:bg-muted/40 cursor-pointer px-4 py-3 transition-colors sm:px-5"
+                      onClick={() => openEscalation(escalation)}
+                    >
                       <div className="flex min-w-0 items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <p className="text-foreground truncate text-sm font-medium">
-                            {escalation.visitorName}
-                          </p>
-                          <p className="text-muted-foreground truncate text-xs">
-                            {escalation.visitorEmail}
-                          </p>
-                        </div>
+                        <p className="text-foreground truncate font-mono text-xs">
+                          {escalation.conversationId}
+                        </p>
                         <span className="text-muted-foreground shrink-0 text-xs whitespace-nowrap">
-                          {escalation.requestedAt}
+                          {formatTime(escalation.createdAt)}
                         </span>
                       </div>
 
-                      <p className="text-muted-foreground mt-2 line-clamp-2 text-xs">
-                        {escalation.reason}
+                      <p className="text-muted-foreground mt-2 text-xs">
+                        {REASON_LABEL[escalation.reason]}
                       </p>
 
-                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                        <div
-                          className={cn(
-                            'flex items-center gap-1.5 text-xs font-medium whitespace-nowrap',
-                            status.text,
-                          )}
-                        >
-                          <span className={cn('size-1.5 rounded-full', status.dot)} />
-                          {status.label}
-                        </div>
-                        <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
-                          <HugeiconsIcon
-                            icon={DestIcon}
-                            strokeWidth={1.75}
-                            className="size-4 shrink-0"
-                          />
-                          <span className="whitespace-nowrap">
-                            {DESTINATION_LABEL[escalation.destination]}
-                          </span>
-                        </div>
+                      <div
+                        className={cn(
+                          'mt-3 flex items-center gap-1.5 text-xs font-medium',
+                          status.text,
+                        )}
+                      >
+                        <span className={cn('size-1.5 rounded-full', status.dot)} />
+                        {status.label}
                       </div>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Desktop: table */}
-          <div className="hidden md:block">
-            <Table className="min-w-180">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="px-4 sm:px-5">Visitor</TableHead>
-                  <TableHead>Reason</TableHead>
-                  <TableHead>Destination</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Requested at</TableHead>
-                  <TableHead />
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {ESCALATIONS.map((escalation) => {
-                  const status = STATUS_CONFIG[escalation.status];
-                  const DestIcon = DESTINATION_ICON[escalation.destination];
-
-                  return (
-                    <TableRow
-                      key={escalation.id}
-                      className="cursor-pointer"
-                      onClick={() => openEscalation(escalation.id)}
-                    >
-                      <TableCell className="px-4 sm:px-5">
-                        <div className="flex items-center gap-2.5">
-                          <Avatar className="size-8 shrink-0">
-                            <AvatarFallback className="text-xs">
-                              {getInitials(escalation.visitorName)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="min-w-0">
-                            <p className="text-foreground leading-tight font-medium">
-                              {escalation.visitorName}
-                            </p>
-                            <p className="text-muted-foreground truncate text-xs">
-                              {escalation.visitorEmail}
-                            </p>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">
-                        {escalation.reason}
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-muted-foreground flex items-center gap-1.5">
-                          <HugeiconsIcon
-                            icon={DestIcon}
-                            strokeWidth={1.75}
-                            className="size-4 shrink-0"
-                          />
-                          <span className="whitespace-nowrap">
-                            {DESTINATION_LABEL[escalation.destination]}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div
-                          className={cn(
-                            'flex items-center gap-1.5 text-xs font-medium whitespace-nowrap',
-                            status.text,
-                          )}
-                        >
-                          <span className={cn('size-1.5 rounded-full', status.dot)} />
-                          {status.label}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground text-xs whitespace-nowrap">
-                        {escalation.requestedAt}
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">›</TableCell>
-                    </TableRow>
+                    </article>
                   );
                 })}
-              </TableBody>
-            </Table>
-          </div>
+              </div>
+
+              {/* Desktop: table */}
+              <div className="hidden md:block">
+                <Table className="min-w-180">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="px-4 sm:px-5">Conversation</TableHead>
+                      <TableHead>Reason</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Assigned to</TableHead>
+                      <TableHead>Requested at</TableHead>
+                      <TableHead />
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {escalations.map((escalation) => {
+                      const status = STATUS_CONFIG[escalation.status];
+
+                      return (
+                        <TableRow
+                          key={escalation.id}
+                          className="cursor-pointer"
+                          onClick={() => openEscalation(escalation)}
+                        >
+                          <TableCell className="px-4 font-mono text-xs sm:px-5">
+                            {escalation.conversationId}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">
+                            {REASON_LABEL[escalation.reason]}
+                          </TableCell>
+                          <TableCell>
+                            <div
+                              className={cn(
+                                'flex items-center gap-1.5 text-xs font-medium whitespace-nowrap',
+                                status.text,
+                              )}
+                            >
+                              <span className={cn('size-1.5 rounded-full', status.dot)} />
+                              {status.label}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-muted-foreground text-xs">
+                            {escalation.assignedToUserId ?? 'Unassigned'}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground text-xs whitespace-nowrap">
+                            {formatTime(escalation.createdAt)}
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">›</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
+          )}
         </div>
       </section>
     </div>
