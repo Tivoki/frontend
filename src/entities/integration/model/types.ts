@@ -1,30 +1,22 @@
-import type { IconSvgElement } from '@hugeicons/react';
+import type { components } from '~/shared/api';
 
-export type IntegrationStatus = 'connected' | 'available';
-export type IntegrationCustomIcon = 'discord' | 'google-sheet' | 'notion' | 'slack';
+export type Integration = components['schemas']['IntegrationResponseDto'];
+export type IntegrationType = Integration['type'];
+export type IntegrationStatus = Integration['status'];
 
-export type IntegrationCategory =
-  | 'communication'
-  | 'support'
-  | 'automation'
-  | 'data'
-  | 'productivity'
-  | 'sales';
-
-export interface IntegrationBrand {
-  icon?: IconSvgElement;
-  customIcon?: IntegrationCustomIcon;
-  mark?: string;
-  foreground: string;
-  background: string;
-  border?: string;
+export interface EmailIntegrationConfig {
+  email?: string;
 }
 
-export interface Integration {
-  id: string;
-  name: string;
-  description: string;
-  status: IntegrationStatus;
-  category: IntegrationCategory;
-  brand: IntegrationBrand;
+export interface WebhookIntegrationConfig {
+  url?: string;
+}
+
+export type TopicRetentionPolicy = components['schemas']['TopicRetentionDto'];
+
+export interface TelegramIntegrationConfig {
+  connectCode?: string;
+  chatId?: string;
+  groupTitle?: string;
+  topicRetention?: TopicRetentionPolicy;
 }

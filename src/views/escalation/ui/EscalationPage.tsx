@@ -1,8 +1,7 @@
 import {
   EscalatedConversationsPanel,
   EscalationKpis,
-  HandoffChannels,
-  RoutingRules,
+  EscalationMethods,
 } from '~/widgets/escalation';
 
 export const EscalationPage = () => {
@@ -13,17 +12,15 @@ export const EscalationPage = () => {
           Escalations
         </h1>
         <p className="text-muted-foreground text-sm sm:text-base">
-          Manage human handoff channels, routing rules, and escalated conversations.
+          Choose how visitors reach your team, and review conversations handed off to a
+          human.
         </p>
       </div>
 
       <EscalationKpis className="hidden md:grid" />
 
       <div className="grid min-w-0 gap-4 sm:gap-6 xl:grid-cols-2">
-        <div className="flex min-w-0 flex-col gap-4 sm:gap-6">
-          <HandoffChannels />
-          <RoutingRules />
-        </div>
+        <EscalationMethods />
         <EscalatedConversationsPanel />
       </div>
     </div>

@@ -1,4 +1,3 @@
 export { EscalationKpis } from './ui/EscalationKpis';
-export { HandoffChannels } from './ui/HandoffChannels';
-export { RoutingRules } from './ui/RoutingRules';
+export { EscalationMethods } from './ui/EscalationMethods';
 export { EscalatedConversationsPanel } from './ui/EscalatedConversationsPanel';

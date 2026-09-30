@@ -360,25 +360,25 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workspaces/{workspaceId}/escalation-channels": {
+    "/api/v1/workspaces/{workspaceId}/integrations": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** List escalation channels */
-        get: operations["EscalationController_listChannels"];
+        /** List integrations connected to this workspace */
+        get: operations["IntegrationController_list"];
         put?: never;
-        /** Add an escalation channel */
-        post: operations["EscalationController_createChannel"];
+        /** Connect an integration */
+        post: operations["IntegrationController_create"];
         delete?: never;
         options?: never;
         head?: never;
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workspaces/{workspaceId}/escalation-channels/{channelId}": {
+    "/api/v1/workspaces/{workspaceId}/integrations/{integrationId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -388,11 +388,29 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
+        /** Disconnect an integration */
+        delete: operations["IntegrationController_remove"];
+        options?: never;
+        head?: never;
+        /** Update an integration (escalation toggle or config) */
+        patch: operations["IntegrationController_update"];
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/integrations/{integrationId}/test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Send a test notification through this integration */
+        post: operations["IntegrationController_test"];
         delete?: never;
         options?: never;
         head?: never;
-        /** Enable/disable an escalation channel */
-        patch: operations["EscalationController_updateChannel"];
+        patch?: never;
         trace?: never;
     };
     "/api/v1/workspaces/{workspaceId}/escalations": {
@@ -427,6 +445,23 @@ export interface paths {
         head?: never;
         /** Assign or resolve an escalation */
         patch: operations["EscalationController_updateEscalation"];
+        trace?: never;
+    };
+    "/api/v1/integrations/telegram/bot-info": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get the configured Telegram bot username, for connect instructions */
+        get: operations["TelegramBotController_getBotInfo"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/api/v1/workspaces/{workspaceId}/conversations": {
@@ -470,7 +505,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** List a visitor's recent conversations */
+        get: operations["ConversationPublicController_listConversations"];
         put?: never;
         /** Start a new widget conversation */
         post: operations["ConversationPublicController_create"];
@@ -487,7 +523,8 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get?: never;
+        /** List a conversation's messages */
+        get: operations["ConversationPublicController_listMessages"];
         put?: never;
         /** Send a visitor message and get the AI response */
         post: operations["ConversationPublicController_postMessage"];
@@ -830,32 +867,46 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
-        CreateEscalationChannelDto: {
-            /**
-             * @example WEBHOOK
-             * @enum {string}
-             */
-            destination: "TELEGRAM" | "EMAIL" | "WEBHOOK" | "EXTERNAL_CHAT";
-            /** @description Required for WEBHOOK channels */
-            url?: string;
-            /** @description Required for EMAIL channels */
+        CreateIntegrationDto: {
+            /** @enum {string} */
+            type: "EMAIL" | "WEBHOOK" | "TELEGRAM";
+            /** @description Required for EMAIL integrations */
             email?: string;
-            /** @description Required for TELEGRAM channels */
-            chatId?: string;
+            /** @description Required for WEBHOOK integrations */
+            url?: string;
         };
-        EscalationChannelResponseDto: {
+        IntegrationResponseDto: {
             id: string;
             workspaceId: string;
             /** @enum {string} */
-            destination: "TELEGRAM" | "EMAIL" | "WEBHOOK" | "EXTERNAL_CHAT";
-            isEnabled: boolean;
+            type: "EMAIL" | "WEBHOOK" | "TELEGRAM";
+            /** @enum {string} */
+            status: "CONNECTED" | "PENDING" | "ERROR";
+            useForEscalation: boolean;
+            config: Record<string, never>;
             /** Format: date-time */
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
         };
-        UpdateEscalationChannelDto: {
-            isEnabled?: boolean;
+        TopicRetentionDto: {
+            /** @enum {string} */
+            mode: "IMMEDIATE" | "HOURS" | "DAYS" | "NEVER";
+            /** @description Count of hours/days to wait. Required when mode is HOURS or DAYS. */
+            value?: number;
+        };
+        UpdateIntegrationDto: {
+            /** @description Whether this integration is one of the active escalation methods */
+            useForEscalation?: boolean;
+            /** @description New address, for EMAIL integrations */
+            email?: string;
+            /** @description New endpoint URL, for WEBHOOK integrations */
+            url?: string;
+            /** @description How long to keep a resolved Telegram topic before deleting it (TELEGRAM only) */
+            topicRetention?: components["schemas"]["TopicRetentionDto"];
+        };
+        TestIntegrationResponseDto: {
+            ok: boolean;
         };
         EscalationResponseDto: {
             id: string;
@@ -865,7 +916,7 @@ export interface components {
             status: "WAITING_HUMAN" | "IN_PROGRESS" | "RESOLVED";
             /** @enum {string} */
             reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "FALLBACK_RULE";
-            channelId: string | null;
+            integrationId: string | null;
             assignedToUserId: string | null;
             /** Format: date-time */
             createdAt: string;
@@ -908,6 +959,8 @@ export interface components {
         CreateConversationDto: {
             /** @example pub_... */
             widgetKey: string;
+            /** @description Existing visitorId to reuse instead of creating a new visitor */
+            visitorId?: string;
             visitor?: components["schemas"]["VisitorPayloadDto"];
         };
         CreateConversationResponseDto: {
@@ -917,6 +970,8 @@ export interface components {
         CreateMessageDto: {
             /** @example pub_... */
             widgetKey: string;
+            /** @description visitorId returned when the conversation was created */
+            visitorId: string;
             /** @example How do I reset my password? */
             content: string;
         };
@@ -928,7 +983,7 @@ export interface components {
         };
         CreateMessageResponseDto: {
             userMessage: components["schemas"]["MessageItemDto"];
-            assistantMessage: components["schemas"]["MessageItemDto"];
+            assistantMessage: components["schemas"]["MessageItemDto"] | null;
         };
     };
     responses: never;
@@ -1779,7 +1834,7 @@ export interface operations {
             };
         };
     };
-    EscalationController_listChannels: {
+    IntegrationController_list: {
         parameters: {
             query?: {
                 order?: "asc" | "desc";
@@ -1802,13 +1857,13 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["PageDto"] & {
-                        data?: components["schemas"]["EscalationChannelResponseDto"][];
+                        data?: components["schemas"]["IntegrationResponseDto"][];
                     };
                 };
             };
         };
     };
-    EscalationController_createChannel: {
+    IntegrationController_create: {
         parameters: {
             query?: never;
             header?: never;
@@ -1819,7 +1874,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["CreateEscalationChannelDto"];
+                "application/json": components["schemas"]["CreateIntegrationDto"];
             };
         };
         responses: {
@@ -1828,7 +1883,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationChannelResponseDto"];
+                    "application/json": components["schemas"]["IntegrationResponseDto"];
                 };
             };
             /** @description Requires at least the ADMIN workspace role */
@@ -1840,19 +1895,55 @@ export interface operations {
             };
         };
     };
-    EscalationController_updateChannel: {
+    IntegrationController_remove: {
         parameters: {
             query?: never;
             header?: never;
             path: {
                 workspaceId: string;
-                channelId: string;
+                integrationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IntegrationResponseDto"];
+                };
+            };
+            /** @description Requires at least the ADMIN workspace role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Integration not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    IntegrationController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                workspaceId: string;
+                integrationId: string;
             };
             cookie?: never;
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UpdateEscalationChannelDto"];
+                "application/json": components["schemas"]["UpdateIntegrationDto"];
             };
         };
         responses: {
@@ -1861,10 +1952,53 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["EscalationChannelResponseDto"];
+                    "application/json": components["schemas"]["IntegrationResponseDto"];
                 };
             };
-            /** @description Escalation channel not found */
+            /** @description Requires at least the ADMIN workspace role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Integration not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    IntegrationController_test: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                workspaceId: string;
+                integrationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TestIntegrationResponseDto"];
+                };
+            };
+            /** @description Requires at least the ADMIN workspace role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Integration not found */
             404: {
                 headers: {
                     [name: string]: unknown;
@@ -1928,6 +2062,23 @@ export interface operations {
             };
             /** @description Escalation not found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    TelegramBotController_getBotInfo: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2015,6 +2166,50 @@ export interface operations {
             };
         };
     };
+    ConversationPublicController_listConversations: {
+        parameters: {
+            query: {
+                order?: "asc" | "desc";
+                /** @description Field to sort by */
+                orderBy?: string;
+                page?: number;
+                take?: number;
+                widgetKey: string;
+                /** @description visitorId returned when the conversation was created */
+                visitorId: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageDto"] & {
+                        data?: components["schemas"]["ConversationResponseDto"][];
+                    };
+                };
+            };
+            /** @description Origin not allowed for this widget */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Widget not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ConversationPublicController_create: {
         parameters: {
             query?: never;
@@ -2044,6 +2239,52 @@ export interface operations {
                 content?: never;
             };
             /** @description Widget not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ConversationPublicController_listMessages: {
+        parameters: {
+            query: {
+                order?: "asc" | "desc";
+                /** @description Field to sort by */
+                orderBy?: string;
+                page?: number;
+                take?: number;
+                widgetKey: string;
+                /** @description visitorId returned when the conversation was created */
+                visitorId: string;
+            };
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageDto"] & {
+                        data?: components["schemas"]["ConversationMessageResponseDto"][];
+                    };
+                };
+            };
+            /** @description Origin not allowed for this widget */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Widget or conversation not found */
             404: {
                 headers: {
                     [name: string]: unknown;
