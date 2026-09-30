@@ -10,8 +10,15 @@ import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-import { cn } from '~/shared/lib';
-import { Badge, TableCell, TableRow } from '~/shared/ui/kit';
+import { cn, formatRelativeTime } from '~/shared/lib';
+import {
+  Badge,
+  TableCell,
+  TableRow,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '~/shared/ui/kit';
 import { STATUS_CONFIG, TYPE_BADGE_VARIANTS, TYPE_LABELS } from '../model/config';
 import { SourceActionsMenu } from './SourceActionsMenu';
 
@@ -25,9 +32,18 @@ const TYPE_ICONS: Record<KnowledgeBaseSourceType, IconSvgElement> = {
 interface SourceTableRowProps {
   source: KnowledgeBaseSource;
   onEdit: () => void;
+  onReindex: () => void;
+  onDelete: () => void;
+  isReindexing?: boolean;
 }
 
-export function SourceTableRow({ source, onEdit }: SourceTableRowProps) {
+export function SourceTableRow({
+  source,
+  onEdit,
+  onReindex,
+  onDelete,
+  isReindexing,
+}: SourceTableRowProps) {
   const icon = TYPE_ICONS[source.type];
   const statusConfig = STATUS_CONFIG[source.status];
 
@@ -70,23 +86,45 @@ export function SourceTableRow({ source, onEdit }: SourceTableRowProps) {
       </TableCell>
 
       <TableCell className="text-muted-foreground hidden text-center text-sm md:table-cell">
-        {source.updatedAt}
+        {formatRelativeTime(source.updatedAt)}
       </TableCell>
 
       <TableCell className="text-center">
-        <span
-          className={cn(
-            'inline-flex items-center gap-1.5 text-xs font-medium',
-            statusConfig.textClass,
-          )}
-        >
-          <span className={cn('size-1.5 rounded-full', statusConfig.dotClass)} />
-          {statusConfig.label}
-        </span>
+        {source.status === 'error' && source.error ? (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span
+                className={cn(
+                  'inline-flex items-center gap-1.5 text-xs font-medium',
+                  statusConfig.textClass,
+                )}
+              >
+                <span className={cn('size-1.5 rounded-full', statusConfig.dotClass)} />
+                {statusConfig.label}
+              </span>
+            </TooltipTrigger>
+            <TooltipContent>{source.error}</TooltipContent>
+          </Tooltip>
+        ) : (
+          <span
+            className={cn(
+              'inline-flex items-center gap-1.5 text-xs font-medium',
+              statusConfig.textClass,
+            )}
+          >
+            <span className={cn('size-1.5 rounded-full', statusConfig.dotClass)} />
+            {statusConfig.label}
+          </span>
+        )}
       </TableCell>
 
       <TableCell className="pr-2 text-right">
-        <SourceActionsMenu onEdit={onEdit} />
+        <SourceActionsMenu
+          onEdit={onEdit}
+          onReindex={onReindex}
+          onDelete={onDelete}
+          isReindexing={isReindexing}
+        />
       </TableCell>
     </TableRow>
   );

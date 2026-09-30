@@ -1,18 +1,40 @@
 'use client';
 
 import { standardSchemaResolver } from '@hookform/resolvers/standard-schema';
+import { HTTPError } from 'ky';
+import { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { DEFAULT_WIDGET_CONFIG, widgetConfigSchema } from '~/entities/widget';
+import {
+  DEFAULT_WIDGET_CONFIG,
+  useWidget,
+  widgetConfigSchema,
+  widgetDtoToConfig,
+} from '~/entities/widget';
 import type { WidgetConfig } from '~/entities/widget';
+import { useActiveWorkspaceId } from '~/features/switch-workspace';
+import { useUpdateWidgetConfig } from '~/features/update-widget-config';
 import { cn } from '~/shared/lib';
 import { Button } from '~/shared/ui/kit';
 import { WidgetPreviewPanel } from '~/widgets/widget';
 import { WidgetCustomizer } from '~/widgets/widget-customizer';
+import { WidgetPageSkeleton } from './WidgetPageSkeleton';
+import { WidgetSetupPrompt } from './WidgetSetupPrompt';
 
 export const WidgetPage = () => {
+  const workspaceId = useActiveWorkspaceId();
+  const { data: widget, isPending, isError, error } = useWidget(workspaceId);
+  const updateWidgetConfig = useUpdateWidgetConfig(workspaceId ?? '');
+
+  const formValues = useMemo(
+    () => (widget ? widgetDtoToConfig(widget) : undefined),
+    [widget],
+  );
+
   const form = useForm<WidgetConfig>({
     resolver: standardSchemaResolver(widgetConfigSchema),
     defaultValues: DEFAULT_WIDGET_CONFIG,
+    values: formValues,
+    resetOptions: { keepDirtyValues: true },
     mode: 'onChange',
   });
   const {
@@ -22,8 +44,26 @@ export const WidgetPage = () => {
   } = form;
 
   const onSubmit = async (data: WidgetConfig) => {
-    reset(data);
+    await updateWidgetConfig.mutateAsync(data);
   };
+
+  if (!workspaceId || isPending) {
+    return <WidgetPageSkeleton />;
+  }
+
+  if (isError) {
+    if (error instanceof HTTPError && error.response.status === 404) {
+      return <WidgetSetupPrompt workspaceId={workspaceId} />;
+    }
+
+    return (
+      <div className="flex flex-1 items-center justify-center p-8">
+        <p className="text-muted-foreground text-sm">
+          Couldn&apos;t load the widget configuration.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <FormProvider {...form}>
@@ -67,7 +107,9 @@ export const WidgetPage = () => {
                 type="button"
                 variant="ghost"
                 size="sm"
-                onClick={() => reset()}
+                onClick={() =>
+                  formValues && reset(formValues, { keepDirtyValues: false })
+                }
                 disabled={isSubmitting}
               >
                 Discard

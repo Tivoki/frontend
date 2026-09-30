@@ -12,7 +12,7 @@ import type {
   KnowledgeBaseSource,
   KnowledgeBaseSourceType,
 } from '~/entities/knowledge-base-source';
-import { cn } from '~/shared/lib';
+import { cn, formatRelativeTime } from '~/shared/lib';
 import { Badge } from '~/shared/ui/kit';
 import { STATUS_CONFIG, TYPE_BADGE_VARIANTS, TYPE_LABELS } from '../model/config';
 import { SourceActionsMenu } from './SourceActionsMenu';
@@ -27,9 +27,18 @@ const TYPE_ICONS: Record<KnowledgeBaseSourceType, IconSvgElement> = {
 interface SourceCardProps {
   source: KnowledgeBaseSource;
   onEdit: () => void;
+  onReindex: () => void;
+  onDelete: () => void;
+  isReindexing?: boolean;
 }
 
-export function SourceCard({ source, onEdit }: SourceCardProps) {
+export function SourceCard({
+  source,
+  onEdit,
+  onReindex,
+  onDelete,
+  isReindexing,
+}: SourceCardProps) {
   const icon = TYPE_ICONS[source.type];
   const statusConfig = STATUS_CONFIG[source.status];
 
@@ -42,7 +51,12 @@ export function SourceCard({ source, onEdit }: SourceCardProps) {
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2">
           <p className="text-foreground truncate text-sm font-medium">{source.name}</p>
-          <SourceActionsMenu onEdit={onEdit} />
+          <SourceActionsMenu
+            onEdit={onEdit}
+            onReindex={onReindex}
+            onDelete={onDelete}
+            isReindexing={isReindexing}
+          />
         </div>
 
         {source.url && (
@@ -67,8 +81,12 @@ export function SourceCard({ source, onEdit }: SourceCardProps) {
         <div className="text-muted-foreground mt-1 flex flex-wrap items-center gap-x-3 text-xs">
           <span>{source.documentsCount.toLocaleString('en-US')} docs</span>
           <span>{source.chunksCount.toLocaleString('en-US')} chunks</span>
-          <span>Updated {source.updatedAt}</span>
+          <span>Updated {formatRelativeTime(source.updatedAt)}</span>
         </div>
+
+        {source.status === 'error' && source.error && (
+          <p className="text-destructive mt-1 text-xs">{source.error}</p>
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { Moon02Icon, Sun01Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import type { WidgetConfig } from '~/entities/widget';
 import { cn } from '~/shared/lib';
@@ -23,9 +24,11 @@ interface ChatWidgetPreviewProps {
 
 export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
   const [device, setDevice] = useState<DeviceType>('desktop');
-  const [manualTheme, setManualTheme] = useState<'light' | 'dark'>('light');
+  const { resolvedTheme } = useTheme();
+  const dashboardTheme: 'light' | 'dark' = resolvedTheme === 'dark' ? 'dark' : 'light';
+  const [previewOverride, setPreviewOverride] = useState<'light' | 'dark' | null>(null);
   const previewTheme: 'light' | 'dark' =
-    config.theme === 'auto' ? manualTheme : config.theme;
+    config.theme === 'auto' ? (previewOverride ?? dashboardTheme) : config.theme;
 
   return (
     <div className="border-border bg-background flex flex-col overflow-hidden rounded-xl border">
@@ -52,7 +55,7 @@ export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
                   ? 'bg-background text-foreground shadow-xs'
                   : 'text-muted-foreground hover:text-foreground',
               )}
-              onClick={() => setManualTheme('light')}
+              onClick={() => setPreviewOverride('light')}
               aria-label="Preview light theme"
             >
               <HugeiconsIcon icon={Sun01Icon} strokeWidth={1.75} className="size-3.5" />
@@ -67,7 +70,7 @@ export const ChatWidgetPreview = ({ config }: ChatWidgetPreviewProps) => {
                   ? 'bg-background text-foreground shadow-xs'
                   : 'text-muted-foreground hover:text-foreground',
               )}
-              onClick={() => setManualTheme('dark')}
+              onClick={() => setPreviewOverride('dark')}
               aria-label="Preview dark theme"
             >
               <HugeiconsIcon icon={Moon02Icon} strokeWidth={1.75} className="size-3.5" />

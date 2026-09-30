@@ -16,9 +16,17 @@ import {
 
 interface SourceActionsMenuProps {
   onEdit: () => void;
+  onReindex: () => void;
+  onDelete: () => void;
+  isReindexing?: boolean;
 }
 
-export function SourceActionsMenu({ onEdit }: SourceActionsMenuProps) {
+export function SourceActionsMenu({
+  onEdit,
+  onReindex,
+  onDelete,
+  isReindexing,
+}: SourceActionsMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,7 +44,7 @@ export function SourceActionsMenu({ onEdit }: SourceActionsMenuProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-44">
-        <DropdownMenuItem>
+        <DropdownMenuItem disabled={isReindexing} onSelect={onReindex}>
           <HugeiconsIcon
             icon={Refresh01Icon}
             strokeWidth={1.75}
@@ -53,7 +61,7 @@ export function SourceActionsMenu({ onEdit }: SourceActionsMenuProps) {
           Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="destructive" onSelect={onDelete}>
           <HugeiconsIcon icon={Delete01Icon} strokeWidth={1.75} className="size-4" />
           Delete
         </DropdownMenuItem>
