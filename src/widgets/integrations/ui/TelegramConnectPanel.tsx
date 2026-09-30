@@ -6,13 +6,19 @@ import { toast } from 'sonner';
 import { useTelegramBotInfo } from '~/entities/integration';
 import type { Integration, TelegramIntegrationConfig } from '~/entities/integration';
 import { Button, Skeleton } from '~/shared/ui/kit';
+import { TelegramRetentionForm } from './TelegramRetentionForm';
 
 interface TelegramConnectPanelProps {
+  workspaceId: string;
   integration: Integration;
   onDone: () => void;
 }
 
-export const TelegramConnectPanel = ({ integration, onDone }: TelegramConnectPanelProps) => {
+export const TelegramConnectPanel = ({
+  workspaceId,
+  integration,
+  onDone,
+}: TelegramConnectPanelProps) => {
   const config = integration.config as TelegramIntegrationConfig;
   const { data: botInfo } = useTelegramBotInfo();
   const botHandle = botInfo ? `@${botInfo.username}` : undefined;
@@ -26,9 +32,8 @@ export const TelegramConnectPanel = ({ integration, onDone }: TelegramConnectPan
           . It&apos;s already enabled for escalation — turn it off on the Escalation page if
           you don&apos;t want it used yet.
         </p>
-        <Button type="button" onClick={onDone} className="w-full">
-          Done
-        </Button>
+
+        <TelegramRetentionForm workspaceId={workspaceId} integration={integration} onDone={onDone} />
       </div>
     );
   }

@@ -45,7 +45,11 @@ export const IntegrationConnectSheet = ({
             />
           )}
           {type === 'TELEGRAM' && integration && (
-            <TelegramConnectPanel integration={integration} onDone={onClose} />
+            <TelegramConnectPanel
+              workspaceId={workspaceId}
+              integration={integration}
+              onDone={onClose}
+            />
           )}
         </div>
       </SheetContent>

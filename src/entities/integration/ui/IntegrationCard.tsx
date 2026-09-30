@@ -128,16 +128,14 @@ export const IntegrationCard = ({
                   </DropdownMenuItem>
                 ) : (
                   <>
-                    {(type === 'EMAIL' || type === 'WEBHOOK') && (
-                      <DropdownMenuItem onClick={() => onConfigure(type, integration)}>
-                        <HugeiconsIcon
-                          icon={Settings02Icon}
-                          strokeWidth={1.8}
-                          className="size-4"
-                        />
-                        Configure
-                      </DropdownMenuItem>
-                    )}
+                    <DropdownMenuItem onClick={() => onConfigure(type, integration)}>
+                      <HugeiconsIcon
+                        icon={Settings02Icon}
+                        strokeWidth={1.8}
+                        className="size-4"
+                      />
+                      Configure
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => onTest(integration)}>
                       <HugeiconsIcon icon={FlashIcon} strokeWidth={1.8} className="size-4" />
                       Send test notification

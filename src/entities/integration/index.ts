@@ -8,6 +8,7 @@ export type {
   IntegrationStatus,
   IntegrationType,
   TelegramIntegrationConfig,
+  TopicRetentionPolicy,
   WebhookIntegrationConfig,
 } from './model/types';
 export { IntegrationCard } from './ui/IntegrationCard';

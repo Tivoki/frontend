@@ -12,8 +12,11 @@ export interface WebhookIntegrationConfig {
   url?: string;
 }
 
+export type TopicRetentionPolicy = components['schemas']['TopicRetentionDto'];
+
 export interface TelegramIntegrationConfig {
   connectCode?: string;
   chatId?: string;
   groupTitle?: string;
+  topicRetention?: TopicRetentionPolicy;
 }
