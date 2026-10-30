@@ -32,7 +32,7 @@ export function RegisterPage() {
         </main>
 
         <footer className="text-muted-foreground pb-6 text-center text-xs">
-          © 2024 Tikketi. All rights reserved.
+          © 2024 Tivoki. All rights reserved.
         </footer>
       </div>
     </div>

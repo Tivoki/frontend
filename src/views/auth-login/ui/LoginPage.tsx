@@ -14,7 +14,7 @@ export function LoginPage() {
             <div className="mb-6 text-center">
               <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
               <p className="text-muted-foreground mt-1.5 text-sm">
-                Sign in to your Tikketi account
+                Sign in to your Tivoki account
               </p>
             </div>
 
@@ -35,7 +35,7 @@ export function LoginPage() {
         </main>
 
         <footer className="text-muted-foreground pb-6 text-center text-xs">
-          © 2026 Tikketi. All rights reserved.
+          © 2026 Tivoki. All rights reserved.
         </footer>
       </div>
     </div>

@@ -9,9 +9,9 @@ type LogoIconProps = Omit<ComponentPropsWithoutRef<'svg'>, 'children'> & {
 
 export function LogoIcon({
   className,
-  label = 'Tikketi',
+  label = 'Tivoki',
   decorative = false,
-  idPrefix = 'tikketi-icon',
+  idPrefix = 'tivoki-icon',
   ...props
 }: LogoIconProps) {
   const gradientId = `${idPrefix}-gradient`;

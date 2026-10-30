@@ -23,7 +23,7 @@ const LOG_SEEDS: LogSeed[] = [
     action: 'conversation.escalated',
     message: 'Conversation escalated to a human agent (low AI confidence)',
     actorName: 'System',
-    actorEmail: 'system@tikketi.io',
+    actorEmail: 'system@tivoki.com',
     source: 'System',
   },
   {
@@ -39,7 +39,7 @@ const LOG_SEEDS: LogSeed[] = [
     action: 'integration.sync_failed',
     message: 'Failed to sync knowledge base from Notion (timeout)',
     actorName: 'System',
-    actorEmail: 'system@tikketi.io',
+    actorEmail: 'system@tivoki.com',
     source: 'API',
   },
   {
@@ -79,7 +79,7 @@ const LOG_SEEDS: LogSeed[] = [
     action: 'webhook.delivery_failed',
     message: 'Webhook delivery failed with status 500',
     actorName: 'System',
-    actorEmail: 'system@tikketi.io',
+    actorEmail: 'system@tivoki.com',
     source: 'API',
   },
   {

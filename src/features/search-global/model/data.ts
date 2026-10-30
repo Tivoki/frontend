@@ -144,7 +144,7 @@ export const STATIC_SEARCH_GROUPS: SearchGroup[] = [
         label: 'Getting Started',
         description: 'Set up your workspace in minutes',
         icon: Doc01Icon,
-        href: 'https://docs.tikketi.app/getting-started',
+        href: 'https://docs.tivoki.com/getting-started',
         keywords: ['setup', 'onboarding', 'start', 'guide'],
       },
       {
@@ -152,7 +152,7 @@ export const STATIC_SEARCH_GROUPS: SearchGroup[] = [
         label: 'API Reference',
         description: 'Full REST API documentation',
         icon: CodeCircleIcon,
-        href: 'https://docs.tikketi.app/api',
+        href: 'https://docs.tivoki.com/api',
         keywords: ['api', 'rest', 'endpoints', 'swagger'],
       },
       {
@@ -160,7 +160,7 @@ export const STATIC_SEARCH_GROUPS: SearchGroup[] = [
         label: 'Widget Configuration',
         description: 'Customize and embed your widget',
         icon: BrowserIcon,
-        href: 'https://docs.tikketi.app/widget',
+        href: 'https://docs.tivoki.com/widget',
         keywords: ['embed', 'snippet', 'javascript', 'widget'],
       },
       {
@@ -168,7 +168,7 @@ export const STATIC_SEARCH_GROUPS: SearchGroup[] = [
         label: 'Integrations Guide',
         description: 'Connect your favorite tools',
         icon: PuzzleIcon,
-        href: 'https://docs.tikketi.app/integrations',
+        href: 'https://docs.tivoki.com/integrations',
         keywords: ['slack', 'zapier', 'webhook', 'connect'],
       },
     ],

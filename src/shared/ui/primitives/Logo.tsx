@@ -14,7 +14,7 @@ export function Logo({
   className,
   iconClassName,
   textClassName,
-  name = 'tikketi',
+  name = 'tivoki',
   showText = true,
   ...props
 }: LogoProps) {

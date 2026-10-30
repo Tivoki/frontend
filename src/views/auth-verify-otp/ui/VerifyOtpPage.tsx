@@ -39,7 +39,7 @@ export function VerifyOtpPage() {
         </main>
 
         <footer className="text-muted-foreground pb-6 text-center text-xs">
-          © 2026 Tikketi. All rights reserved.
+          © 2026 Tivoki. All rights reserved.
         </footer>
       </div>
     </div>

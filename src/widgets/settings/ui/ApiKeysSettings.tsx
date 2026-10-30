@@ -93,7 +93,7 @@ export const ApiKeysSettings = () => {
     <Card>
       <CardHeader>
         <CardTitle>API keys</CardTitle>
-        <CardDescription>Authenticate requests to the Tikketi API.</CardDescription>
+        <CardDescription>Authenticate requests to the Tivoki API.</CardDescription>
         <CardAction>
           <Button
             type="button"

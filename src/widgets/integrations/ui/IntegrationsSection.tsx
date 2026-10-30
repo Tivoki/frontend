@@ -19,7 +19,7 @@ export const IntegrationsSection = ({
   onDisconnect,
 }: IntegrationsSectionProps) => {
   return (
-    <section className="border-border bg-background rounded-2xl border p-4 shadow-xs sm:p-5">
+    <section>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {types.map((type) => (
           <IntegrationCard

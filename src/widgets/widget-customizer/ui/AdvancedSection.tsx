@@ -34,7 +34,7 @@ export const AdvancedSection = () => {
                 {...field}
                 id="advanced-css"
                 rows={4}
-                placeholder=".tikketi-launcher { box-shadow: none; }"
+                placeholder=".tivoki-launcher { box-shadow: none; }"
                 aria-invalid={fieldState.invalid}
                 className="resize-y font-mono text-xs"
               />
@@ -74,8 +74,8 @@ export const AdvancedSection = () => {
 
         <SwitchField
           name="hideBranding"
-          label='Remove "Powered by Tikketi"'
-          description="Hide the Tikketi branding from the chat window."
+          label='Remove "Powered by Tivoki"'
+          description="Hide the Tivoki branding from the chat window."
         />
       </div>
     </section>

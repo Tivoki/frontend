@@ -124,7 +124,7 @@ export const WidgetPopup = ({ config, previewTheme }: WidgetPopupProps) => {
         </div>
 
         <p className="text-center text-[10px]" style={{ color: t.mutedText }}>
-          Powered by Tikketi
+          Powered by Tivoki
         </p>
       </div>
     </div>

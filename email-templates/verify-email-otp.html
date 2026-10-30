@@ -1,0 +1,121 @@
+<!doctype html>
+<!--
+  tivoki — Verify email (OTP)
+
+  Mailgun template name: verify email (otp)
+  Subject:   {{otp_code}} is your tivoki verification code
+  Variables: {{first_name}} {{otp_code}} {{expires_minutes}} {{support_url}}
+
+  Logo: upload assets/logo.png to your host and update the <img src> below.
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>Your tivoki verification code</title>
+    <style>
+      @media (max-width: 600px) {
+        .container { width: 100% !important; }
+        .card { padding: 28px 22px !important; }
+        .code { font-size: 30px !important; letter-spacing: 8px !important; }
+      }
+      @media (prefers-color-scheme: dark) {
+        .page { background-color: #0B0D12 !important; }
+        .card { background-color: #14171F !important; border-color: #242833 !important; }
+        .text-strong { color: #F3F4F6 !important; }
+        .text-body { color: #B6BCC8 !important; }
+        .text-muted { color: #7C8392 !important; }
+        .code-box { background-color: #0B0D12 !important; border-color: #2A2F3C !important; }
+        .code { color: #A5B4FC !important; }
+        .eyebrow { color: #A5B4FC !important; }
+        .divider { border-color: #242833 !important; }
+      }
+    </style>
+  </head>
+
+  <body style="margin: 0; padding: 0; background-color: #f4f5f7; -webkit-text-size-adjust: 100%;">
+    <!-- Preheader: shown in the inbox list next to the subject -->
+    <div style="display: none; max-height: 0; overflow: hidden; opacity: 0; mso-hide: all;">
+      Enter this code to verify your email. It expires in {{expires_minutes}} minutes.
+      &#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;
+    </div>
+
+    <table role="presentation" class="page" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f4f5f7">
+      <tr>
+        <td align="center" style="padding: 40px 16px;">
+          <table role="presentation" class="container" width="520" cellpadding="0" cellspacing="0" border="0" style="width: 520px;">
+
+            <!-- ───────── Header ───────── -->
+            <tr>
+              <td style="padding: 0 4px 20px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td valign="middle">
+                      <img src="https://tivoki.com/email/logo.png" width="28" height="28" alt="" style="display: block; border: 0;" />
+                    </td>
+                    <td valign="middle" class="text-strong" style="padding-left: 9px; font: 600 19px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; letter-spacing: -0.3px; color: #111827;">
+                      tivoki
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <!-- ───────── Card ───────── -->
+            <tr>
+              <td class="card" bgcolor="#ffffff" style="padding: 36px 36px 32px; background-color: #ffffff; border: 1px solid #e6e8ec; border-radius: 14px;">
+
+                <!-- Title block -->
+                <p class="eyebrow" style="margin: 0 0 10px; font: 600 12px/1 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; letter-spacing: 0.8px; text-transform: uppercase; color: #4f46e5;">
+                  Email verification
+                </p>
+                <h1 class="text-strong" style="margin: 0 0 14px; font: 600 24px/1.3 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; letter-spacing: -0.4px; color: #111827;">
+                  Your verification code
+                </h1>
+                <p class="text-body" style="margin: 0; font: 400 15px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: #4b5563;">
+                  Hi {{first_name}}, enter this code in tivoki to confirm your email address and finish setting up your account.
+                </p>
+
+                <!-- Code -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 28px 0 14px;">
+                  <tr>
+                    <td class="code-box" align="center" bgcolor="#f8f9fb" style="padding: 24px 12px; background-color: #f8f9fb; border: 1px solid #e6e8ec; border-radius: 10px;">
+                      <span class="code" style="font: 600 36px/1 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 12px; text-indent: 12px; color: #4f46e5;">{{otp_code}}</span>
+                    </td>
+                  </tr>
+                </table>
+                <p class="text-muted" style="margin: 0; font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: #7c8392; text-align: center;">
+                  Expires in {{expires_minutes}} minutes
+                </p>
+
+                <!-- Divider -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0 22px;">
+                  <tr><td class="divider" style="border-top: 1px solid #eceef2; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+                </table>
+
+                <!-- Fine print -->
+                <p class="text-muted" style="margin: 0; font: 400 13px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: #7c8392;">
+                  Didn&rsquo;t sign up for tivoki? You can safely ignore this email &mdash; no account will be created.
+                  For your security, never share this code with anyone.
+                </p>
+              </td>
+            </tr>
+
+            <!-- ───────── Footer ───────── -->
+            <tr>
+              <td style="padding: 22px 4px 0;">
+                <p class="text-muted" style="margin: 0; font: 400 12px/1.7 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; color: #9aa1ae;">
+                  Questions? <a href="{{support_url}}" style="color: #7c8392; text-decoration: underline;">Contact support</a><br />
+                  &copy; 2026 tivoki. All rights reserved.
+                </p>
+              </td>
+            </tr>
+
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

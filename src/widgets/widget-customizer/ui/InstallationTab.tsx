@@ -15,12 +15,12 @@ const FRAMEWORKS = ['HTML', 'React', 'Next.js', 'Vue', 'Angular'];
 
 const CODE_SNIPPET = `<!-- Add before </body> tag -->
 <script>
-  window.tikketiConfig = {
+  window.tivokiConfig = {
     widgetId: "YOUR_WIDGET_ID"
   };
 </script>
 <script
-  src="https://cdn.tikketi.io/widget.js"
+  src="https://cdn.tivoki.com/widget.js"
   async
 ></script>`;
 
