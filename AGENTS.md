@@ -1,6 +1,7 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Instructions for coding agents working in the dashboard repository.
+These rules are shared with `CLAUDE.md`; keep shared project guidance consistent between the two files.
 
 <!-- BEGIN:nextjs-agent-rules -->
 
@@ -18,7 +19,7 @@ pnpm build        # production build
 pnpm lint         # ESLint (eslint-config-next + prettier rules)
 pnpm format       # Prettier write
 pnpm format:check # Prettier check (CI)
-npx tsc --noEmit  # type-check without building
+pnpm exec tsc --noEmit  # type-check without building
 ```
 
 No test runner is configured.
@@ -81,3 +82,11 @@ Tailwind CSS v4 (PostCSS plugin). `cn()` from `~/shared/lib` merges class names 
 - `'use client'` directive is required on any component that uses React state/effects or browser APIs.
 - Mock data lives co-located in the feature's `ui/` file (constants at the top). No separate mock files.
 - **One component per file.** Each React component must live in its own file named after the component (e.g. `UserCard.tsx` for `UserCard`). Never define multiple exported or non-trivial components in the same file.
+
+## Package manager and validation
+
+Use `pnpm` and run commands from this repository's root. For code changes, run `pnpm lint` and `pnpm exec tsc --noEmit`; use `pnpm build` when changes affect routing, rendering, or production configuration. Report checks that could not run and why.
+
+`pnpm format` rewrites files across the repository. Prefer formatting only changed files; use `pnpm format:check` for a read-only check.
+
+`src/shared/api/schema.d.ts` is generated from the backend OpenAPI schema. After API contract changes, start the backend locally and run `pnpm generate` instead of hand-editing the generated schema. The configured endpoint is `http://localhost:8080/api/v1/docs-json`.
