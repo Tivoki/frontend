@@ -498,6 +498,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}/turns": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List processing turns (decisions, outcome, usage, timings) for analysis */
+        get: operations["ConversationController_listTurns"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/widget/conversations": {
         parameters: {
             query?: never;
@@ -523,11 +540,48 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** List a conversation's messages */
-        get: operations["ConversationPublicController_listMessages"];
+        /** Sync a conversation: messages after a cursor, status and recent turns */
+        get: operations["ConversationPublicController_syncMessages"];
         put?: never;
-        /** Send a visitor message and get the AI response */
+        /**
+         * Send a visitor message (idempotent by clientMessageId)
+         * @description Stores the message and queues it for processing; the reply arrives via GET .../messages?after=<cursor>.
+         */
         post: operations["ConversationPublicController_postMessage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/widget/conversations/{conversationId}/handoff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Visitor pressed "talk to a human" (idempotent by clientActionId) */
+        post: operations["ConversationPublicController_requestHandoff"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/widget/conversations/{conversationId}/turns/{turnId}/retry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Retry the latest failed turn */
+        post: operations["ConversationPublicController_retryTurn"];
         delete?: never;
         options?: never;
         head?: never;
@@ -915,7 +969,7 @@ export interface components {
             /** @enum {string} */
             status: "WAITING_HUMAN" | "IN_PROGRESS" | "RESOLVED";
             /** @enum {string} */
-            reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "FALLBACK_RULE";
+            reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "UI_REQUEST" | "OFFER_ACCEPTED" | "FALLBACK_RULE";
             integrationId: string | null;
             assignedToUserId: string | null;
             /** Format: date-time */
@@ -943,12 +997,46 @@ export interface components {
         };
         ConversationMessageResponseDto: {
             id: string;
+            seq: number;
             /** @enum {string} */
             role: "VISITOR" | "ASSISTANT" | "HUMAN_AGENT" | "SYSTEM";
+            /** @enum {string|null} */
+            kind: "ANSWER" | "SMALL_TALK" | "CLARIFICATION" | "FALLBACK" | "HANDOFF_OFFER" | "HANDOFF_CONFIRMATION" | "EMAIL_REQUEST" | "EMAIL_CONFIRMATION" | null;
             content: string;
-            confidence: number | null;
+            /** @description Best similarity of the retrieved knowledge — not answer correctness. */
+            retrievalScore: number | null;
+            /** @description Decision-model probability for the chosen route (uncalibrated). */
+            decisionConfidence: number | null;
+            replyToTurnId: string | null;
             /** Format: date-time */
             createdAt: string;
+        };
+        ConversationTurnResponseDto: {
+            id: string;
+            sequence: number;
+            /** @enum {string} */
+            trigger: "VISITOR_MESSAGE" | "HANDOFF_ACTION";
+            /** @enum {string} */
+            status: "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
+            /** @enum {string|null} */
+            outcome: "ANSWER" | "SMALL_TALK" | "CLARIFICATION" | "FALLBACK" | "HANDOFF" | "HANDOFF_OFFER" | "EMAIL_REQUEST" | "EMAIL_CAPTURED" | "SILENT" | "HUMAN_MODE" | "SUPERSEDED" | null;
+            route: string | null;
+            /** @description Decision answers and policy plan */
+            decision: Record<string, never> | null;
+            result: Record<string, never> | null;
+            /** @description Provider calls and tokens */
+            usage: Record<string, never> | null;
+            /** @description Stage durations in ms */
+            timings: Record<string, never> | null;
+            policyVersion: string | null;
+            decisionModel: string | null;
+            generationModel: string | null;
+            attempts: number;
+            error: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            completedAt: string | null;
         };
         VisitorPayloadDto: {
             /** @description Stable visitor id from the host site (e.g. logged-in user id) */
@@ -972,18 +1060,84 @@ export interface components {
             widgetKey: string;
             /** @description visitorId returned when the conversation was created */
             visitorId: string;
+            /**
+             * @description Client-generated idempotency key. Resending the same id (e.g. after a network error) returns the original message and turn instead of creating a duplicate.
+             * @example 3f1c9a1e-7c1b-4c35-9f0a-2a4b6a1d9e10
+             */
+            clientMessageId: string;
             /** @example How do I reset my password? */
             content: string;
         };
+        TurnStatusDto: {
+            id: string;
+            sequence: number;
+            clientMessageId: string;
+            /** @enum {string} */
+            trigger: "VISITOR_MESSAGE" | "HANDOFF_ACTION";
+            /** @enum {string} */
+            status: "PENDING" | "PROCESSING" | "COMPLETED" | "FAILED";
+            /** @enum {string|null} */
+            outcome: "ANSWER" | "SMALL_TALK" | "CLARIFICATION" | "FALLBACK" | "HANDOFF" | "HANDOFF_OFFER" | "EMAIL_REQUEST" | "EMAIL_CAPTURED" | "SILENT" | "HUMAN_MODE" | "SUPERSEDED" | null;
+            /** @description A FAILED turn of the latest sequence can be retried. */
+            retryable: boolean;
+        };
         MessageItemDto: {
             id: string;
+            /** @description Monotonic per conversation; use as the `after` cursor. */
+            seq: number;
             /** @enum {string} */
             role: "VISITOR" | "ASSISTANT" | "HUMAN_AGENT" | "SYSTEM";
+            /** @enum {string|null} */
+            kind: "ANSWER" | "SMALL_TALK" | "CLARIFICATION" | "FALLBACK" | "HANDOFF_OFFER" | "HANDOFF_CONFIRMATION" | "EMAIL_REQUEST" | "EMAIL_CONFIRMATION" | null;
             content: string;
+            /** @description For visitor messages: the clientMessageId they were sent with. */
+            clientMessageId: string | null;
+            /** Format: date-time */
+            createdAt: string;
         };
-        CreateMessageResponseDto: {
-            userMessage: components["schemas"]["MessageItemDto"];
-            assistantMessage: components["schemas"]["MessageItemDto"] | null;
+        ConversationStateDto: {
+            id: string;
+            /** @enum {string} */
+            status: "OPEN" | "ESCALATED" | "RESOLVED" | "CLOSED";
+            /** @enum {string|null} */
+            pendingAction: "HANDOFF_OFFER" | "EMAIL_REQUEST" | null;
+            /** @description Language the conversation is held in (for localizing UI states). */
+            language: string | null;
+        };
+        AcceptedTurnResponseDto: {
+            turn: components["schemas"]["TurnStatusDto"];
+            /** @description The stored visitor message (null for UI actions such as handoff). */
+            message: components["schemas"]["MessageItemDto"] | null;
+            conversation: components["schemas"]["ConversationStateDto"];
+            /** @description True when this clientMessageId had already been accepted. */
+            duplicate: boolean;
+        };
+        RequestHandoffDto: {
+            /** @example pub_... */
+            widgetKey: string;
+            /** @description visitorId returned when the conversation was created */
+            visitorId: string;
+            /**
+             * @description Client-generated idempotency key for this button press.
+             * @example handoff-3f1c9a1e-7c1b-4c35
+             */
+            clientActionId: string;
+        };
+        VisitorScopedDto: {
+            /** @example pub_... */
+            widgetKey: string;
+            /** @description visitorId returned when the conversation was created */
+            visitorId: string;
+        };
+        ConversationSyncResponseDto: {
+            messages: components["schemas"]["MessageItemDto"][];
+            /** @description Pass as `after` on the next poll. */
+            cursor: number;
+            /** @description More messages after `cursor` are waiting — poll again now. */
+            hasMore: boolean;
+            conversation: components["schemas"]["ConversationStateDto"];
+            /** @description The most recent turns, newest first (processing state, failures). */
+            turns: components["schemas"]["TurnStatusDto"][];
         };
     };
     responses: never;
@@ -2166,6 +2320,50 @@ export interface operations {
             };
         };
     };
+    ConversationController_listTurns: {
+        parameters: {
+            query?: {
+                order?: "asc" | "desc";
+                /** @description Field to sort by */
+                orderBy?: string;
+                page?: number;
+                take?: number;
+            };
+            header?: never;
+            path: {
+                workspaceId: string;
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageDto"] & {
+                        data?: components["schemas"]["ConversationTurnResponseDto"][];
+                    };
+                };
+            };
+            /** @description You do not have access to this workspace */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conversation not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     ConversationPublicController_listConversations: {
         parameters: {
             query: {
@@ -2247,17 +2445,15 @@ export interface operations {
             };
         };
     };
-    ConversationPublicController_listMessages: {
+    ConversationPublicController_syncMessages: {
         parameters: {
             query: {
-                order?: "asc" | "desc";
-                /** @description Field to sort by */
-                orderBy?: string;
-                page?: number;
-                take?: number;
                 widgetKey: string;
                 /** @description visitorId returned when the conversation was created */
                 visitorId: string;
+                /** @description Cursor: return messages with seq greater than this. Omit to get the latest `limit` messages. */
+                after?: number;
+                limit?: number;
             };
             header?: never;
             path: {
@@ -2272,9 +2468,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PageDto"] & {
-                        data?: components["schemas"]["ConversationMessageResponseDto"][];
-                    };
+                    "application/json": components["schemas"]["ConversationSyncResponseDto"];
                 };
             };
             /** @description Origin not allowed for this widget */
@@ -2308,12 +2502,12 @@ export interface operations {
             };
         };
         responses: {
-            201: {
+            202: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CreateMessageResponseDto"];
+                    "application/json": components["schemas"]["AcceptedTurnResponseDto"];
                 };
             };
             /** @description Origin not allowed for this widget */
@@ -2330,8 +2524,94 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description Conversation is closed */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
             /** @description Too many messages, please slow down */
             429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ConversationPublicController_requestHandoff: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RequestHandoffDto"];
+            };
+        };
+        responses: {
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AcceptedTurnResponseDto"];
+                };
+            };
+            /** @description Widget or conversation not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conversation is closed */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ConversationPublicController_retryTurn: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+                turnId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VisitorScopedDto"];
+            };
+        };
+        responses: {
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TurnStatusDto"];
+                };
+            };
+            /** @description Widget, conversation or turn not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Turn is not the latest failed turn */
+            409: {
                 headers: {
                     [name: string]: unknown;
                 };
