@@ -51,6 +51,12 @@ const continueWithRefreshedSession = (
   return appendSetCookies(NextResponse.next({ request: { headers } }), setCookies);
 };
 
+/** Only same-origin dashboard paths; anything else falls back to /dashboard. */
+const safeLocalRedirect = (target: string | null): string =>
+  target && /^\/dashboard(?:[/?]|$)/.test(target) && !target.startsWith('//')
+    ? target
+    : '/dashboard';
+
 export async function proxy(request: NextRequest) {
   const response = await gate(request);
 
@@ -63,14 +69,15 @@ async function gate(request: NextRequest): Promise<NextResponse> {
   const status = getAuthStatus(request);
 
   if (pathname.startsWith('/auth')) {
+    const target = safeLocalRedirect(request.nextUrl.searchParams.get('redirect'));
     if (status === 'authenticated') {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
+      return NextResponse.redirect(new URL(target, request.url));
     }
     if (status === 'expired') {
       const setCookies = await tryRefresh(request);
       if (setCookies) {
         return appendSetCookies(
-          NextResponse.redirect(new URL('/dashboard', request.url)),
+          NextResponse.redirect(new URL(target, request.url)),
           setCookies,
         );
       }
@@ -86,8 +93,9 @@ async function gate(request: NextRequest): Promise<NextResponse> {
     if (setCookies) return continueWithRefreshedSession(request, setCookies);
   }
 
+  // Keep the query (e.g. ?id= of a conversation deep link) for after login.
   const loginUrl = new URL('/auth/login', request.url);
-  loginUrl.searchParams.set('redirect', pathname);
+  loginUrl.searchParams.set('redirect', pathname + request.nextUrl.search);
   return NextResponse.redirect(loginUrl);
 }
 

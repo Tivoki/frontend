@@ -23,11 +23,12 @@ const REASON_LABEL: Record<EscalationReason, string> = {
   UI_REQUEST: 'Visitor pressed “Talk to a person”',
   OFFER_ACCEPTED: 'Visitor accepted handoff offer',
   FALLBACK_RULE: 'Left email for follow-up',
+  AGENT_TAKEOVER: 'Taken over by the team',
 };
 
 const STATUS_CONFIG: Record<EscalationStatus, { label: string; dot: string; text: string }> = {
   WAITING_HUMAN: {
-    label: 'Waiting human',
+    label: 'Waiting',
     dot: 'bg-amber-500',
     text: 'text-amber-600 dark:text-amber-400',
   },

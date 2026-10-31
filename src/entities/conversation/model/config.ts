@@ -1,22 +1,35 @@
-import type { ConversationChannel, ConversationStatus } from './types';
+import type { ConversationStatus } from './types';
 
-export const STATUS_STYLES: Record<ConversationStatus, string> = {
-  open: 'bg-info-subtle text-info-foreground',
-  pending: 'bg-warning-subtle text-warning-foreground',
-  resolved: 'bg-success-subtle text-success-foreground',
+/** What the inbox shows as the state badge: closed, AI, or a handoff stage. */
+export type ConversationBadge = 'closed' | 'ai' | 'waiting' | 'in_progress';
+
+export const BADGE_STYLES: Record<ConversationBadge, string> = {
+  ai: 'bg-info-subtle text-info-foreground',
+  waiting: 'bg-warning-subtle text-warning-foreground',
+  in_progress: 'bg-success-subtle text-success-foreground',
   closed: 'bg-muted text-foreground',
 };
 
-export const STATUS_LABELS: Record<ConversationStatus, string> = {
-  open: 'Open',
-  pending: 'Pending',
-  resolved: 'Resolved',
+export const BADGE_LABELS: Record<ConversationBadge, string> = {
+  ai: 'Active · AI',
+  waiting: 'Waiting',
+  in_progress: 'In progress',
   closed: 'Closed',
 };
 
-export const CHANNEL_LABELS: Record<ConversationChannel, string> = {
-  email: 'Email',
-  webchat: 'Webchat',
-  telegram: 'Telegram',
-  intercom: 'Intercom',
+export const STATUS_LABELS: Record<ConversationStatus, string> = {
+  ACTIVE: 'Active',
+  CLOSED: 'Closed',
 };
+
+export const ESCALATION_STATUS_LABELS: Record<
+  'WAITING_HUMAN' | 'IN_PROGRESS' | 'RESOLVED',
+  string
+> = {
+  WAITING_HUMAN: 'Waiting',
+  IN_PROGRESS: 'In progress',
+  RESOLVED: 'Resolved',
+};
+
+/** Visitor channel. Telegram is an operator channel, not a visitor source. */
+export const CHANNEL_LABELS = { WEBCHAT: 'Webchat' } as const;

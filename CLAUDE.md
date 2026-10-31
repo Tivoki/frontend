@@ -19,9 +19,10 @@ pnpm lint         # ESLint (eslint-config-next + prettier rules)
 pnpm format       # Prettier write
 pnpm format:check # Prettier check (CI)
 npx tsc --noEmit  # type-check without building
+pnpm test         # unit tests for pure logic (node --test)
 ```
 
-No test runner is configured.
+`pnpm test` runs Node's built-in test runner on `src/**/*.test.ts` (type stripping, no extra deps). Keep tested modules free of `~/` value imports (relative `.ts` imports only) — it covers pure cache/stream/dedupe logic, not JSX.
 
 ## Architecture
 
@@ -41,6 +42,10 @@ shared     → lib utilities, ui/kit primitives — no domain knowledge
 Each slice exposes a public API via its `index.ts`. Import only from the slice root, never from internal paths (e.g. `~/features/notifications`, not `~/features/notifications/ui/NotificationsButton`).
 
 Inside a slice, the standard sub-folders are `ui/` and `model/`. Types live in `model/types.ts`.
+
+### Conversations inbox
+
+Real data from the backend inbox API (`docs/conversations-inbox.md` in the backend repo). `entities/conversation` holds API types (generated), query keys (always workspace-scoped), list/detail/history/read hooks and pure helpers; `features/conversation-reply` (pending/failed/retry replies, in-memory drafts), `features/conversation-actions` (take over, assign, resolve with `expectedRevision`), `features/conversation-realtime` (one workspace SSE stream per tab via `shared/api/event-stream.ts`; hints only — the cache is refreshed from the API, inbox pages restart from the first page). The detail is loaded by `?id=` independently of the list; 403/404 show "not available".
 
 ### Path alias
 
