@@ -3,7 +3,7 @@
 import ky from 'ky';
 import { AUTH_CONSTANTS } from '~/shared/lib';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const getCsrfCookie = (): string | undefined => {
   if (typeof document === 'undefined') return undefined;
@@ -14,7 +14,8 @@ const getCsrfCookie = (): string | undefined => {
 };
 
 let refreshPromise: Promise<boolean> | null = null;
-const refreshSession = (): Promise<boolean> => {
+/** Single-flight session refresh shared by ky and the SSE stream manager. */
+export const refreshSession = (): Promise<boolean> => {
   refreshPromise ??= fetch('/api/auth/refresh', { method: 'POST' })
     .then((response) => response.ok)
     .catch(() => false)
@@ -24,7 +25,7 @@ const refreshSession = (): Promise<boolean> => {
   return refreshPromise;
 };
 
-const redirectToLogin = (): void => {
+export const redirectToLogin = (): void => {
   if (typeof window === 'undefined') return;
   const target = encodeURIComponent(window.location.pathname + window.location.search);
   window.location.href = `/auth/login?redirect=${target}`;

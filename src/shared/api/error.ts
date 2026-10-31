@@ -11,3 +11,18 @@ export function getApiErrorMessage(error: unknown): string {
   }
   return 'Something went wrong';
 }
+
+/** Machine-readable `code` of a domain error body (e.g. 409 CONVERSATION_CHANGED). */
+export function getApiErrorCode(error: unknown): string | undefined {
+  if (!(error instanceof HTTPError)) return undefined;
+  const data = error.data as { code?: unknown } | undefined;
+  return typeof data?.code === 'string' ? data.code : undefined;
+}
+
+export function getApiErrorDetails(error: unknown): Record<string, unknown> {
+  if (!(error instanceof HTTPError)) return {};
+  const data = error.data as { details?: unknown } | undefined;
+  return data?.details && typeof data.details === 'object'
+    ? (data.details as Record<string, unknown>)
+    : {};
+}
