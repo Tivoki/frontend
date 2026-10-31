@@ -443,7 +443,11 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        /** Assign or resolve an escalation */
+        /**
+         * Assign or resolve an escalation (legacy; prefer POST conversations/:id/actions)
+         * @deprecated
+         * @description RESOLVED resolves the escalation and closes the conversation (same command as the inbox RESOLVE action). Assignee changes are validated against workspace membership; null unassigns.
+         */
         patch: operations["EscalationController_updateEscalation"];
         trace?: never;
     };
@@ -464,15 +468,72 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/workspaces/{workspaceId}/conversations": {
+    "/api/v1/workspaces/{workspaceId}/conversations/inbox": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        /** List conversations for this workspace */
-        get: operations["ConversationController_list"];
+        /**
+         * Inbox: conversations ordered by last activity (cursor pagination)
+         * @description Live list: activityAt moves, so a cursor is a position, not a snapshot. Clients dedupe by id and restart from the first page on invalidation.
+         */
+        get: operations["InboxController_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Conversation detail with state, assignee and capabilities */
+        get: operations["InboxController_detail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Message history by seq cursor (ascending)
+         * @description No cursor: latest 50. beforeSeq: older page. afterSeq: catch-up (repeat while hasNewer).
+         */
+        get: operations["InboxController_history"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}/activities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Lifecycle audit (handoffs, assignment, close/reopen) */
+        get: operations["InboxController_activities"];
         put?: never;
         post?: never;
         delete?: never;
@@ -490,6 +551,84 @@ export interface paths {
         };
         /** List messages in a conversation */
         get: operations["ConversationController_listMessages"];
+        put?: never;
+        /**
+         * Operator reply (human mode only; idempotent by clientMessageId)
+         * @description Replying to an unclaimed escalation claims it. Delivered to the widget over its SSE and mirrored into open Telegram topics.
+         */
+        post: operations["InboxController_send"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}/actions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Lifecycle command: TAKE_OVER | ASSIGN | UNASSIGN | RESOLVE
+         * @description RESOLVE resolves the escalation and closes the conversation atomically (requires escalationId and lastSeenVisitorSeq). Reassigning someone else’s escalation needs ADMIN+. Idempotent by actionId.
+         */
+        post: operations["InboxController_act"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations/{conversationId}/read-state": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Advance the current user’s read cursor (monotonic) */
+        put: operations["InboxController_markRead"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversation-events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Workspace inbox change hints over SSE (cookie auth)
+         * @description Events: ready, changed {eventId, conversationId, revision, latestMessageSeq}, read (only for the same user), resync {reason}, ping, revoked (membership removed — stop), reconnect (lifetime reached — reconnect and resync). Payloads never contain message content.
+         */
+        get: operations["InboxEventsController_stream"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/workspaces/{workspaceId}/conversations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List conversations for this workspace */
+        get: operations["ConversationController_list"];
         put?: never;
         post?: never;
         delete?: never;
@@ -562,7 +701,7 @@ export interface paths {
         put?: never;
         /**
          * Send a visitor message (idempotent by clientMessageId)
-         * @description Stores the message and queues it for processing; the reply and processing state arrive through GET .../events (SSE).
+         * @description Stores the message and queues it for processing; the reply and processing state arrive through GET .../events (SSE). A message to a CLOSED conversation reopens the same conversation.
          */
         post: operations["ConversationPublicController_postMessage"];
         delete?: never;
@@ -580,7 +719,10 @@ export interface paths {
         };
         get?: never;
         put?: never;
-        /** Visitor pressed "talk to a human" (idempotent by clientActionId) */
+        /**
+         * Visitor pressed "talk to a human" (idempotent by clientActionId)
+         * @description On a CLOSED conversation this reopens it and opens a new escalation in one transaction.
+         */
         post: operations["ConversationPublicController_requestHandoff"];
         delete?: never;
         options?: never;
@@ -986,7 +1128,7 @@ export interface components {
             /** @enum {string} */
             status: "WAITING_HUMAN" | "IN_PROGRESS" | "RESOLVED";
             /** @enum {string} */
-            reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "UI_REQUEST" | "OFFER_ACCEPTED" | "FALLBACK_RULE";
+            reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "UI_REQUEST" | "OFFER_ACCEPTED" | "FALLBACK_RULE" | "AGENT_TAKEOVER";
             integrationId: string | null;
             assignedToUserId: string | null;
             /** Format: date-time */
@@ -995,17 +1137,231 @@ export interface components {
             updatedAt: string;
         };
         UpdateEscalationDto: {
-            /** @enum {string} */
+            /**
+             * @description Only RESOLVED is accepted (resolves and closes the conversation).
+             * @enum {string}
+             */
             status?: "WAITING_HUMAN" | "IN_PROGRESS" | "RESOLVED";
-            /** @description User id of the agent handling this escalation */
-            assignedToUserId?: string;
+            /** @description Workspace member (AGENT+) handling this escalation; null unassigns. */
+            assignedToUserId?: string | null;
+        };
+        /** @enum {string} */
+        InboxFilter: "all" | "active" | "closed" | "waiting" | "in_progress" | "escalated";
+        InboxVisitorDto: {
+            id: string;
+            name: string | null;
+            email: string | null;
+        };
+        InboxLastMessageDto: {
+            /** @description Bounded preview, not the full text. */
+            preview: string;
+            /** @enum {string} */
+            role: "VISITOR" | "ASSISTANT" | "HUMAN_AGENT" | "SYSTEM";
+            /** Format: date-time */
+            createdAt: string;
+        };
+        /** @enum {string} */
+        InboxHandlingMode: "AI" | "HUMAN";
+        InboxAssigneeDto: {
+            id: string;
+            /** @description Null if the user was deleted. */
+            name: string | null;
+        };
+        InboxActiveEscalationDto: {
+            id: string;
+            /** @enum {string} */
+            status: "WAITING_HUMAN" | "IN_PROGRESS";
+            /** @enum {string} */
+            reason: "LOW_CONFIDENCE" | "USER_REQUEST" | "UI_REQUEST" | "OFFER_ACCEPTED" | "FALLBACK_RULE" | "AGENT_TAKEOVER";
+            assignedTo: components["schemas"]["InboxAssigneeDto"] | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        InboxItemDto: {
+            id: string;
+            visitor: components["schemas"]["InboxVisitorDto"];
+            lastMessage: components["schemas"]["InboxLastMessageDto"] | null;
+            /**
+             * Format: date-time
+             * @description Inbox sort key.
+             */
+            activityAt: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "CLOSED";
+            handlingMode: components["schemas"]["InboxHandlingMode"];
+            revision: number;
+            activeEscalation: components["schemas"]["InboxActiveEscalationDto"] | null;
+            /** @description Visitor messages the current user has not read. */
+            unreadCount: number;
+        };
+        InboxPageDto: {
+            items: components["schemas"]["InboxItemDto"][];
+            nextCursor: string | null;
+            hasMore: boolean;
+        };
+        ConversationCapabilitiesDto: {
+            /** @description Reply now (human mode, unassigned or assigned to you). */
+            canReply: boolean;
+            /** @description Take an AI conversation over / claim an unassigned handoff. */
+            canTakeOver: boolean;
+            /** @description Assign the active escalation to someone (ADMIN+). */
+            canAssign: boolean;
+            /** @description Release your own assignment. */
+            canUnassign: boolean;
+            /** @description Resolve the active escalation (closes the conversation). */
+            canResolve: boolean;
+        };
+        ConversationDetailDto: {
+            id: string;
+            workspaceId: string;
+            /**
+             * @description Visitor channel.
+             * @enum {string}
+             */
+            channel: "WEBCHAT";
+            visitor: components["schemas"]["InboxVisitorDto"];
+            /** @enum {string} */
+            status: "ACTIVE" | "CLOSED";
+            handlingMode: components["schemas"]["InboxHandlingMode"];
+            /** Format: date-time */
+            closedAt: string | null;
+            /** @enum {string|null} */
+            closeReason: "INACTIVITY" | "ESCALATION_RESOLVED" | "LEGACY" | null;
+            /** Format: date-time */
+            idleCloseAt: string | null;
+            revision: number;
+            activeEscalation: components["schemas"]["InboxActiveEscalationDto"] | null;
+            /** @description Last language the visitor wrote in; null if unknown. */
+            language: string | null;
+            /** @description Null = no summary. */
+            aiSummary: string | null;
+            capabilities: components["schemas"]["ConversationCapabilitiesDto"];
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            activityAt: string;
+            /** @description Highest message seq. */
+            latestSeq: number;
+            /** @description Seq of the newest visitor message (resolve watermark). */
+            lastVisitorSeq: number;
+            lastReadSeq: number;
+            unreadCount: number;
+        };
+        /** @enum {string} */
+        MessageAuthorType: "VISITOR" | "AI" | "USER" | "EXTERNAL" | "SYSTEM";
+        MessageAuthorDto: {
+            type: components["schemas"]["MessageAuthorType"];
+            userId: string | null;
+            /** @description Null when unknown. */
+            name: string | null;
+        };
+        HistoryMessageDto: {
+            id: string;
+            seq: number;
+            /** @enum {string} */
+            role: "VISITOR" | "ASSISTANT" | "HUMAN_AGENT" | "SYSTEM";
+            /** @enum {string|null} */
+            kind: "ANSWER" | "SMALL_TALK" | "CLARIFICATION" | "FALLBACK" | "HANDOFF_OFFER" | "HANDOFF_CONFIRMATION" | "EMAIL_REQUEST" | "EMAIL_CONFIRMATION" | null;
+            content: string;
+            /**
+             * @description Null for legacy rows.
+             * @enum {string|null}
+             */
+            source: "WIDGET" | "AI" | "DASHBOARD" | "TELEGRAM" | "SYSTEM" | null;
+            author: components["schemas"]["MessageAuthorDto"];
+            /** @description Dashboard idempotency key. */
+            clientMessageId: string | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        HistoryPageDto: {
+            /** @description Always ascending by seq. */
+            items: components["schemas"]["HistoryMessageDto"][];
+            oldestSeq: number | null;
+            newestSeq: number | null;
+            hasOlder: boolean;
+            hasNewer: boolean;
+            conversationRevision: number;
+        };
+        ActivityActorDto: {
+            /** @enum {string} */
+            type: "VISITOR" | "USER" | "EXTERNAL" | "SYSTEM";
+            userId: string | null;
+            name: string | null;
+        };
+        ConversationActivityDto: {
+            id: string;
+            /** @enum {string} */
+            type: "ESCALATION_OPENED" | "ESCALATION_ASSIGNED" | "ESCALATION_UNASSIGNED" | "ESCALATION_RESOLVED" | "CONVERSATION_CLOSED" | "CONVERSATION_REOPENED";
+            actor: components["schemas"]["ActivityActorDto"];
+            escalationId: string | null;
+            revision: number;
+            /** @description Small typed details (reason, assignee). */
+            payload: Record<string, never> | null;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        ActivityPageDto: {
+            items: components["schemas"]["ConversationActivityDto"][];
+            nextCursor: string | null;
+            hasMore: boolean;
+        };
+        SendInboxMessageDto: {
+            /** @description Trimmed; must not be empty. */
+            content: string;
+            /** @description Idempotency key. A retry with the same id returns the original message (200); the same id with different content is a 409 IDEMPOTENCY_CONFLICT. */
+            clientMessageId: string;
+            /** @description The active escalation this reply belongs to. */
+            escalationId: string;
+        };
+        SendInboxMessageResponseDto: {
+            message: components["schemas"]["HistoryMessageDto"];
+            /** @description True when this clientMessageId was already accepted. */
+            duplicate: boolean;
+            conversation: components["schemas"]["ConversationDetailDto"];
+        };
+        /** @enum {string} */
+        ConversationActionType: "TAKE_OVER" | "ASSIGN" | "UNASSIGN" | "RESOLVE";
+        ConversationActionDto: {
+            type: components["schemas"]["ConversationActionType"];
+            /** @description Idempotency key; a retry returns the first result. */
+            actionId: string;
+            /** @description Conversation revision the operator acted on. */
+            expectedRevision: number;
+            /** @description Required for ASSIGN, UNASSIGN and RESOLVE. */
+            escalationId?: string;
+            /** @description Required for ASSIGN. */
+            assigneeUserId?: string;
+            /** @description Required for RESOLVE: the newest visitor message seq the operator has seen. */
+            lastSeenVisitorSeq?: number;
+        };
+        ConversationActionResponseDto: {
+            /** @description True when this actionId was already applied. */
+            duplicate: boolean;
+            conversation: components["schemas"]["ConversationDetailDto"];
+        };
+        UpdateReadStateDto: {
+            /** @description Highest message seq the user has seen. */
+            lastReadSeq: number;
+        };
+        ReadStateResponseDto: {
+            lastReadSeq: number;
+            unreadCount: number;
+        };
+        WorkspaceStreamEventDto: {
+            /** @enum {string} */
+            event: "ready" | "changed" | "read" | "resync" | "ping" | "revoked" | "reconnect";
+            eventId?: string;
+            conversationId?: string;
+            revision?: number;
+            latestMessageSeq?: number;
         };
         ConversationResponseDto: {
             id: string;
             widgetId: string;
             visitorId: string;
             /** @enum {string} */
-            status: "OPEN" | "ESCALATED" | "RESOLVED" | "CLOSED";
+            status: "ACTIVE" | "CLOSED";
             aiSummary: string | null;
             /** Format: date-time */
             lastMessageAt: string | null;
@@ -1114,10 +1470,20 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
+        /**
+         * @description HUMAN while an escalation is active (the assistant stays silent).
+         * @enum {string}
+         */
+        HandlingMode: "AI" | "HUMAN";
         ConversationStateDto: {
             id: string;
-            /** @enum {string} */
-            status: "OPEN" | "ESCALATED" | "RESOLVED" | "CLOSED";
+            /**
+             * @description ACTIVE, or CLOSED (episode ended; the next visitor message reopens the same conversation).
+             * @enum {string}
+             */
+            status: "ACTIVE" | "CLOSED";
+            /** @description HUMAN while an escalation is active (the assistant stays silent). */
+            handlingMode: components["schemas"]["HandlingMode"];
             /** @enum {string|null} */
             pendingAction: "HANDOFF_OFFER" | "EMAIL_REQUEST" | null;
             /** @description Language the conversation is held in (for localizing UI states). */
@@ -2259,14 +2625,17 @@ export interface operations {
             };
         };
     };
-    ConversationController_list: {
+    InboxController_list: {
         parameters: {
             query?: {
-                order?: "asc" | "desc";
-                /** @description Field to sort by */
-                orderBy?: string;
-                page?: number;
-                take?: number;
+                limit?: number;
+                /** @description Opaque cursor from a previous page (nextCursor). */
+                cursor?: string;
+                filter?: components["schemas"]["InboxFilter"];
+                /** @description Active-escalation assignee: "me", "unassigned" or a user id. */
+                assignee?: string;
+                /** @description Search: exact conversation id, or at least 3 characters of the visitor name/email or the last message preview. Message history is not searched. */
+                q?: string;
             };
             header?: never;
             path: {
@@ -2281,13 +2650,156 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["PageDto"] & {
-                        data?: components["schemas"]["ConversationResponseDto"][];
-                    };
+                    "application/json": components["schemas"]["InboxPageDto"];
                 };
             };
-            /** @description You do not have access to this workspace */
+            /** @description Invalid filter, cursor or too short search */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No access to this workspace or insufficient role */
             403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_detail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConversationDetailDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conversation not found in this workspace */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_history: {
+        parameters: {
+            query?: {
+                /** @description Messages with seq < beforeSeq (older page). */
+                beforeSeq?: number;
+                /** @description Messages with seq > afterSeq (catch-up). */
+                afterSeq?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HistoryPageDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Conversation not found in this workspace */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_activities: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ActivityPageDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2332,6 +2844,222 @@ export interface operations {
             };
             /** @description Conversation not found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_send: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SendInboxMessageDto"];
+            };
+        };
+        responses: {
+            /** @description Duplicate (retry) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SendInboxMessageResponseDto"];
+                };
+            };
+            /** @description New message */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SendInboxMessageResponseDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 409 body: { code: CONVERSATION_CHANGED | ESCALATION_STALE | ASSIGNED_TO_ANOTHER_AGENT | IDEMPOTENCY_CONFLICT, message, details } — details carries the current revision / assignee to refresh to. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Dashboard writes disabled (rollback flag) */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_act: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConversationActionDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConversationActionResponseDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description 409 body: { code: CONVERSATION_CHANGED | ESCALATION_STALE | ASSIGNED_TO_ANOTHER_AGENT | IDEMPOTENCY_CONFLICT, message, details } — details carries the current revision / assignee to refresh to. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Dashboard writes disabled (rollback flag) */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxController_markRead: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                conversationId: string;
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateReadStateDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ReadStateResponseDto"];
+                };
+            };
+            /** @description No access to this workspace or insufficient role */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Rate limited; honour Retry-After */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    InboxEventsController_stream: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description text/event-stream; each `data:` line is a JSON object */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/event-stream": components["schemas"]["WorkspaceStreamEventDto"];
+                };
+            };
+        };
+    };
+    ConversationController_list: {
+        parameters: {
+            query?: {
+                order?: "asc" | "desc";
+                /** @description Field to sort by */
+                orderBy?: string;
+                page?: number;
+                take?: number;
+            };
+            header?: never;
+            path: {
+                workspaceId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageDto"] & {
+                        data?: components["schemas"]["ConversationResponseDto"][];
+                    };
+                };
+            };
+            /** @description You do not have access to this workspace */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2572,13 +3300,6 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description Conversation is closed */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
             /** @description Too many messages, please slow down */
             429: {
                 headers: {
@@ -2613,13 +3334,6 @@ export interface operations {
             };
             /** @description Widget or conversation not found */
             404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conversation is closed */
-            409: {
                 headers: {
                     [name: string]: unknown;
                 };
