@@ -19,8 +19,10 @@ import {
 
 const REASON_LABEL: Record<EscalationReason, string> = {
   LOW_CONFIDENCE: 'Low AI confidence',
-  USER_REQUEST: 'Visitor requested human',
-  FALLBACK_RULE: 'Fallback rule',
+  USER_REQUEST: 'Visitor asked for a human',
+  UI_REQUEST: 'Visitor pressed “Talk to a person”',
+  OFFER_ACCEPTED: 'Visitor accepted handoff offer',
+  FALLBACK_RULE: 'Left email for follow-up',
 };
 
 const STATUS_CONFIG: Record<EscalationStatus, { label: string; dot: string; text: string }> = {
