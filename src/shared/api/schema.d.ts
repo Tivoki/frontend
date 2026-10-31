@@ -515,6 +515,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/widget/conversations/{conversationId}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Conversation snapshots and reviewed answer fragments over SSE */
+        get: operations["ConversationPublicController_eventsStream"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/widget/conversations": {
         parameters: {
             query?: never;
@@ -545,7 +562,7 @@ export interface paths {
         put?: never;
         /**
          * Send a visitor message (idempotent by clientMessageId)
-         * @description Stores the message and queues it for processing; the reply arrives via GET .../messages?after=<cursor>.
+         * @description Stores the message and queues it for processing; the reply and processing state arrive through GET .../events (SSE).
          */
         post: operations["ConversationPublicController_postMessage"];
         delete?: never;
@@ -1082,6 +1099,8 @@ export interface components {
             retryable: boolean;
         };
         MessageItemDto: {
+            /** @description Turn whose streamed draft this reply completes. */
+            replyToTurnId: string | null;
             id: string;
             /** @description Monotonic per conversation; use as the `after` cursor. */
             seq: number;
@@ -2361,6 +2380,35 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    ConversationPublicController_eventsStream: {
+        parameters: {
+            query: {
+                widgetKey: string;
+                /** @description visitorId returned when the conversation was created */
+                visitorId: string;
+                /** @description Cursor: return messages with seq greater than this. Omit to get the latest `limit` messages. */
+                after?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                conversationId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description text/event-stream */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "text/event-stream": string;
+                };
             };
         };
     };
